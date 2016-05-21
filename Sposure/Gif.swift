@@ -11,9 +11,9 @@ import ObjectMapper
 
 class Gif : Mappable {
     
-    var id      : [String]?
-    var images  : Images?
-    var rating  : String? //g, pg, pg-13, r
+    private var id      : [String]?
+    private var images  : Images?
+    private var rating  : String? //g, pg, pg-13, r
     
     required init? (_ map: Map){}
     
@@ -21,6 +21,14 @@ class Gif : Mappable {
         id     <- map["id"]
         images <- map["images"]
         rating <- map["rating"]
+    }
+    
+    func getFrames() -> Int {
+        return Int((self.images?.original?.frames)!)!
+    }
+    
+    func getURL() -> String {
+        return self.images!.original!.url!
     }
 }
 

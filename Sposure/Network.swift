@@ -24,7 +24,7 @@ let API_KEY    = "dc6zaTOxFJmzC"
 class Network {
     
 
-    /** 
+    /**
      Sends the Giphy search query
      
      q : search query term or phrase
@@ -32,12 +32,13 @@ class Network {
      onError   : function that will complete on error (optional)
                : [Default] NETWORK.logError
     **/
-    func search(q : String, onSuccess : (UIImage)->Void, onError : (String)->Void = NETWORK.logError) {
+    func search(q : String, limit : Int, onSuccess : ([GifImage])->Void, onError : (String)->Void = NETWORK.logError) {
         
         //Build parameters
         let params = [
             "api_key" : API_KEY,
-            "q"       : q
+            "q"       : q,
+            "limit"   : String(limit)
         ]
         
         //Send request
@@ -58,19 +59,46 @@ class Network {
                 
             //We got past the guards! But the princess is in another castle :(
             //Blaze ahead! Find the Image!
-            self.findImage(searchResponse.gifs![0], onSuccess: onSuccess, onError: onError)
+            self.collect(searchResponse, onSuccess: onSuccess, onError: onError)
         }
     }
+    
+    /**
+     Takes a search Response and collects a bunch of GifImages into an array and returns it
+     
+     - param searchResponse
+     - param onSuccess
+     - param onError
+    */
+    private func collect(searchResponse : SearchResponse, onSuccess : ([GifImage])->Void, onError : (String)->Void = NETWORK.logError) {
+        
+        let length = searchResponse.gifs!.count
+        var count : Int = 0
+        var results : [GifImage] = []
+        
+        func addTo(gifImage : GifImage) -> Void {
+            count += 1
+            results.append(gifImage)
+            
+            if (count == length) { onSuccess(results) }
+        }
+        
+        for (_, gif) in searchResponse.gifs!.enumerate() {
+            findImage(gif, onSuccess: addTo, onError: onError)
+        }
+    }
+    
     
     /**
      Find the UIImage from the gif's url
      gif : the Gif object
      onSuccess : Same as in search
      onError   : Same as in search
+ 
     */
-    func findImage(gif : Gif!, onSuccess : (UIImage)->Void, onError : (String)->Void = NETWORK.logError) {
+    private func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = NETWORK.logError) {
         
-        guard let url : String! = gif.images!.original!.url else { onError("Failed getting the original URL"); return }
+        let url : String! = gif.getURL()
         
         Alamofire.request(.GET, url!).response {
             (request, response, data, error) in
@@ -83,8 +111,9 @@ class Network {
             guard let img : UIImage = UIImage.gifWithData(data!)
                 else { onError("Data didn't work to make the image: "); return }
             
-            //Woo! We've succeeded! Return the image
-            onSuccess(img)
+            //Woo! We've succeeded! Create the ImageReturnObject and continue on!
+            let gifImage = GifImage(image: img, gif: gif)
+            onSuccess(gifImage)
         }
     }
     
