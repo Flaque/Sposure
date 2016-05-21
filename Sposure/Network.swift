@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import SwiftGifOrigin
 
 //Create a global instance
 let NETWORK = Network()
@@ -69,7 +70,7 @@ class Network {
     */
     func findImage(gif : Gif!, onSuccess : (UIImage)->Void, onError : (String)->Void = NETWORK.logError) {
         
-        let url : String! = "" //= gif.url
+        let url : String! = gif.url
         
         Alamofire.request(.GET, url).response {
             (request, response, data, error) in
@@ -79,7 +80,7 @@ class Network {
                 else { onError("Internet failed when we tried to get the image. Oops."); return }
             
             //Fail if the data can't make the image
-            guard let img : UIImage = UIImage(data: data!)
+            guard let img : UIImage = UIImage.gifWithData(data!)
                 else { onError("Data didn't work to make the image: "); return }
             
             //Woo! We've succeeded! Return the image

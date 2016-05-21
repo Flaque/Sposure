@@ -16,9 +16,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
         tap.delegate = self
-        self.imageView.addGestureRecognizer(tap)
+        self.imageView.addGestureRecognizer(tap) */
         
         NETWORK.search("cats", onSuccess: setImage)
     }
