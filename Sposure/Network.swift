@@ -70,9 +70,9 @@ class Network {
     */
     func findImage(gif : Gif!, onSuccess : (UIImage)->Void, onError : (String)->Void = NETWORK.logError) {
         
-        let url : String! = gif.url
+        guard let url : String! = gif.images!.original!.url else { onError("Failed getting the original URL"); return }
         
-        Alamofire.request(.GET, url).response {
+        Alamofire.request(.GET, url!).response {
             (request, response, data, error) in
             
             //Fail if status == 200

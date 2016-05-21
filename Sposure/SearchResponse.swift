@@ -15,7 +15,9 @@ import ObjectMapper
  Layout of JSON response: 
  
  {
-    data: [gifs],
+    data: [gif : {
+        images : [Image]
+    }],
     meta: meta
     pagination: pagination
  }
@@ -23,9 +25,9 @@ import ObjectMapper
 
 class SearchResponse : Mappable {
     
-    public var gifs       : [Gif]?
-    public var meta       : Meta?
-    public var pagination : Pagination?
+    var gifs       : [Gif]?
+    var meta       : Meta?
+    var pagination : Pagination?
     
     required init? (_ map: Map){}
     

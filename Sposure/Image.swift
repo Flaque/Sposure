@@ -1,5 +1,5 @@
 //
-//  Gif.swift
+//  Image.swift
 //  Sposure
 //
 //  Created by Evan Conrad on 5/21/16.
@@ -9,18 +9,16 @@
 import Foundation
 import ObjectMapper
 
-class Gif : Mappable {
+class Image : Mappable {
     
-    var id      : [String]?
-    var images  : Images?
-    var rating  : String? //g, pg, pg-13, r
+    var url : String?
+    var frames : String?
     
     required init? (_ map: Map){}
     
     func mapping(map: Map) {
-        id     <- map["id"]
-        images <- map["images"]
-        rating <- map["rating"]
+        frames  <- map["frames"]
+        url     <- map["url"]
     }
+    
 }
-

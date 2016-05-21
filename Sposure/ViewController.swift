@@ -16,18 +16,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
-        tap.delegate = self
-        self.imageView.addGestureRecognizer(tap) */
+        addTapRecognition()
         
-        NETWORK.search("cats", onSuccess: setImage)
+        NETWORK.search("Same", onSuccess: setImage)
     }
     
-    private func printGifs(response : SearchResponse) -> Void {
-        for gif in response.gifs! {
-            print(gif.url)
-        }
+    private func addTapRecognition() {
+        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        tap.delegate = self
+        self.imageView.addGestureRecognizer(tap)
     }
     
     private func setImage(image : UIImage) -> Void {
