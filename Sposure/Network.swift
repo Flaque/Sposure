@@ -31,7 +31,7 @@ class Network {
      onError   : function that will complete on error (optional)
                : [Default] NETWORK.logError
     **/
-    func search(q : String, onSuccess : (SearchResponse)->Void, onError : (String)->Void = NETWORK.logError) {
+    func search(q : String, onSuccess : (UIImage)->Void, onError : (String)->Void = NETWORK.logError) {
         
         //Build parameters
         let params = [
@@ -40,24 +40,56 @@ class Network {
         ]
         
         //Send request
-        Alamofire.request(.GET, BASE_URL+SEARCH_URL, parameters: params)
-            .responseObject { (response: Response<SearchResponse, NSError>) in
+        Alamofire.request(.GET, BASE_URL+SEARCH_URL, parameters: params).responseObject {
+            (response: Response<SearchResponse, NSError>) in
                 
             //Fail if didn't map correctly
             guard let searchResponse : SearchResponse = response.result.value
                 else { onError("Looks like the internet went kapootz. (Object didn't map to SearchResponse) Whoops."); return }
                 
-            //Fail if not status = 200
+            //Fail if not status == 200
             guard (searchResponse.meta?.status == 200)
                 else { onError((searchResponse.meta?.msg)!); return }
                 
-            //We got past the guards! Free the prisoners!
-            onSuccess(searchResponse)
+            //Fail if there's no gifs!
+            guard (searchResponse.gifs?.count > 0)
+                else {onError("No gifs!"); return }
+                
+            //We got past the guards! But the princess is in another castle :(
+            //Blaze ahead! Find the Image!
+            self.findImage(searchResponse.gifs![0], onSuccess: onSuccess, onError: onError)
+        }
+    }
+    
+    /**
+     Find the UIImage from the gif's url
+     gif : the Gif object
+     onSuccess : Same as in search
+     onError   : Same as in search
+    */
+    func findImage(gif : Gif!, onSuccess : (UIImage)->Void, onError : (String)->Void = NETWORK.logError) {
+        
+        let url : String! = "" //= gif.url
+        
+        Alamofire.request(.GET, url).response {
+            (request, response, data, error) in
+            
+            //Fail if status == 200
+            guard (response?.statusCode == 200)
+                else { onError("Internet failed when we tried to get the image. Oops."); return }
+            
+            //Fail if the data can't make the image
+            guard let img : UIImage = UIImage(data: data!)
+                else { onError("Data didn't work to make the image: "); return }
+            
+            //Woo! We've succeeded! Return the image
+            onSuccess(img)
         }
     }
     
     /**
      Utility function that logs errors
+     msg : String - The error msg
     */
     func logError(msg : String) {
         print("NETWORK ERROR: " + msg)

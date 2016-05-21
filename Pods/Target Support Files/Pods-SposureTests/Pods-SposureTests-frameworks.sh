@@ -85,15 +85,15 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SposureTests/Alamofire.framework"
+  install_framework "Pods-SposureTests/AlamofireImage.framework"
   install_framework "Pods-SposureTests/AlamofireObjectMapper.framework"
-  install_framework "Pods-SposureTests/Kingfisher.framework"
   install_framework "Pods-SposureTests/ObjectMapper.framework"
   install_framework "Pods-SposureTests/SwiftGifOrigin.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SposureTests/Alamofire.framework"
+  install_framework "Pods-SposureTests/AlamofireImage.framework"
   install_framework "Pods-SposureTests/AlamofireObjectMapper.framework"
-  install_framework "Pods-SposureTests/Kingfisher.framework"
   install_framework "Pods-SposureTests/ObjectMapper.framework"
   install_framework "Pods-SposureTests/SwiftGifOrigin.framework"
 fi

@@ -8,7 +8,7 @@ pod 'SwiftGifOrigin', '~> 1.5'
 pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
-pod 'Kingfisher', '~> 2.4'
+pod 'AlamofireImage', '~> 2.0'
 end
 
 target 'SposureTests' do
@@ -16,7 +16,7 @@ pod 'SwiftGifOrigin', '~> 1.5'
 pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
-pod 'Kingfisher', '~> 2.4'
+pod 'AlamofireImage', '~> 2.0'
 end
 
 target 'SposureUITests' do
@@ -24,6 +24,6 @@ pod 'SwiftGifOrigin', '~> 1.5'
 pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
-pod 'Kingfisher', '~> 2.4'
+pod 'AlamofireImage', '~> 2.0'
 end
 

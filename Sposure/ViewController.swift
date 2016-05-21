@@ -8,32 +8,19 @@
 
 import UIKit
 import SwiftGifOrigin
-import Kingfisher
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
-    @IBOutlet weak var imageView: AnimatedImageView!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let urls = ["https://media2.giphy.com/media/FiGiRei2ICzzG/200.gif"].map { NSURL(string: $0)! }
-        let prefetcher = ImagePrefetcher(urls: urls, optionsInfo: nil, progressBlock: nil, completionHandler: {
-            (skippedResources, failedResources, completedResources) -> () in
-            
-            print(skippedResources)
-            print(failedResources)
-            print(completedResources)
-            //imageView.kf_setImageWithURL(completedResources["downloadURL"])
-        })
-        prefetcher.start()
-        
         
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
         tap.delegate = self
         self.imageView.addGestureRecognizer(tap)
         
-        NETWORK.search("cats", onSuccess: setImageToGif)
+        NETWORK.search("cats", onSuccess: setImage)
     }
     
     private func printGifs(response : SearchResponse) -> Void {
@@ -42,8 +29,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    private func setImageToGif(response : SearchResponse) -> Void {
-        
+    private func setImage(image : UIImage) -> Void {
+        imageView.image = image
     }
 
     override func didReceiveMemoryWarning() {
