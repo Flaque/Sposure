@@ -1,0 +1,6 @@
+framework module Pods_Sposure {
+  umbrella header "Pods-Sposure-umbrella.h"
+
+  export *
+  module * { export * }
+}

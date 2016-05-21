@@ -1,0 +1,6 @@
+framework module Pods_SposureUITests {
+  umbrella header "Pods-SposureUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
