@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
-import SwiftGifOrigin
+import SwiftyGif
 
 //Create a global instance
 let NETWORK = Network()
@@ -108,7 +108,7 @@ class Network {
                 else { onError("Internet failed when we tried to get the image. Oops."); return }
             
             //Fail if the data can't make the image
-            guard let img : UIImage = UIImage.gifWithData(data!)
+            guard let img : UIImage = UIImage(gifData: data!)
                 else { onError("Data didn't work to make the image: "); return }
             
             //Woo! We've succeeded! Create the ImageReturnObject and continue on!
