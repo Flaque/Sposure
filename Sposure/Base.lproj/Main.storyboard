@@ -17,11 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5AJ-PR-8dy">
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5AJ-PR-8dy">
                                 <rect key="frame" x="0.0" y="0.0" width="606" height="600"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="aS9-A5-Vsc" appends="YES" id="fUH-mK-x9W"/>
+                                    <outletCollection property="gestureRecognizers" destination="hKb-bC-mFG" appends="YES" id="zAi-LQ-q0Q"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -38,7 +38,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="aS9-A5-Vsc"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="hKb-bC-mFG">
+                    <connections>
+                        <action selector="longPress:" destination="BYZ-38-t0r" id="aF8-Wz-xAK"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="418"/>
         </scene>

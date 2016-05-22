@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
-import SwiftyGif
 
 //Create a global instance
 let NETWORK = Network()
@@ -38,7 +37,8 @@ class Network {
         let params = [
             "api_key" : API_KEY,
             "q"       : q,
-            "limit"   : String(limit)
+            "limit"   : String(limit),
+            "rating"  : "r"
         ]
         
         //Send request

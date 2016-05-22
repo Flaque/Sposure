@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     
@@ -19,12 +19,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     let gifManager    = SwiftyGifManager(memoryLimit:20)
     var updatingImage = false
     
+    //Timer
+    var timer = NSTimer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addTapRecognition()
-        
-        NETWORK.search("Spiders", limit: 3, onSuccess: setImage)
+        NETWORK.search("Cats", limit: 3, onSuccess: setImage)
     }
     
     private func launchGifWatcher() {
@@ -37,6 +38,23 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
+    
+    
+    
+    @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+        
+        print("long press")
+        
+        if (sender.state == UIGestureRecognizerState.Began) {
+            print("started")
+            imageView.startAnimatingGif()
+        }
+        if (sender.state == UIGestureRecognizerState.Ended) {
+            print("ended")
+            imageView.stopAnimatingGif()
+        }
+    }
+
     
     private func continueGif() {
         
@@ -62,12 +80,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    private func addTapRecognition() {
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
-        tap.delegate = self
-        self.imageView.addGestureRecognizer(tap)
-    }
-    
+    /**
+     Callback to network request. Set images and also supply more gifImages
+    */
     private func setImage(gifImages : [GifImage]) -> Void {
         self.gifImages.appendContentsOf(gifImages)
         
@@ -75,29 +90,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         launchGifWatcher()
     }
     
+    /**
+     Set the image (based on the global counter)
+    */
     private func setImage() {
         guard (gifIndex + 1 <= gifImages.count) else { return }
         
         let gifImage : GifImage = self.gifImages[gifIndex]
         var loops    : Int      = 1
         
-        if (gifImage.image.framesCount() < 10) { loops = 4 }
+        //If the gif is too short, repeat it a couple times
+        if (gifImage.image.framesCount() < 10) { loops = 3 }
         
         self.imageView.setGifImage(gifImage.image, manager: gifManager, loopCount: loops)
+        
+        //If we're the first image, let's pause
+        if (gifIndex == 0) { self.imageView.stopAnimatingGif() }
+        
+        //Make sure we're not already updating the image
         updatingImage = false
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func handleTap(sender: UITapGestureRecognizer? = nil) {
-        guard (gifIndex + 1 < gifImages.count) else { return }
-        
-        gifIndex += 1
-        setImage()
-    }
-    
 }
 
