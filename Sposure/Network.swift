@@ -14,10 +14,10 @@ import ObjectMapper
 //Create a global instance
 let NETWORK = Network()
 
-/* URL Components */
+/* URL Components
 let BASE_URL   = "https://api.giphy.com/"
 let SEARCH_URL = "/v1/gifs/search"
-let API_KEY    = "dc6zaTOxFJmzC"
+let API_KEY    = "dc6zaTOxFJmzC" */
 
 
 class Network {
