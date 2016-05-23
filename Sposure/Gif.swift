@@ -11,9 +11,15 @@ import ObjectMapper
 
 class Gif : Mappable {
     
-    private var id      : [String]?
+    private var id      : String?
     private var images  : Images?
     private var rating  : String? //g, pg, pg-13, r
+    
+    init(id : String, images : Images, rating : String) {
+        self.id     = id
+        self.images = images
+        self.rating = rating
+    }
     
     required init? (_ map: Map){}
     

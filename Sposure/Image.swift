@@ -14,6 +14,11 @@ class Image : Mappable {
     var url : String?
     var frames : String?
     
+    init( url : String, frames : String) {
+        self.url    = url
+        self.frames = frames
+    }
+    
     required init? (_ map: Map){}
     
     func mapping(map: Map) {

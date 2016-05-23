@@ -13,6 +13,10 @@ class Images : Mappable {
     
     var original : Image?
     
+    init (original : Image) {
+        self.original = original
+    }
+    
     required init? (_ map: Map){}
     
     func mapping(map: Map) {
