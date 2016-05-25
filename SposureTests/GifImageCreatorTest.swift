@@ -1,5 +1,5 @@
 //
-//  GiphyManagerTest.swift
+//  GifImageCreator.swift
 //  Sposure
 //
 //  Created by Evan Conrad on 5/22/16.
@@ -11,7 +11,7 @@ import Foundation
 import XCTest
 @testable import Sposure
 
-class GiphyManagerTest: XCTestCase {
+class GifImageCreatorTest: XCTestCase {
     
     let network = Network()
     
@@ -26,34 +26,34 @@ class GiphyManagerTest: XCTestCase {
         super.tearDown()
     }
     
-    /**
-     Tests wether or not search GiphyManager.search() returns something
-    */
-    func test_search_returns_something() {
-        print("Test : search_returns_something")
+    func test_findImage() {
         
-        let expectation = expectationWithDescription("Search completes")
+        //Create Mock data
+        let image  : Image  = Image(url: "https://media4.giphy.com/media/OmK8lulOMQ9XO/giphy.gif", frames: "63")
+        let images : Images = Images(original: image)
+        let gif    : Gif    = Gif(id: "OmK8lulOMQ9XO", images: images, rating: "pg")
         
-        GiphyManager.search({ (gif : Gif) in
+        print(gif.getURL())
+        
+        let expectation = expectationWithDescription("findImage completes")
+        
+        GifImageCreator.findImage(gif, onSuccess: { (gifImage : GifImage) in
             
-            //Assert that the gif has info
-            XCTAssertNotNil(gif.getURL())
-            XCTAssertNotNil(gif.getFrames())
+            XCTAssertNotNil(gifImage.gif)
+            XCTAssertNotNil(gifImage.image)
             
-            print("------")
-            print(gif.toJSONString())
-            print("------")
-            
-            //Search completed
+            //Fulfill expectation
             expectation.fulfill()
             
-        }) { (msg :String ) in
+        }) { (msg : String) in
+            print(" -------- ")
+            print(msg)
+            print(" -------- ")
             
-            //If we get here, fail
             XCTFail()
         }
         
-        
+        //Wait 10 seconds to get image
         waitForExpectationsWithTimeout(10) { error in
             
             if let error = error {

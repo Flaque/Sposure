@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -18,6 +17,9 @@ class ViewController: UIViewController {
     
     let gifManager    = SwiftyGifManager(memoryLimit:20)
     var updatingImage = false
+    var isFirstImage  = true
+    
+    //let gifBuffer = GifBuffer()
     
     //Timer
     var timer = NSTimer()
@@ -25,7 +27,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NETWORK.search("Cats", limit: 3, onSuccess: setImage)
+        //NETWORK.search("Cats", limit: 3, onSuccess: setImage)
+        
+        //while (isFirstImage) {
+            //pullsAndSets()
+        //}
     }
     
     private func launchGifWatcher() {
@@ -34,12 +40,10 @@ class ViewController: UIViewController {
             
             //TODO: Remove this loop? This is probably really inefficient.
             while (true) {
-                self.continueGif()
+                self.checkContinue()
             }
         }
     }
-    
-    
     
     @IBAction func longPress(sender: UILongPressGestureRecognizer) {
         
@@ -55,7 +59,7 @@ class ViewController: UIViewController {
         }
     }
 
-    
+    /*
     private func continueGif() {
         
         //Fail if we're past what we've loaded
@@ -78,11 +82,33 @@ class ViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue()) {
             self.setImage()
         }
+    } */
+    
+    private func checkContinue() {
+        guard self.imageView.hasFinishedLooping() else { return }
+        
+        pullsAndSets()
+    }
+    
+    private func pullsAndSets() {
+        //gifBuffer.pull(setImage, onEmpty: onNoPull)
+    }
+    
+    private func setImage(gifImage : GifImage) -> Void {
+        self.imageView.setGifImage(gifImage.image, manager: gifManager, loopCount: 1)
+        
+        if (isFirstImage) { launchGifWatcher() }
+        
+        isFirstImage = false
+    }
+    
+    private func onNoPull() {
+        //Do nothing?
     }
     
     /**
      Callback to network request. Set images and also supply more gifImages
-    */
+ 
     private func setImage(gifImages : [GifImage]) -> Void {
         self.gifImages.appendContentsOf(gifImages)
         
@@ -109,6 +135,6 @@ class ViewController: UIViewController {
         
         //Make sure we're not already updating the image
         updatingImage = false
-    }
+    } */
 }
 

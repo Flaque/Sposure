@@ -14,11 +14,15 @@ class GifBuffer {
     private let _GiphyResponseQueue : Queue<Gif>      = Queue<Gif>()
     private let _GifImageQueue      : Queue<GifImage> = Queue<GifImage>()
     
+    private let MAX_RESPONSE_AMMOUNT = 10
+    private let MAX_GIF_IMAGE_QUEUE  = 3
+    
     /**
      Boots up the modules
     */
     init() {
-        
+        print("Started Gif Buffer")
+        launchOneGiphyManager()
     }
     
     /**
@@ -41,6 +45,7 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
     */
     private func _pushToGifImageQueue(gifImage : GifImage) {
+        print("- Made an image! ")
         _GifImageQueue.enqueue(gifImage)
     }
     
@@ -51,17 +56,58 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
      */
     private func _pushToGiphyResponseQueue(gif : Gif) {
+        print("+ Got a response! ")
         _GiphyResponseQueue.enqueue(gif)
+        self._getGifImages()
     }
     
     /**
      Gets more gif objects and populates the _GiphyResponseQueue
     */
     private func _getGifObjects() {
-        GiphyManager.search(_pushToGiphyResponseQueue)
+        print("Trying to find a gif Object")
+        
+        guard (_GiphyResponseQueue.count() <= MAX_RESPONSE_AMMOUNT) else {
+            print("Is max ammount")
+            return
+        }
+        
+        GiphyManager.search(_pushToGiphyResponseQueue, onError: logError)
     }
     
+    /**
+     Pulls from the _GifResponseQueue, creates the image, and then populates the _GifImageQueue
+    */
     private func _getGifImages() {
         
+        guard (_GifImageQueue.count() <= MAX_GIF_IMAGE_QUEUE) else {
+            print("Is max ammount")
+            return
+        }
+        
+        guard !(_GiphyResponseQueue.isEmpty()) else {
+            print("Is Empty")
+            return
+        }
+        
+        let gif : Gif! = _GiphyResponseQueue.dequeue()
+        GifImageCreator.findImage(gif, onSuccess: _pushToGifImageQueue)
     }
+    
+    /**
+     Launches a giphy Manager loop thread
+    */
+    private func launchOneGiphyManager() {
+        self._getGifObjects()
+    }
+    
+    /**
+     Utility function that logs errors
+     msg : String - The error msg
+     */
+    func logError(msg : String) {
+        print("NETWORK ERROR: " + msg)
+    }
+    
+    
 }

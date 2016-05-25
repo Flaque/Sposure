@@ -25,8 +25,4 @@ class SposureTests: XCTestCase {
         super.tearDown()
     }
     
-    func search() {
-        network.search("cats")
-    }
-    
 }

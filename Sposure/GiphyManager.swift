@@ -22,9 +22,9 @@ class GiphyManager {
     /**
      Sends the Giphy search query
      
-     onSuccess : function that will complete on completion
-     onError   : function that will complete on error (optional)
-               : [Default] NETWORK.logError
+     pushToQueue : function that will complete on completion for each gif
+     onError     : function that will complete on error (optional)
+                 : [Default] NETWORK.logError
      **/
     class func search(pushToQueue : (Gif)->Void, onError : (String)->Void = NETWORK.logError) {
         
@@ -32,7 +32,7 @@ class GiphyManager {
         let params = [
             "api_key" : API_KEY,
             "q"       : "cats",
-            "limit"   : "10",
+            "limit"   : "1",
             "rating"  : "r"
         ]
         

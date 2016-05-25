@@ -23,21 +23,25 @@ public class Queue<T> {
     
     private var _front: _QueueItem<Element>
     private var _back: _QueueItem<Element>
+    private var _count : Int
     
     public init () {
         // Insert dummy item. Will disappear when the first item is added.
         _back = _QueueItem(nil)
         _front = _back
+        _count = 0
     }
     
     /// Add a new item to the back of the queue.
     func enqueue (value: Element) {
         _back.next = _QueueItem(value)
         _back = _back.next!
+        _count += 1
     }
     
     /// Return and remove the item at the front of the queue.
     func dequeue () -> Element? {
+        _count -= 1
         if let newhead = _front.next {
             _front = newhead
             return newhead.value
@@ -48,5 +52,9 @@ public class Queue<T> {
     
     func isEmpty() -> Bool {
         return _front === _back
+    }
+    
+    func count() -> Int {
+        return _count
     }
 }
