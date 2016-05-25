@@ -12,8 +12,8 @@ import Async
 class GifBuffer {
     
     //Main Internal Queues
-    private let _GiphyResponseQueue : Queue<Gif>      = Queue<Gif>()
-    private let _GifImageQueue      : Queue<GifImage> = Queue<GifImage>()
+    private let _GiphyResponseQueue : Queue<Gif>!      = Queue<Gif>()
+    private let _GifImageQueue      : Queue<GifImage>! = Queue<GifImage>()
     
     //Main Async Grand Central Dispatch queues
     private let gcdAsyncGroup = AsyncGroup()
@@ -37,9 +37,9 @@ class GifBuffer {
      */
     private func _launchGiphyManager() {
         gcdAsyncGroup.background {
-            while (true) {
+            //while (true) {
                 self._getGifObjects()
-            }
+            //}
         }
     }
     
@@ -75,7 +75,7 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
     */
     private func _pushToGifImageQueue(gifImage : GifImage) {
-        _GifImageQueue.enqueue(gifImage)
+       self._GifImageQueue.enqueue(gifImage)
     }
     
     /**
@@ -84,8 +84,11 @@ class GifBuffer {
      Q: Why is this a function if it's basically only one line?
      A: So we can cleanly pass it into a NETWORK callback
      */
-    private func _pushToGiphyResponseQueue(gif : Gif) {
-        _GiphyResponseQueue.enqueue(gif)
+    private func _pushToGiphyResponseQueue(gif : Gif!) {
+        
+        //Don't enqueue a nil gif
+        guard (gif != nil) else { return }
+        self._GiphyResponseQueue.enqueue(gif)
         self._getGifImages()
     }
     
@@ -94,9 +97,9 @@ class GifBuffer {
     */
     private func _getGifObjects() {
         
-        guard (_GiphyResponseQueue.count() <= MAX_RESPONSE_AMMOUNT) else { return}
+        guard (self._GiphyResponseQueue.count() <= MAX_RESPONSE_AMMOUNT) else { return}
         
-        GiphyManager.search(_pushToGiphyResponseQueue, onError: GifBuffer.logError)
+        GiphyManager.search(self._pushToGiphyResponseQueue, onError: GifBuffer.logError)
     }
     
     /**
@@ -104,13 +107,16 @@ class GifBuffer {
     */
     private func _getGifImages() {
         
-        guard (_GifImageQueue.count() <= MAX_GIF_IMAGE_QUEUE) else { return }
+        guard (self._GifImageQueue.count() <= MAX_GIF_IMAGE_QUEUE) else { return }
         
-        guard !(_GiphyResponseQueue.isEmpty()) else { return }
+        guard !(self._GiphyResponseQueue.isEmpty()) else { return }
         
-        guard let gif : Gif! = _GiphyResponseQueue.dequeue() else { return }
+        let gif : Gif! = self._GiphyResponseQueue.dequeue()
         
-        GifImageCreator.findImage(gif, onSuccess: _pushToGifImageQueue)
+        //Can aparently happen? why?
+        guard (gif != nil) else {return}
+        
+        GifImageCreator.findImage(gif, onSuccess: self._pushToGifImageQueue)
     }
     
     /**

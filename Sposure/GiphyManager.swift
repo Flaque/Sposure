@@ -32,7 +32,7 @@ class GiphyManager {
         let params = [
             "api_key" : API_KEY,
             "q"       : "cats",
-            "limit"   : "10",
+            "limit"   : "100",
             "rating"  : "r"
         ]
         
