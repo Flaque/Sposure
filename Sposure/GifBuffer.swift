@@ -7,12 +7,16 @@
 //
 
 import Foundation
+import Async
 
 class GifBuffer {
     
     //Main Internal Queues
     private let _GiphyResponseQueue : Queue<Gif>      = Queue<Gif>()
     private let _GifImageQueue      : Queue<GifImage> = Queue<GifImage>()
+    
+    //Main Async Grand Central Dispatch queues
+    private let gcdAsyncGroup = AsyncGroup()
     
     private let MAX_RESPONSE_AMMOUNT = 10
     private let MAX_GIF_IMAGE_QUEUE  = 3
@@ -22,7 +26,33 @@ class GifBuffer {
     */
     init() {
         print("Started Gif Buffer")
-        launchOneGiphyManager()
+        
+        _launchGiphyManager()
+        _launchGifImageCreator()
+    }
+    
+    /**
+     * Launches the giphy manager module
+     * to run in the background
+     */
+    private func _launchGiphyManager() {
+        gcdAsyncGroup.background {
+            while (true) {
+                self._getGifObjects()
+            }
+        }
+    }
+    
+    /**
+     * Launches the Gif Image Creator module
+     * to run in the background
+     */
+    private func _launchGifImageCreator() {
+        gcdAsyncGroup.background {
+            while (true) {
+                self._getGifImages()
+            }
+        }
     }
     
     /**
@@ -45,7 +75,6 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
     */
     private func _pushToGifImageQueue(gifImage : GifImage) {
-        print("- Made an image! ")
         _GifImageQueue.enqueue(gifImage)
     }
     
@@ -56,7 +85,6 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
      */
     private func _pushToGiphyResponseQueue(gif : Gif) {
-        print("+ Got a response! ")
         _GiphyResponseQueue.enqueue(gif)
         self._getGifImages()
     }
@@ -65,12 +93,8 @@ class GifBuffer {
      Gets more gif objects and populates the _GiphyResponseQueue
     */
     private func _getGifObjects() {
-        print("Trying to find a gif Object")
         
-        guard (_GiphyResponseQueue.count() <= MAX_RESPONSE_AMMOUNT) else {
-            print("Is max ammount")
-            return
-        }
+        guard (_GiphyResponseQueue.count() <= MAX_RESPONSE_AMMOUNT) else { return}
         
         GiphyManager.search(_pushToGiphyResponseQueue, onError: GifBuffer.logError)
     }
@@ -80,25 +104,13 @@ class GifBuffer {
     */
     private func _getGifImages() {
         
-        guard (_GifImageQueue.count() <= MAX_GIF_IMAGE_QUEUE) else {
-            print("Is max ammount")
-            return
-        }
+        guard (_GifImageQueue.count() <= MAX_GIF_IMAGE_QUEUE) else { return }
         
-        guard !(_GiphyResponseQueue.isEmpty()) else {
-            print("Is Empty")
-            return
-        }
+        guard !(_GiphyResponseQueue.isEmpty()) else { return }
         
-        let gif : Gif! = _GiphyResponseQueue.dequeue()
+        guard let gif : Gif! = _GiphyResponseQueue.dequeue() else { return }
+        
         GifImageCreator.findImage(gif, onSuccess: _pushToGifImageQueue)
-    }
-    
-    /**
-     Launches a giphy Manager loop thread
-    */
-    private func launchOneGiphyManager() {
-        self._getGifObjects()
     }
     
     /**

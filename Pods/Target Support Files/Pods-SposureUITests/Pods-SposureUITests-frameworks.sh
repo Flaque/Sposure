@@ -86,10 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SposureUITests/Alamofire.framework"
   install_framework "Pods-SposureUITests/AlamofireObjectMapper.framework"
+  install_framework "Pods-SposureUITests/Async.framework"
   install_framework "Pods-SposureUITests/ObjectMapper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SposureUITests/Alamofire.framework"
   install_framework "Pods-SposureUITests/AlamofireObjectMapper.framework"
+  install_framework "Pods-SposureUITests/Async.framework"
   install_framework "Pods-SposureUITests/ObjectMapper.framework"
 fi

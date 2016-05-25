@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AsyncSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5B42C3C057361423956738C33CE4575D</key>
+		<key>2BBC35EF8205EF3B317DB19372480E3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>659C49BDF34FD5416AD5AC33A455DFB0</key>
+		<key>4E155FBB6070C868840C7A2BB6E75E85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5D9BECAC257FBE1A369AB4F0C2E1FF1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,7 +67,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D11D75FBEA2ACB0DAB6893800AB6883B</key>
+		<key>C6F46C34BAD9B404CFB0ABC11756CEAF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

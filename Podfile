@@ -7,17 +7,20 @@ target 'Sposure' do
 pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
+pod "AsyncSwift"
 end
 
 target 'SposureTests' do
 pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
+pod "AsyncSwift"
 end
 
 target 'SposureUITests' do
 pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
+pod "AsyncSwift"
 end
 

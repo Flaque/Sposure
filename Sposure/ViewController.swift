@@ -73,9 +73,9 @@ class ViewController: UIViewController {
     private func checkContinue() {
         guard self.imageView.hasFinishedLooping() else { return }
         
-        dispatch_async(dispatch_get_main_queue()) {
-            self.pullsAndSets()
-        }
+        //dispatch_async(dispatch_get_main_queue()) {
+        self.pullsAndSets()
+        //}
     }
     
     private func pullsAndSets() {
@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     }
     
     private func onNoPull() {
-        //Do nothing?
+        //print("can't pull")
     }
     
 }

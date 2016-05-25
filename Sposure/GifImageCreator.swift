@@ -23,7 +23,7 @@ class GifImageCreator {
      */
     class func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = GifBuffer.logError) {
         
-        let url : String! = gif.getURL()
+        guard let url : String! = gif.getURL() else { onError("The gif seems to have no URL!"); return }
         
         Alamofire.request(.GET, url!).validate().response {
             (request, response, data, error) in
