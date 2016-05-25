@@ -22,7 +22,7 @@ public class Queue<T> {
     typealias Element = T
     
     private var _front : _QueueItem<Element>!
-    private var _back  : _QueueItem<Element>
+    private var _back  : _QueueItem<Element>!
     private var _count : Int
     
     public init () {

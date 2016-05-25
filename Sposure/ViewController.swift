@@ -58,14 +58,12 @@ class ViewController: UIViewController {
     
     @IBAction func longPress(sender: UILongPressGestureRecognizer) {
         
-        print("long press")
+        sender.minimumPressDuration = 0.001
         
         if (sender.state == UIGestureRecognizerState.Began) {
-            print("started")
             imageView.startAnimatingGif()
         }
         if (sender.state == UIGestureRecognizerState.Ended) {
-            print("ended")
             imageView.stopAnimatingGif()
         }
     }
@@ -85,7 +83,10 @@ class ViewController: UIViewController {
     private func setImage(gifImage : GifImage) -> Void {
         self.imageView.setGifImage(gifImage.image, manager: gifManager, loopCount: 1)
         
-        if (isFirstImage) { launchGifWatcher() }
+        if (isFirstImage) {
+            //imageView.stopAnimatingGif()
+            launchGifWatcher()
+        }
         
         isFirstImage = false
     }

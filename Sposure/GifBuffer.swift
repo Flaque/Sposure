@@ -25,7 +25,6 @@ class GifBuffer {
      Boots up the modules
     */
     init() {
-        print("Started Gif Buffer")
         
         _launchGiphyManager()
         _launchGifImageCreator()
@@ -97,7 +96,7 @@ class GifBuffer {
     */
     private func _getGifObjects() {
         
-        guard (self._GiphyResponseQueue.count() <= MAX_RESPONSE_AMMOUNT) else { return}
+        guard (self._GiphyResponseQueue.count() <= self.MAX_RESPONSE_AMMOUNT) else { return}
         
         GiphyManager.search(self._pushToGiphyResponseQueue, onError: GifBuffer.logError)
     }
@@ -107,7 +106,7 @@ class GifBuffer {
     */
     private func _getGifImages() {
         
-        guard (self._GifImageQueue.count() <= MAX_GIF_IMAGE_QUEUE) else { return }
+        guard (self._GifImageQueue.count() <= self.MAX_GIF_IMAGE_QUEUE) else { return }
         
         guard !(self._GiphyResponseQueue.isEmpty()) else { return }
         
