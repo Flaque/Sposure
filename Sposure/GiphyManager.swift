@@ -26,7 +26,7 @@ class GiphyManager {
      onError     : function that will complete on error (optional)
                  : [Default] NETWORK.logError
      **/
-    class func search(pushToQueue : (Gif)->Void, onError : (String)->Void = NETWORK.logError) {
+    class func search(pushToQueue : (Gif)->Void, onError : (String)->Void = GifBuffer.logError) {
         
         //Build parameters
         let params = [

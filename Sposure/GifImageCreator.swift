@@ -21,16 +21,12 @@ class GifImageCreator {
      onError   : Same as in search
      
      */
-    class func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = NETWORK.logError) {
+    class func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = GifBuffer.logError) {
         
         let url : String! = gif.getURL()
         
-        Alamofire.request(.GET, url!).response {
+        Alamofire.request(.GET, url!).validate().response {
             (request, response, data, error) in
-            
-            //Make sure we've got a response 
-            guard (response == nil)
-                else { onError("We didn't even get a response back from the server! Oh no! ... Does this help? \(request?.URLString)"); return }
             
             //Fail if status == 200
             guard (response?.statusCode == 200)

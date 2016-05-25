@@ -72,7 +72,7 @@ class GifBuffer {
             return
         }
         
-        GiphyManager.search(_pushToGiphyResponseQueue, onError: logError)
+        GiphyManager.search(_pushToGiphyResponseQueue, onError: GifBuffer.logError)
     }
     
     /**
@@ -105,7 +105,7 @@ class GifBuffer {
      Utility function that logs errors
      msg : String - The error msg
      */
-    func logError(msg : String) {
+    class func logError(msg : String) {
         print("NETWORK ERROR: " + msg)
     }
     
