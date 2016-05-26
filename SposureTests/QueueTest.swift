@@ -52,29 +52,40 @@ class QueueTest: XCTestCase {
         //Add something
         queue.enqueue(1)
         XCTAssert(!queue.isEmpty())
+        //Queue at this point: [1]
         
         //Add something else, so now we have a front and back
         queue.enqueue(2)
         XCTAssert(!queue.isEmpty())
+        //Queue at this point: [1, 2]
         
         //Add another so now we have front back and middle
         queue.enqueue(3)
         XCTAssert(!queue.isEmpty())
+        //Queue at this point: [1, 2, 3]
         
         //Remove something (So now we have two)
         queue.dequeue()
         XCTAssert(!queue.isEmpty())
+        //Queue at this point: [2, 3]
         
         //Remove another so now we just have a front
         queue.dequeue()
         XCTAssert(!queue.isEmpty())
+        //Queue at this point: [3]
         
         //Show that adding something back is still good
         queue.enqueue(1)
         XCTAssert(!queue.isEmpty())
+        //Queue at this point: [3, 1]
         
         //Now we should be empty
         queue.dequeue()
+        queue.dequeue()
+        XCTAssert(queue.isEmpty())
+        //Queue at this point: []
+        
+        //Now, let's dequeue once more and make sure we're still "empty"
         queue.dequeue()
         XCTAssert(queue.isEmpty())
     }
@@ -87,5 +98,18 @@ class QueueTest: XCTestCase {
         //Test if dequeing removes count lower than 0
         queue.dequeue()
         XCTAssert(queue.count() == 0) //Should still be 0
+        
+        //Make queue [1, 2, 3, 4, 5]
+        queue.enqueue(1)
+        queue.enqueue(2)
+        queue.enqueue(3)
+        queue.enqueue(4)
+        queue.enqueue(5)
+        XCTAssert(queue.count() == 5)
+        
+        //Make queue [3, 4, 5]
+        queue.dequeue()
+        queue.dequeue()
+        XCTAssert(queue.count() == 3)
     }
 }
