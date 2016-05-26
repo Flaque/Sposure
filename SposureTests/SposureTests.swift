@@ -11,8 +11,6 @@ import XCTest
 
 class SposureTests: XCTestCase {
     
-    let network = Network()
-    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.

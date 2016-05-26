@@ -15,13 +15,8 @@ class GifImage {
     let gif : Gif!
     
     init (image : UIImage!, gif : Gif) {
-        print("GifImage Object Created")
         self.image  = image
         self.gif    = gif
-    }
-    
-    deinit {
-        print("---------- REMOVED OBJECT")
     }
 }
 

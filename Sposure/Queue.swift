@@ -41,8 +41,8 @@ public class Queue<T> {
     
     /// Return and remove the item at the front of the queue.
     func dequeue () -> Element? {
-        _count -= 1
         if let newhead = _front.next {
+            _count -= 1
             _front = newhead
             return newhead.value
         } else {

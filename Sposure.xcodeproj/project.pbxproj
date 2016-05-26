@@ -21,6 +21,7 @@
 		2519EF201CF0C5A700C8F5AA /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF1F1CF0C5A700C8F5AA /* SearchResponse.swift */; };
 		2519EF221CF0C5FF00C8F5AA /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF211CF0C5FF00C8F5AA /* Meta.swift */; };
 		2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF231CF0C67500C8F5AA /* Pagination.swift */; };
+		25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3B9621CF66AFE00012C67 /* QueueTest.swift */; };
 		25F4EFD21CF0F12D004637A2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFD11CF0F12D004637A2 /* Image.swift */; };
 		25F4EFD41CF0F23B004637A2 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFD31CF0F23B004637A2 /* Images.swift */; };
 		25F4EFD61CF0F55D004637A2 /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFD51CF0F55D004637A2 /* GifImage.swift */; };
@@ -78,6 +79,7 @@
 		2519EF1F1CF0C5A700C8F5AA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		2519EF211CF0C5FF00C8F5AA /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
 		2519EF231CF0C67500C8F5AA /* Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
+		25B3B9621CF66AFE00012C67 /* QueueTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTest.swift; sourceTree = "<group>"; };
 		25F4EFD11CF0F12D004637A2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		25F4EFD31CF0F23B004637A2 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		25F4EFD51CF0F55D004637A2 /* GifImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				2519EEF61CF0132500C8F5AA /* SposureTests.swift */,
 				25F4EFEC1CF27698004637A2 /* GiphyManagerTest.swift */,
 				25F4EFEE1CF27FB4004637A2 /* GifImageCreatorTest.swift */,
+				25B3B9621CF66AFE00012C67 /* QueueTest.swift */,
 				2519EEF81CF0132500C8F5AA /* Info.plist */,
 			);
 			path = SposureTests;
@@ -569,6 +572,7 @@
 				25F4EFEF1CF27FB4004637A2 /* GifImageCreatorTest.swift in Sources */,
 				2519EEF71CF0132500C8F5AA /* SposureTests.swift in Sources */,
 				25F4EFED1CF27698004637A2 /* GiphyManagerTest.swift in Sources */,
+				25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
