@@ -29,11 +29,24 @@ class SearchResponse : Mappable {
     var meta       : Meta?
     var pagination : Pagination?
     
+    init(gifs : [Gif], meta : Meta, pagination : Pagination) {
+        self.gifs       = gifs
+        self.meta       = meta
+        self.pagination = pagination
+    }
+    
     required init? (_ map: Map){}
     
     func mapping(map: Map) {
         gifs       <- map["data"]
         meta       <- map["meta"]
         pagination <- map["pagination"]
+    }
+    
+    /**
+     * Returns dummy data for testing
+     */
+    class func dummy() -> SearchResponse {
+        return SearchResponse(gifs: [Gif.dummy()], meta: Meta.dummy(), pagination: Pagination.dummy())
     }
 }

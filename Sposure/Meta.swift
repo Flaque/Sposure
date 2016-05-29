@@ -16,8 +16,17 @@ class Meta : Mappable {
     
     required init? (_ map: Map){}
     
+    init(status : Int, msg : String) {
+        self.status = status
+        self.msg    = msg
+    }
+    
     func mapping(map: Map) {
         status <- map["status"]
         msg    <- map["msg"]
+    }
+    
+    class func dummy() -> Meta {
+        return Meta(status: 200, msg: "OK")
     }
 }

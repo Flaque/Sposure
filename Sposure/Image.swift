@@ -26,4 +26,7 @@ class Image : Mappable {
         url     <- map["url"]
     }
     
+    class func dummy() -> Image {
+        return Image(url: "http://media2.giphy.com/media/FiGiRei2ICzzG/giphy.gif", frames: "22")
+    }
 }

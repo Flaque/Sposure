@@ -22,4 +22,8 @@ class Images : Mappable {
     func mapping(map: Map) {
         original <- map["original"]
     }
+    
+    class func dummy() -> Images {
+        return Images(original: Image.dummy())
+    }
 }

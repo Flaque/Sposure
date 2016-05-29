@@ -36,5 +36,9 @@ class Gif : Mappable {
     func getURL() -> String {
         return self.images!.original!.url!
     }
+    
+    class func dummy() -> Gif {
+        return Gif(id: "FiGiRei2ICzzG", images: Images.dummy(), rating: "g")
+    }
 }
 
