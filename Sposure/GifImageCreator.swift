@@ -11,7 +11,6 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
-
 class GifImageCreator {
     
     /**

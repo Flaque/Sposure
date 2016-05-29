@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3E831A46A4CA1EFF34327A0D'
-               BlueprintName = 'AsyncSwift'
+               BlueprintIdentifier = 'C7A33AD034AA6FA7EAEA728B74E50BB8'
+               BlueprintName = 'GCDKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Async.framework'>
+               BuildableName = 'GCDKit.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

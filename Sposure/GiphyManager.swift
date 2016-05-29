@@ -18,6 +18,10 @@ let API_KEY    = "dc6zaTOxFJmzC"
 
 class GiphyManager {
     
+    var offset : Int = 0
+    var isSearching : Bool = false
+    
+    init() {}
     
     /**
      Sends the Giphy search query
@@ -26,19 +30,26 @@ class GiphyManager {
      onError     : function that will complete on error (optional)
                  : [Default] NETWORK.logError
      **/
-    class func search(pushToQueue : (Gif)->Void, onError : (String)->Void = GifBuffer.logError) {
+    func search(pushToQueue : (Gif)->Void, onError : (String)->Void = GifBuffer.logError) {
+        
+        //Lock to keep this from happening a million times per second.
+        guard (!isSearching) else { return; }
+        isSearching = true
         
         //Build parameters
         let params = [
             "api_key" : API_KEY,
             "q"       : "cats",
             "limit"   : "20",
-            "rating"  : "r"
+            "rating"  : "r",
+            "offset"  : String(offset)
         ]
         
         //Send request
         Alamofire.request(.GET, BASE_URL+SEARCH_URL, parameters: params).responseObject {
             (response: Response<SearchResponse, NSError>) in
+            
+            self.isSearching = false
             
             //Fail if didn't map correctly
             guard let searchResponse : SearchResponse = response.result.value
@@ -52,7 +63,16 @@ class GiphyManager {
             guard (searchResponse.gifs?.count > 0)
                 else {onError("No gifs!"); return }
             
-            //We got past the guards! But the princess is in another castle :(
+            //Make sure we got pagination back
+            guard let count : Int! = searchResponse.pagination!.count!
+                else {onError("No Paginiation!"); return }
+            
+            /** We got past the guards! But the princess is in another castle :( **/
+            
+            //Update offset
+            self.offset += count
+            
+            //Push to queue for each response gif
             for gif in searchResponse.gifs! {
                 pushToQueue(gif)
             }

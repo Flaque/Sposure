@@ -14,7 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AsyncSwift.xcscheme</key>
+		<key>GCDKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,22 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2BBC35EF8205EF3B317DB19372480E3C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4E155FBB6070C868840C7A2BB6E75E85</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5D9BECAC257FBE1A369AB4F0C2E1FF1F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E4ED082EFD81A728F9A06B035025F36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>901FCD9AE402AD1F2102BF8D40C4A3F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +62,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C6F46C34BAD9B404CFB0ABC11756CEAF</key>
+		<key>C7A33AD034AA6FA7EAEA728B74E50BB8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF0EB5B1040B49F69F90F4F6652CBC56</key>
 		<dict>
 			<key>primary</key>
 			<true/>

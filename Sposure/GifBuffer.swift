@@ -16,8 +16,11 @@ class GifBuffer {
     private let _GifImageQueue      : Queue<GifImage>! = Queue<GifImage>()
     
     //Main Async Grand Central Dispatch queues
-    private let gcdAsyncGroup = AsyncGroup()
     
+    //Create our own giphy manager (that stores an offset)
+    private let giphyManager : GiphyManager! = GiphyManager()
+    
+    //Maxes
     private let MAX_RESPONSE_AMMOUNT = 10
     private let MAX_GIF_IMAGE_QUEUE  = 3
     
@@ -35,11 +38,11 @@ class GifBuffer {
      * to run in the background
      */
     private func _launchGiphyManager() {
-        gcdAsyncGroup.background {
-            //while (true) {
+        //gcdAsyncGroup.background {
+            while (true) {
                 self._getGifObjects()
-            //}
-        }
+            }
+        //}
     }
     
     /**
@@ -47,11 +50,11 @@ class GifBuffer {
      * to run in the background
      */
     private func _launchGifImageCreator() {
-        gcdAsyncGroup.background {
+        //gcdAsyncGroup.background {
             while (true) {
                 self._getGifImages()
             }
-        }
+        //}
     }
     
     /**
@@ -74,6 +77,10 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
     */
     private func _pushToGifImageQueue(gifImage : GifImage) {
+        
+       print(self._GifImageQueue.count())
+       guard (self._GifImageQueue.count() <= self.MAX_GIF_IMAGE_QUEUE) else { return }
+        
        self._GifImageQueue.enqueue(gifImage)
     }
     
@@ -84,6 +91,8 @@ class GifBuffer {
      A: So we can cleanly pass it into a NETWORK callback
      */
     private func _pushToGiphyResponseQueue(gif : Gif!) {
+        
+        guard (self._GiphyResponseQueue.count() <= self.MAX_RESPONSE_AMMOUNT) else { return}
         
         //Don't enqueue a nil gif
         guard (gif != nil) else { return }
@@ -98,7 +107,7 @@ class GifBuffer {
         
         guard (self._GiphyResponseQueue.count() <= self.MAX_RESPONSE_AMMOUNT) else { return}
         
-        GiphyManager.search(self._pushToGiphyResponseQueue, onError: GifBuffer.logError)
+        giphyManager.search(self._pushToGiphyResponseQueue, onError: GifBuffer.logError)
     }
     
     /**
