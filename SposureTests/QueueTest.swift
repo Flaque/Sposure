@@ -54,7 +54,13 @@ class QueueTest: XCTestCase {
         XCTAssert(!queue.isEmpty())
         //Queue at this point: [1]
         
+        //Assert not just one enqueue and dequeue screws things up
+        queue.dequeue()
+        XCTAssert(queue.isEmpty())
+        //Queue at this point :[]
+        
         //Add something else, so now we have a front and back
+        queue.enqueue(1)
         queue.enqueue(2)
         XCTAssert(!queue.isEmpty())
         //Queue at this point: [1, 2]

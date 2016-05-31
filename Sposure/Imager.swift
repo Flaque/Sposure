@@ -10,18 +10,14 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import GCDKit
 
-class GifImageCreator {
+internal let imageSerialQueue : GCDQueue = .createSerial("imageModuleQueueGCD")
+
+class Imager {
     
-    /**
-     Find the UIImage from the gif's url
-     gif : the Gif object
-     onSuccess : Same as in search
-     onError   : Same as in search
-     
-     */
-    class func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = GifBuffer.logError) {
-        
+    
+    class func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = NetworkUtility.logError) {
         guard let url : String! = gif.getURL() else { onError("The gif seems to have no URL!"); return }
         
         Alamofire.request(.GET, url!).validate().response {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GCDKit
 
 class ViewController: UIViewController {
 
@@ -19,7 +20,7 @@ class ViewController: UIViewController {
     var updatingImage = false
     var isFirstImage  = true
     
-    let gifBuffer = GifBuffer()
+    //let gifBuffer = GifBuffer()
     
     //Timer
     var timer = NSTimer()
@@ -27,7 +28,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadFirstGif()
+        
+        //loadFirstGif()
     }
     
     /**
@@ -37,22 +39,17 @@ class ViewController: UIViewController {
      */
     private func loadFirstGif() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            
-            while(self.isFirstImage) {
-                self.pullsAndSets()
-            }
+        
+        while(self.isFirstImage) {
+            self.pullsAndSets()
         }
     }
     
     private func launchGifWatcher() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
-            //TODO: Remove this loop? This is probably really inefficient.
-            while (true) {
-                self.checkContinue()
-            }
+        //TODO: Remove this loop? This is probably really inefficient.
+        while (true) {
+            self.checkContinue()
         }
     }
     
@@ -71,13 +68,11 @@ class ViewController: UIViewController {
     private func checkContinue() {
         guard self.imageView.hasFinishedLooping() else { return }
         
-        //dispatch_async(dispatch_get_main_queue()) {
         self.pullsAndSets()
-        //}
     }
     
     private func pullsAndSets() {
-        gifBuffer.pull(setImage, onEmpty: onNoPull)
+        //gifBuffer.pull(setImage, onEmpty: onNoPull)
     }
     
     private func setImage(gifImage : GifImage) -> Void {

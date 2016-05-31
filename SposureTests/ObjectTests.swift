@@ -1,17 +1,16 @@
 //
-//  GiphyManagerTest.swift
+//  ObjectTests.swift
 //  Sposure
 //
-//  Created by Evan Conrad on 5/22/16.
+//  Created by Evan Conrad on 5/29/16.
 //  Copyright © 2016 Evan Conrad. All rights reserved.
 //
 
 import Foundation
-
 import XCTest
 @testable import Sposure
 
-class GiphyManagerTest: XCTestCase {
+class ObjectTests : XCTestCase{
     
     override func setUp() {
         super.setUp()
@@ -20,13 +19,14 @@ class GiphyManagerTest: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        print(" ------------------------------------- ")
+        print("------------------------------------- ")
         super.tearDown()
     }
     
-    func test_giphy_manager() {
-        let gm = GiphyManager()
-        //XCTAssert(true)
+    func test_GifImage() {
+        let gifImage : GifImage? = GifImage.dummy()
+        
+        XCTAssertNotNil(gifImage?.image)
+        XCTAssertNotNil(gifImage?.gif)
     }
-    
 }

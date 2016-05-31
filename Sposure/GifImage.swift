@@ -18,5 +18,14 @@ class GifImage {
         self.image  = image
         self.gif    = gif
     }
+    
+    /**
+     * Gets a dummy GifImage for testing
+     */
+    class func dummy() -> GifImage {
+        let dummy_image : UIImage = UIImage(gifName: "jeremy")
+        let dummy_gif   : Gif     = Gif.dummy()
+        return GifImage(image: dummy_image, gif: dummy_gif)
+    }
 }
 
