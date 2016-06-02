@@ -1,8 +1,8 @@
 //
-//  ObjectTests.swift
+//  ImageManagerTests.swift
 //  Sposure
 //
-//  Created by Evan Conrad on 5/29/16.
+//  Created by Evan Conrad on 5/30/16.
 //  Copyright © 2016 Evan Conrad. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import Sposure
 
-class ObjectTests : XCTestCase{
+class ImageManagerTests : XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -23,10 +23,8 @@ class ObjectTests : XCTestCase{
         super.tearDown()
     }
     
-    func test_GifImage() {
-        let gifImage : GifImage? = GifImage.dummy()
-        
-        XCTAssertNotNil(gifImage?.image)
-        XCTAssertNotNil(gifImage?.gif)
+    func test_addTask() {
+        var gif : Gif = Gif.dummy();
     }
+    
 }

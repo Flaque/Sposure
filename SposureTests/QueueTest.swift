@@ -118,4 +118,24 @@ class QueueTest: XCTestCase {
         queue.dequeue()
         XCTAssert(queue.count() == 3)
     }
+    
+    func test_dequeue_low() {
+        
+        let queue : Queue<Int> = Queue<Int>()
+        queue.enqueue(1)
+        queue.enqueue(2)
+        queue.enqueue(3)
+        queue.enqueue(4)
+        queue.enqueue(5)
+        queue.enqueue(6)
+        queue.enqueue(6)
+        
+        queue.dequeue(5) { XCTFail() }
+        
+        var happened = false
+        queue.dequeue(5) { happened = true }
+        
+        XCTAssert(happened)
+        
+    }
 }

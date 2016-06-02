@@ -11,31 +11,77 @@ import GCDKit
 
 class ImageManager {
     
-    let imageGCD     : GCDKit           = .createSerial("imageQueue")
-    let imageQueue   : Queue<GifImage>  = Queue<GifImage>()
+    let managerGCD   : GCDQueue          = .createConcurrent("ImageManagerGCD")
+    let imageGCD     : GCDQueue          = .createSerial("imageGCD")
+    let imageQueue   : Queue<GifImage>   = Queue<GifImage>()
     let giphyManager : GiphyManager
+    
+    let MAX_IMAGE_AMMOUNT = 5
+    var max_hit : Bool = false
     
     init(giphyManager : GiphyManager) {
         self.giphyManager = giphyManager
+        
+       
+        managerGCD.async() {
+            while(true) {
+                self.giphyManager.urlQueueSemaphore.wait()
+                
+                if (!self.max_hit) { self.addTask(self.giphyManager) }
+            }
+        }
     }
     
-    func addTask() {
-        //var stop = false
+    func addTask(giphyManager : GiphyManager) {
         var gif : Gif?
         
-        GiphyManager.responseGCD.sync() {
-            //guard (!giphyManager.responseQueue.isEmpty()) else { stop = true; return }
-            gif = giphyManager.responseQueue.dequeue()
+        giphyManager.responseGCD.sync() {
+            gif = self.giphyManager.responseQueue.dequeue()
         }
         
-        imageGCD.async() {
-            guard (!giphyManager.responseQueue.isEmpty()) else { return }
-            Imager.findImage(gif, onSuccess : onSuccess)
+        managerGCD.async() {
+            guard (gif != nil) else { print("gif nil"); return }
+            Imager.findImage(gif, onSuccess : self.onSuccess)
         }
     }
     
+    /**
+     * Pushes to image queue
+     */
     func onSuccess(gifImage : GifImage) -> Void {
-        print("Got an image")
+        
+        imageGCD.sync() {
+            self.imageQueue.enqueue(gifImage)
+            
+            self.checkIfMaxHit()
+        }
     }
+    
+    /**
+     * Pull from image manager
+     */
+    func pull(onSuccess : (GifImage) -> Void, onEmpty : () -> Void) {
+        
+        imageGCD.sync() {
+            guard (!self.imageQueue.isEmpty()) else { onEmpty(); return }
+            
+            //When we need more gifs, pull some more
+            onSuccess(self.imageQueue.dequeue()!)
+            
+            self.checkIfMaxHit()
+        }
+    }
+    
+    /**
+     * Check if max_hit, then tell the manager GCD
+     */
+    func checkIfMaxHit() {
+        //Check if max_hit, then tell the manager GCD
+        let hit = self.imageQueue.count() >= self.MAX_IMAGE_AMMOUNT
+        self.managerGCD.sync() {
+            self.max_hit = hit
+        }
+    }
+    
     
 }

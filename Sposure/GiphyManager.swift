@@ -23,9 +23,9 @@ import GCDKit
 
 class GiphyManager {
     
-    private let managerGCD   : GCDQueue      = .createSerial("managerGCD")
-    private let requestGCD   : GCDQueue      = .createSerial("requestAccessGCD")
-    let responseGCD          : GCDQueue      = .createSerial("responseGCD")
+    private let managerGCD   : GCDQueue  = .createSerial("managerGCD")
+    private let requestGCD   : GCDQueue  = .createSerial("requestAccessGCD")
+    let responseGCD          : GCDQueue  = .createSerial("responseGCD")
     
     ///These are requests going out
     private let requestQueue : Queue<GiphyRequest> = Queue<GiphyRequest>()
@@ -36,8 +36,14 @@ class GiphyManager {
     ///Stops when the request queue is empty.
     private var loading = true
     
+    ///Semaphore! Ooooo Fancy.
+    let urlQueueSemaphore = GCDSemaphore(0)
+    
     init() {
-        
+        //print("Started")
+    }
+    
+    func start() {
         //Ask how many gifs there are.
         Searcher.ping("cats", onSuccess : setTotalCount, onError : NetworkUtility.logError)
     }
@@ -59,8 +65,10 @@ class GiphyManager {
     func populateQueue(total_count : Int) {
         
         let limit = 100
-        let runs = Int(ceil(Double(total_count)/Double(limit)))
-        print(runs)
+        let total_double = Double(total_count)
+        let limit_double = Double(limit)
+        let ceil_num     = ceil(total_double/limit_double) as Double
+        let runs         = Int(ceil_num)
         
         for i in 0...runs {
             let request = GiphyRequest(offset: i*limit, limit: limit)
@@ -73,6 +81,7 @@ class GiphyManager {
      * Dequeue a request, then process that request synchronously in a serial queue.
      */
     func addTask() {
+        //print("addTask")
         requestGCD.sync() {
             guard (!self.requestQueue.isEmpty()) else { self.onEmpty(); return }
                         let request : GiphyRequest! = self.requestQueue.dequeue()
@@ -97,12 +106,9 @@ class GiphyManager {
      * If something failed, add it back to the end of the queue
      * for a retry and then continue on.
      */
-    func onError(msg : String, request : GiphyRequest) -> Void {
+    func onError(type : Searcher.ErrorType, msg : String, request : GiphyRequest) -> Void {
         
-        //Uhhhhhh do something here?
-        //The last 30 or so of each one will fail because we asked for 
-        //100 and there's only like 70
-        print(msg)
+        loading = false
     }
     
     /**
@@ -111,8 +117,8 @@ class GiphyManager {
     func onSuccess(gif : Gif) -> Void {
         
         responseGCD.async() {
-            //print("found a: \(gif.getURL())")
             self.responseQueue.enqueue(gif)
+            self.urlQueueSemaphore.signal() //Signal ImageManager that we have a number
         }
     }
     

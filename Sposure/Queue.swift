@@ -50,6 +50,26 @@ public class Queue<T> {
         }
     }
     
+    ///Do something once the queue is past a "low" point
+    func dequeue(low : Int, onLow : () -> Void) -> Element? {
+        if let newhead = self._front.next {
+            self._count -= 1
+            self._front = newhead
+            
+            //Do something
+            if (low >= self.count()) { onLow() }
+            
+            //Return
+            return newhead.value
+        } else {
+            return nil
+        }
+    }
+    
+    public func say() {
+        print("Pretty picture")
+    }
+    
     func isEmpty() -> Bool {
         return self._count == 0
     }

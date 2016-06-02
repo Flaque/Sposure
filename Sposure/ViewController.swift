@@ -13,6 +13,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     
+    let frontImageManagerGCD : GCDQueue = .createSerial("frontImageManagerGCD")
+    
     var gifImages : [GifImage] = []
     var gifIndex  : Int        = 0
     
@@ -20,36 +22,83 @@ class ViewController: UIViewController {
     var updatingImage = false
     var isFirstImage  = true
     
-    //let gifBuffer = GifBuffer()
+    let giphyManager = GiphyManager()
+    let imageManager : ImageManager
+    
+    var startTime : CFAbsoluteTime!
     
     //Timer
     var timer = NSTimer()
     
+    required init?(coder aDecoder: NSCoder) {
+        giphyManager.start()
+        self.imageManager = ImageManager(giphyManager: giphyManager)
+        
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //loadFirstGif()
+        loadFirstGif()
+    }
+    
+    private func gameOver(time : Double) {
+        performSegueWithIdentifier("exitGifStream", sender: time)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "exitGifStream" {
+            if let gameOverController = segue.destinationViewController as? GameOverController {
+                gameOverController.score = sender as? Double
+            }
+        }
     }
     
     /**
-     * Launches a new thread that attempts to pull from the queue
+     * Launches in the background a queue that attempts to pull from the queue
      * If it succeeds, it switches to the main thread and updates the queue
      *
      */
     private func loadFirstGif() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        
-        while(self.isFirstImage) {
-            self.pullsAndSets()
+        GCDQueue.Background.async() {
+            while (self.isFirstImage) {
+                self.pullsAndSets()
+            }
+            
+            print("Finished loading the first one")
         }
     }
     
+    /**
+     * Pull and set the image
+     */
+    func setImage(gifImage : GifImage) -> Void {
+        GCDQueue.Main.async() {
+            self.imageView.setGifImage(gifImage.image, manager: self.gifManager, loopCount: 1)
+        }
+        
+        if (self.isFirstImage) {
+            imageView.stopAnimatingGif()
+            launchGifWatcher()
+        }
+        
+        self.isFirstImage = false
+    }
+    
+    /**
+     */
+    private func pullsAndSets() {
+        
+        self.imageManager.pull(self.setImage, onEmpty: self.onNoPull)
+    }
+    
+    
     private func launchGifWatcher() {
-            
-        //TODO: Remove this loop? This is probably really inefficient.
-        while (true) {
-            self.checkContinue()
+        GCDQueue.Background.async() {
+            while (true) {
+                self.checkContinue()
+            }
         }
     }
     
@@ -59,31 +108,23 @@ class ViewController: UIViewController {
         
         if (sender.state == UIGestureRecognizerState.Began) {
             imageView.startAnimatingGif()
+            startTime = CFAbsoluteTimeGetCurrent()
         }
         if (sender.state == UIGestureRecognizerState.Ended) {
             imageView.stopAnimatingGif()
+            let elapsedTime = CFAbsoluteTimeGetCurrent() - startTime
+            gameOver(elapsedTime)
         }
     }
     
     private func checkContinue() {
-        guard self.imageView.hasFinishedLooping() else { return }
-        
-        self.pullsAndSets()
-    }
-    
-    private func pullsAndSets() {
-        //gifBuffer.pull(setImage, onEmpty: onNoPull)
-    }
-    
-    private func setImage(gifImage : GifImage) -> Void {
-        self.imageView.setGifImage(gifImage.image, manager: gifManager, loopCount: 1)
-        
-        if (isFirstImage) {
-            //imageView.stopAnimatingGif()
-            launchGifWatcher()
+        GCDQueue.Main.sync() {
+            guard self.imageView.hasFinishedLooping() else { return }
+            
+            GCDQueue.Background.async() {
+                self.pullsAndSets()
+            }
         }
-        
-        isFirstImage = false
     }
     
     private func onNoPull() {
