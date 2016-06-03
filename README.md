@@ -98,14 +98,47 @@ The basic flow is the following:
 YET these processes are are all happening [AT THE SAME TIME](https://www.youtube.com/watch?v=bW7Op86ox9g).
 
 
+### `GiphyManager`
+
+The `GiphyManager`'s job is to collect and return `Gif` objects.
+
+Inside, there's a requestQueue of `GiphyRequest`s which gets
+populated before anything happens. Each `GiphyRequest` is an
+object that contains the `offset` and `limit` to be used in
+each Giphy request. [More info on Giphy's request system here.](https://github.com/Giphy/GiphyAPI#search-endpoint)
+
+#### GCDs
+
+- `managerGCD`  | serial | Manages the GiphyManager
+- `requestGCD`  | serial | Controls the requestQueue
+- `responseGCD` | serial | Controls the responseQueue
+
 ### `ImageManager`
 
-The ImageManager's job is to collect and return `Gif` objects.
+The `ImageManager`'s job is to pull `Gif` objects from the
+`GiphyManger`'s `responseQueue`. If it succeeds in doing this,
+it goes to the url and collects image data. Then it creates a
+`GifImage` which is an object that contains a `UIView` and
+a `Gif`.
 
-#### At a glance
+#### GCDs
 
-**GCDs**
-- `managerGCD` -
+- `managerGCD` | concurrent | Manages the ImageManager
+- `imageGCD`   | serial     | Controls the image Queue
+
+### `Searcher`
+
+Handles the communication with the `search` endpoint in giphy.
+
+`ping` - Gets the pagination data from  the search query.
+
+`search` - Actually performs a real search.
+
+### `Imager`
+
+Handles going to the url and collecting the data there.
+
+`findImage` - Goes to the URL, creates a `GifImage` and returns it.
 
 
 ---

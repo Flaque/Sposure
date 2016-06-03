@@ -23,7 +23,7 @@ import GCDKit
 
 class GiphyManager {
     
-    private let managerGCD   : GCDQueue  = .createSerial("managerGCD")
+    private let managerGCD   : GCDQueue  = .createSerial("giphyManagerGCD")
     private let requestGCD   : GCDQueue  = .createSerial("requestAccessGCD")
     let responseGCD          : GCDQueue  = .createSerial("responseGCD")
     
