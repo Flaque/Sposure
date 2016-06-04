@@ -9,7 +9,7 @@
 import UIKit
 import GCDKit
 
-class ViewController: UIViewController {
+class StreamController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     
