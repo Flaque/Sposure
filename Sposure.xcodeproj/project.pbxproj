@@ -179,19 +179,16 @@
 		2519EEDD1CF0132500C8F5AA /* Sposure */ = {
 			isa = PBXGroup;
 			children = (
-				25824CC61D02A5A900EC7DE6 /* Utility */,
+				25824CCA1D0342C300EC7DE6 /* res */,
 				25F4EFD71CF21945004637A2 /* lib */,
-				2519EF161CF01DE300C8F5AA /* networking */,
-				2519EF131CF0184200C8F5AA /* gif */,
+				2519EF161CF01DE300C8F5AA /* middle-end */,
+				25824CC91D0342B700EC7DE6 /* front-end */,
 				2519EEDE1CF0132500C8F5AA /* AppDelegate.swift */,
-				2519EEE01CF0132500C8F5AA /* StreamController.swift */,
-				25EB4BD81CFFB132008A74AE /* GameOverController.swift */,
 				2519EEE21CF0132500C8F5AA /* Main.storyboard */,
 				2519EEE81CF0132500C8F5AA /* Assets.xcassets */,
 				2519EEEA1CF0132500C8F5AA /* LaunchScreen.storyboard */,
 				2519EEED1CF0132500C8F5AA /* Info.plist */,
 				2519EEE51CF0132500C8F5AA /* Sposure.xcdatamodeld */,
-				25824CC41D02A21B00EC7DE6 /* MainViewController.swift */,
 			);
 			path = Sposure;
 			sourceTree = "<group>";
@@ -226,15 +223,13 @@
 			name = gif;
 			sourceTree = "<group>";
 		};
-		2519EF161CF01DE300C8F5AA /* networking */ = {
+		2519EF161CF01DE300C8F5AA /* middle-end */ = {
 			isa = PBXGroup;
 			children = (
+				25824CCF1D0343E400EC7DE6 /* utility */,
 				25F4EFE01CF2391A004637A2 /* GifBuffer */,
-				25F4EFD51CF0F55D004637A2 /* GifImage.swift */,
-				2519EF191CF025EA00C8F5AA /* ResponseObjects */,
-				25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */,
 			);
-			name = networking;
+			name = "middle-end";
 			sourceTree = "<group>";
 		};
 		2519EF191CF025EA00C8F5AA /* ResponseObjects */ = {
@@ -250,12 +245,63 @@
 			name = ResponseObjects;
 			sourceTree = "<group>";
 		};
-		25824CC61D02A5A900EC7DE6 /* Utility */ = {
+		25824CC61D02A5A900EC7DE6 /* utility */ = {
 			isa = PBXGroup;
 			children = (
 				25824CC71D02A5DE00EC7DE6 /* Color.swift */,
 			);
-			name = Utility;
+			name = utility;
+			sourceTree = "<group>";
+		};
+		25824CC91D0342B700EC7DE6 /* front-end */ = {
+			isa = PBXGroup;
+			children = (
+				25824CC61D02A5A900EC7DE6 /* utility */,
+				25824CCD1D0342F700EC7DE6 /* 03-gameover */,
+				25824CCC1D0342ED00EC7DE6 /* 02-stream */,
+				25824CCB1D0342E000EC7DE6 /* 01-main */,
+			);
+			name = "front-end";
+			sourceTree = "<group>";
+		};
+		25824CCA1D0342C300EC7DE6 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				2519EF131CF0184200C8F5AA /* gif */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		25824CCB1D0342E000EC7DE6 /* 01-main */ = {
+			isa = PBXGroup;
+			children = (
+				25824CC41D02A21B00EC7DE6 /* MainViewController.swift */,
+			);
+			name = "01-main";
+			sourceTree = "<group>";
+		};
+		25824CCC1D0342ED00EC7DE6 /* 02-stream */ = {
+			isa = PBXGroup;
+			children = (
+				2519EEE01CF0132500C8F5AA /* StreamController.swift */,
+			);
+			name = "02-stream";
+			sourceTree = "<group>";
+		};
+		25824CCD1D0342F700EC7DE6 /* 03-gameover */ = {
+			isa = PBXGroup;
+			children = (
+				25EB4BD81CFFB132008A74AE /* GameOverController.swift */,
+			);
+			name = "03-gameover";
+			sourceTree = "<group>";
+		};
+		25824CCF1D0343E400EC7DE6 /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */,
+			);
+			name = utility;
 			sourceTree = "<group>";
 		};
 		25F4EFD71CF21945004637A2 /* lib */ = {
@@ -280,6 +326,8 @@
 		25F4EFE01CF2391A004637A2 /* GifBuffer */ = {
 			isa = PBXGroup;
 			children = (
+				25F4EFD51CF0F55D004637A2 /* GifImage.swift */,
+				2519EF191CF025EA00C8F5AA /* ResponseObjects */,
 				25F4EFE61CF24193004637A2 /* Searcher.swift */,
 				25F4EFE81CF24417004637A2 /* Imager.swift */,
 				25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */,

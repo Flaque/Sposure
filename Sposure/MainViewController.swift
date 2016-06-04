@@ -13,13 +13,14 @@ class MainViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGradient(Color.orangeColor().CGColor, secondColor: Color.redColor().CGColor)
     }
     
-    private func addGradient() {
+    private func addGradient(firstColor : CGColor, secondColor : CGColor) {
         let gradient: CAGradientLayer = CAGradientLayer()
         
         //The .CGColor is super important here. It will fail with no error if you don't have it.
-        gradient.colors = [Color.orangeColor().CGColor, Color.redColor().CGColor]
+        gradient.colors = [firstColor, secondColor]
         gradient.locations = [0.0 , 1.0]
         gradient.startPoint = CGPoint(x: 0.0, y: 0)
         gradient.endPoint = CGPoint(x: 0, y: 1.0)
