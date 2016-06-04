@@ -1,6 +1,8 @@
 # Sposure
 A portable exposure therapy game.
 
+![What we're going for](http://i.imgur.com/KwRhBx2.png)
+
 ### Table of Contents
 1. A note on concurrency
 2. Documentation
