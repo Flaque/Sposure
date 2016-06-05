@@ -92,53 +92,60 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X85-oh-gOP" userLabel="Bar">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X85-oh-gOP" userLabel="Bar">
                         <rect key="frame" x="14" y="27" width="8" height="78"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="78" id="M7j-x5-OlH"/>
                             <constraint firstAttribute="width" constant="8" id="Nio-1I-aoE"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kNe-0k-CcQ" userLabel="Bar">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kNe-0k-CcQ" userLabel="Bar">
                         <rect key="frame" x="62" y="27" width="8" height="78"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="78" id="2pG-zS-mEB"/>
                             <constraint firstAttribute="width" constant="8" id="BhD-nT-eEd"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SzA-Hj-eFT" userLabel="Bar">
-                        <rect key="frame" x="109" y="27" width="8" height="78"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SzA-Hj-eFT" userLabel="Bar">
+                        <rect key="frame" x="109" y="65" width="8" height="40"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="40" id="acb-qA-hIq"/>
                             <constraint firstAttribute="width" constant="8" id="f6v-cB-q8Q"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jjb-JB-cMH" userLabel="Bar">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jjb-JB-cMH" userLabel="Bar">
                         <rect key="frame" x="156" y="27" width="8" height="78"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="78" id="rd1-6H-VFQ"/>
                             <constraint firstAttribute="width" constant="8" id="rgV-Eg-vPH"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpQ-mc-bWe" userLabel="Bar">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpQ-mc-bWe" userLabel="Bar">
                         <rect key="frame" x="203" y="27" width="8" height="78"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="78" id="Wbq-9Z-NI0"/>
                             <constraint firstAttribute="width" constant="8" id="kWR-FK-Fdo"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H52-5K-hGp" userLabel="Bar">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H52-5K-hGp" userLabel="Bar">
                         <rect key="frame" x="250" y="27" width="8" height="78"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="3Kk-KE-EDS"/>
+                            <constraint firstAttribute="height" constant="78" id="9Ut-kW-PG9"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQD-zq-gH5" userLabel="Bar">
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQD-zq-gH5" userLabel="Bar">
                         <rect key="frame" x="297" y="27" width="8" height="78"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="hHf-d9-QAJ"/>
+                            <constraint firstAttribute="height" constant="78" id="jAy-M0-dYi"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -177,13 +184,13 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="fifthDay" destination="H52-5K-hGp" id="hBa-bU-RLM"/>
-                <outlet property="firstDay" destination="X85-oh-gOP" id="I53-Hg-D9m"/>
-                <outlet property="fourthDay" destination="Jjb-JB-cMH" id="C55-GX-YLr"/>
-                <outlet property="secondDay" destination="kNe-0k-CcQ" id="ZC9-Qf-q3k"/>
-                <outlet property="seventhDay" destination="KQD-zq-gH5" id="xLG-IY-c0n"/>
-                <outlet property="sixthDay" destination="H52-5K-hGp" id="AJV-gG-QUs"/>
-                <outlet property="thirdDay" destination="SzA-Hj-eFT" id="tyf-KJ-488"/>
+                <outlet property="fifthDayHeightConstraint" destination="Wbq-9Z-NI0" id="TGN-Y7-MZU"/>
+                <outlet property="firstDayHeightConstraint" destination="M7j-x5-OlH" id="lBM-sC-poJ"/>
+                <outlet property="fourthDayHeightConstraint" destination="rd1-6H-VFQ" id="gNh-Nx-wbq"/>
+                <outlet property="secondDayHeightConstraint" destination="2pG-zS-mEB" id="wUD-R9-acU"/>
+                <outlet property="seventhDayHeightConstraint" destination="jAy-M0-dYi" id="CvQ-Qj-ku7"/>
+                <outlet property="sixthDayHeightConstraint" destination="9Ut-kW-PG9" id="dZA-fg-hVZ"/>
+                <outlet property="thirdDayHeightConstraint" destination="acb-qA-hIq" id="Pl0-pv-9WQ"/>
             </connections>
             <point key="canvasLocation" x="230" y="217"/>
         </tableViewCell>

@@ -49,8 +49,12 @@ class MainViewController : FormViewController {
      Adds all the choices for the moment
      */
     private func addChoices() {
+        var days = [1, 2, 32, 56, 23, 56, 23]
+        
         form +++ Section()
-            <<< GraphRow()
+            <<< GraphRow() {
+                $0.days = days
+            }
             <<< ButtonRow() {
                 $0.title = "Cats"
                 $0.presentationMode = .SegueName(segueName: "toStream", completionCallback: nil)
