@@ -20,6 +20,14 @@ public enum WeekDay {
 
 public class GraphCell : Cell<Set<WeekDay>>, CellType {
     
+    @IBOutlet weak var firstDay: UIView!
+    @IBOutlet weak var secondDay: UIView!
+    @IBOutlet weak var thirdDay: UIView!
+    @IBOutlet weak var fourthDay: UIView!
+    @IBOutlet weak var fifthDay: UIView!
+    @IBOutlet weak var sixthDay: UIView!
+    @IBOutlet weak var seventhDay: UIView!
+    
     public override func setup() {
         height    = { 150 }
         row.title = nil
