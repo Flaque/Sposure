@@ -23,6 +23,8 @@
 		2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF231CF0C67500C8F5AA /* Pagination.swift */; };
 		25824CC51D02A21B00EC7DE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CC41D02A21B00EC7DE6 /* MainViewController.swift */; };
 		25824CC81D02A5DE00EC7DE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CC71D02A5DE00EC7DE6 /* Color.swift */; };
+		25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */; };
+		258AD6931D034C60005DBAFE /* RowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258AD6921D034C60005DBAFE /* RowButton.swift */; };
 		25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3B9621CF66AFE00012C67 /* QueueTest.swift */; };
 		25E4066A1CFB5F8B00FB4CF1 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */; };
 		25E4066C1CFB6B1200FB4CF1 /* GiphyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */; };
@@ -86,6 +88,8 @@
 		2519EF231CF0C67500C8F5AA /* Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		25824CC41D02A21B00EC7DE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		25824CC71D02A5DE00EC7DE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SposureUtility.swift"; sourceTree = "<group>"; };
+		258AD6921D034C60005DBAFE /* RowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowButton.swift; sourceTree = "<group>"; };
 		25B3B9621CF66AFE00012C67 /* QueueTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTest.swift; sourceTree = "<group>"; };
 		25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
 		25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyRequest.swift; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				25824CC71D02A5DE00EC7DE6 /* Color.swift */,
+				25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */,
 			);
 			name = utility;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 		25824CCB1D0342E000EC7DE6 /* 01-main */ = {
 			isa = PBXGroup;
 			children = (
+				258AD6911D034C4A005DBAFE /* RowButton */,
 				25824CC41D02A21B00EC7DE6 /* MainViewController.swift */,
 			);
 			name = "01-main";
@@ -302,6 +308,14 @@
 				25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */,
 			);
 			name = utility;
+			sourceTree = "<group>";
+		};
+		258AD6911D034C4A005DBAFE /* RowButton */ = {
+			isa = PBXGroup;
+			children = (
+				258AD6921D034C60005DBAFE /* RowButton.swift */,
+			);
+			name = RowButton;
 			sourceTree = "<group>";
 		};
 		25F4EFD71CF21945004637A2 /* lib */ = {
@@ -624,8 +638,10 @@
 				25824CC81D02A5DE00EC7DE6 /* Color.swift in Sources */,
 				2519EEE11CF0132500C8F5AA /* StreamController.swift in Sources */,
 				25F4EFE71CF24193004637A2 /* Searcher.swift in Sources */,
+				25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */,
 				25F4EFD21CF0F12D004637A2 /* Image.swift in Sources */,
 				2519EF201CF0C5A700C8F5AA /* SearchResponse.swift in Sources */,
+				258AD6931D034C60005DBAFE /* RowButton.swift in Sources */,
 				25F4EFDD1CF2195C004637A2 /* UIImage+SwiftyGif.swift in Sources */,
 				2519EEE71CF0132500C8F5AA /* Sposure.xcdatamodeld in Sources */,
 				25E4066C1CFB6B1200FB4CF1 /* GiphyRequest.swift in Sources */,

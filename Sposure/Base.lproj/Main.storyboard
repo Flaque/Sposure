@@ -16,19 +16,11 @@
                     <view key="view" contentMode="scaleToFill" id="6PT-sY-YoV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jYd-y4-aKp">
-                                <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jYd-y4-aKp" firstAttribute="centerY" secondItem="6PT-sY-YoV" secondAttribute="centerY" id="HHX-YL-yiU"/>
-                            <constraint firstItem="jYd-y4-aKp" firstAttribute="width" secondItem="6PT-sY-YoV" secondAttribute="width" id="QuO-QD-Zat"/>
-                            <constraint firstItem="jYd-y4-aKp" firstAttribute="height" secondItem="6PT-sY-YoV" secondAttribute="height" id="aSr-7V-Qg7"/>
-                            <constraint firstItem="jYd-y4-aKp" firstAttribute="centerX" secondItem="6PT-sY-YoV" secondAttribute="centerX" id="sFF-nR-MOd"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="toStream" id="fEK-KZ-c10"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GM4-LW-1xf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

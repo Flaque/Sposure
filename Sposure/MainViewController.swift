@@ -8,24 +8,26 @@
 
 import Foundation
 import UIKit
+import Eureka
 
-class MainViewController : UIViewController {
+class MainViewController : FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addGradient(Color.orangeColor().CGColor, secondColor: Color.redColor().CGColor)
+        self.addGradientBackground(Color.orangeColor().CGColor, bottomColor: Color.redColor().CGColor)
+        self.tableView?.backgroundColor = UIColor.clearColor()
+        
+        form +++ Section()
+            <<< ButtonRow() {
+                $0.title = "Cats"
+                $0.presentationMode = .SegueName(segueName: "toStream", completionCallback: nil)
+            }
     }
     
-    private func addGradient(firstColor : CGColor, secondColor : CGColor) {
-        let gradient: CAGradientLayer = CAGradientLayer()
-        
-        //The .CGColor is super important here. It will fail with no error if you don't have it.
-        gradient.colors = [firstColor, secondColor]
-        gradient.locations = [0.0 , 1.0]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0)
-        gradient.endPoint = CGPoint(x: 0, y: 1.0)
-        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        
-        self.view.layer.insertSublayer(gradient, atIndex: 0)
+    
+    //Force white status bar
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
+
 }

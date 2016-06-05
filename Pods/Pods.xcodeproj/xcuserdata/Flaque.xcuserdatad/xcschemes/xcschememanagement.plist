@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Eureka.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>GCDKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>5C392226A9A21777574FF461F4BB3109</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E4ED082EFD81A728F9A06B035025F36</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>901FCD9AE402AD1F2102BF8D40C4A3F8</key>
+		<key>7E82EF3158DC7672612EFE46DB8E4C8F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +72,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CF0EB5B1040B49F69F90F4F6652CBC56</key>
+		<key>E0E6DA8EF69BCC7D5EFFD65710186146</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E87A45207E6A0D0D5430F5923720F555</key>
 		<dict>
 			<key>primary</key>
 			<true/>
