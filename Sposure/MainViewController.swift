@@ -17,7 +17,10 @@ class MainViewController : FormViewController {
         self.addGradientBackground(Color.orangeColor().CGColor, bottomColor: Color.redColor().CGColor)
         self.tableView?.backgroundColor = UIColor.clearColor()
         self.tableView?.separatorStyle = .None
-        self.navigationController!.navigationBarHidden = false;
+        
+        //Show nav and status bar
+        self.navigationController!.navigationBarHidden    = false
+        UIApplication.sharedApplication().statusBarHidden = false
         
         
         addChoices()
@@ -49,7 +52,7 @@ class MainViewController : FormViewController {
      Adds all the choices for the moment
      */
     private func addChoices() {
-        var days = [1, 2, 32, 56, 23, 56, 23]
+        var days = [10, 5, 32, 56, 23, 56, 23]
         
         form +++ Section()
             <<< GraphRow() {

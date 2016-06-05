@@ -82,26 +82,46 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wh8-i9-NMI">
-                                <rect key="frame" x="283" y="326" width="34" height="30"/>
-                                <state key="normal" title="Back"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCg-Lp-LCi">
+                                <rect key="frame" x="278" y="132" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're Safe." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW6-qN-5vu">
+                                <rect key="frame" x="255" y="98" width="91" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="9Ge-bY-hUf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wh8-i9-NMI">
+                                <rect key="frame" x="283" y="442" width="34" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="9ad-fU-XNX" kind="show" id="c4c-6g-O5V"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCg-Lp-LCi">
-                                <rect key="frame" x="279" y="247" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="bW6-qN-5vu" firstAttribute="top" secondItem="01C-TF-e2l" secondAttribute="bottom" constant="98" id="T25-vt-U0T"/>
                             <constraint firstItem="PCg-Lp-LCi" firstAttribute="centerX" secondItem="IqK-cP-4rf" secondAttribute="centerX" id="ZyP-MN-FcI"/>
+                            <constraint firstItem="PCg-Lp-LCi" firstAttribute="top" secondItem="bW6-qN-5vu" secondAttribute="bottom" constant="13" id="dvu-xT-sAW"/>
                             <constraint firstItem="wh8-i9-NMI" firstAttribute="centerY" secondItem="IqK-cP-4rf" secondAttribute="centerY" id="sFE-Sp-NGk"/>
                             <constraint firstItem="wh8-i9-NMI" firstAttribute="centerX" secondItem="IqK-cP-4rf" secondAttribute="centerX" id="sZp-TC-WZx"/>
+                            <constraint firstItem="bW6-qN-5vu" firstAttribute="centerX" secondItem="IqK-cP-4rf" secondAttribute="centerX" id="yDk-F6-dq1"/>
+                            <constraint firstItem="Hkr-Xi-9xP" firstAttribute="top" secondItem="wh8-i9-NMI" secondAttribute="bottom" constant="64" id="yJQ-tq-7Mf"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="sFE-Sp-NGk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="scoreLabel" destination="PCg-Lp-LCi" id="Tb0-ja-YMc"/>

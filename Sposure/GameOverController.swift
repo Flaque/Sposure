@@ -23,7 +23,12 @@ class GameOverController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Focus just on the content
+        UIApplication.sharedApplication().statusBarHidden = true
+        
         self.navigationController!.navigationBarHidden = true;
+        self.addGradientBackground(Color.turquoiseColor().CGColor,
+                                   bottomColor: Color.blueColor().CGColor)
         
         scoreLabel.text = String(score as Int!)
     }
