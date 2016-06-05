@@ -9,7 +9,7 @@
 import UIKit
 import GCDKit
 
-class StreamController: UIViewController {
+class GifBufferController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     
@@ -37,22 +37,13 @@ class StreamController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    /**
+     Start loading right away
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadFirstGif()
-    }
-    
-    private func gameOver(time : Double) {
-        performSegueWithIdentifier("exitGifStream", sender: time)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "exitGifStream" {
-            if let gameOverController = segue.destinationViewController as? GameOverController {
-                gameOverController.score = sender as? Double
-            }
-        }
     }
     
     /**
@@ -87,13 +78,16 @@ class StreamController: UIViewController {
     }
     
     /**
+     Pulls from the image manager and sets the image
      */
     private func pullsAndSets() {
         
         self.imageManager.pull(self.setImage, onEmpty: self.onNoPull)
     }
     
-    
+    /**
+     Launches the gif watcher
+     */
     private func launchGifWatcher() {
         GCDQueue.Background.async() {
             while (true) {
@@ -102,21 +96,9 @@ class StreamController: UIViewController {
         }
     }
     
-    @IBAction func longPress(sender: UILongPressGestureRecognizer) {
-        
-        sender.minimumPressDuration = 0.001
-        
-        if (sender.state == UIGestureRecognizerState.Began) {
-            imageView.startAnimatingGif()
-            startTime = CFAbsoluteTimeGetCurrent()
-        }
-        if (sender.state == UIGestureRecognizerState.Ended) {
-            imageView.stopAnimatingGif()
-            let elapsedTime = CFAbsoluteTimeGetCurrent() - startTime
-            gameOver(elapsedTime)
-        }
-    }
-    
+    /**
+     Checks if the image is finished looping.
+     */
     private func checkContinue() {
         GCDQueue.Main.sync() {
             guard self.imageView.hasFinishedLooping() else { return }
@@ -127,6 +109,9 @@ class StreamController: UIViewController {
         }
     }
     
+    /**
+     Called when it can't pull.
+     */
     private func onNoPull() {
         //print("can't pull")
     }

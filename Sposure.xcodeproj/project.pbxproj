@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2519EEDF1CF0132500C8F5AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EEDE1CF0132500C8F5AA /* AppDelegate.swift */; };
-		2519EEE11CF0132500C8F5AA /* StreamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EEE01CF0132500C8F5AA /* StreamController.swift */; };
+		2519EEE11CF0132500C8F5AA /* GifBufferedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EEE01CF0132500C8F5AA /* GifBufferedViewController.swift */; };
 		2519EEE41CF0132500C8F5AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2519EEE21CF0132500C8F5AA /* Main.storyboard */; };
 		2519EEE71CF0132500C8F5AA /* Sposure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2519EEE51CF0132500C8F5AA /* Sposure.xcdatamodeld */; };
 		2519EEE91CF0132500C8F5AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2519EEE81CF0132500C8F5AA /* Assets.xcassets */; };
@@ -26,6 +26,7 @@
 		25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */; };
 		258AD6931D034C60005DBAFE /* RowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258AD6921D034C60005DBAFE /* RowButton.swift */; };
 		25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3B9621CF66AFE00012C67 /* QueueTest.swift */; };
+		25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C145CD1D03F1CB00EA160D /* StreamViewController.swift */; };
 		25E4066A1CFB5F8B00FB4CF1 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */; };
 		25E4066C1CFB6B1200FB4CF1 /* GiphyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */; };
 		25E406721CFB807B00FB4CF1 /* GiphyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E406711CFB807B00FB4CF1 /* GiphyManager.swift */; };
@@ -68,7 +69,7 @@
 		01E73A22587D71B1DFF8F0EA /* Pods-Sposure.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sposure.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sposure/Pods-Sposure.release.xcconfig"; sourceTree = "<group>"; };
 		2519EEDB1CF0132500C8F5AA /* Sposure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sposure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2519EEDE1CF0132500C8F5AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2519EEE01CF0132500C8F5AA /* StreamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamController.swift; sourceTree = "<group>"; };
+		2519EEE01CF0132500C8F5AA /* GifBufferedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifBufferedViewController.swift; sourceTree = "<group>"; };
 		2519EEE31CF0132500C8F5AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2519EEE61CF0132500C8F5AA /* Sposure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sposure.xcdatamodel; sourceTree = "<group>"; };
 		2519EEE81CF0132500C8F5AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 		25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SposureUtility.swift"; sourceTree = "<group>"; };
 		258AD6921D034C60005DBAFE /* RowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowButton.swift; sourceTree = "<group>"; };
 		25B3B9621CF66AFE00012C67 /* QueueTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTest.swift; sourceTree = "<group>"; };
+		25C145CD1D03F1CB00EA160D /* StreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
 		25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyRequest.swift; sourceTree = "<group>"; };
 		25E406711CFB807B00FB4CF1 /* GiphyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyManager.swift; sourceTree = "<group>"; };
@@ -289,7 +291,8 @@
 		25824CCC1D0342ED00EC7DE6 /* 02-stream */ = {
 			isa = PBXGroup;
 			children = (
-				2519EEE01CF0132500C8F5AA /* StreamController.swift */,
+				2519EEE01CF0132500C8F5AA /* GifBufferedViewController.swift */,
+				25C145CD1D03F1CB00EA160D /* StreamViewController.swift */,
 			);
 			name = "02-stream";
 			sourceTree = "<group>";
@@ -636,7 +639,7 @@
 				25F4EFDC1CF2195C004637A2 /* SwiftyGifManager.swift in Sources */,
 				25824CC51D02A21B00EC7DE6 /* MainViewController.swift in Sources */,
 				25824CC81D02A5DE00EC7DE6 /* Color.swift in Sources */,
-				2519EEE11CF0132500C8F5AA /* StreamController.swift in Sources */,
+				2519EEE11CF0132500C8F5AA /* GifBufferedViewController.swift in Sources */,
 				25F4EFE71CF24193004637A2 /* Searcher.swift in Sources */,
 				25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */,
 				25F4EFD21CF0F12D004637A2 /* Image.swift in Sources */,
@@ -655,6 +658,7 @@
 				25F4EFE51CF23C17004637A2 /* Queue.swift in Sources */,
 				2519EF221CF0C5FF00C8F5AA /* Meta.swift in Sources */,
 				25F4EFD61CF0F55D004637A2 /* GifImage.swift in Sources */,
+				25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */,
 				25E406721CFB807B00FB4CF1 /* GiphyManager.swift in Sources */,
 				2519EF1E1CF0C22D00C8F5AA /* Gif.swift in Sources */,
 				25F4EFDE1CF2195C004637A2 /* UIImageView+SwiftyGif.swift in Sources */,
