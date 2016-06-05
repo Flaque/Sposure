@@ -13,12 +13,17 @@ class GameOverController : UIViewController {
     
     var score : Double?
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     
     @IBOutlet weak var scoreLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(score)
+        
+        self.navigationController!.navigationBarHidden = true;
         
         scoreLabel.text = String(score as Double!)
     }

@@ -11,6 +11,12 @@ import UIKit
 
 class StreamViewController : GifBufferController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationController!.navigationBarHidden = true;
+    }
+    
     /**
      On gameover, go to the gameover screen
      
