@@ -21,10 +21,11 @@
 		2519EF201CF0C5A700C8F5AA /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF1F1CF0C5A700C8F5AA /* SearchResponse.swift */; };
 		2519EF221CF0C5FF00C8F5AA /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF211CF0C5FF00C8F5AA /* Meta.swift */; };
 		2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF231CF0C67500C8F5AA /* Pagination.swift */; };
+		258099991D0488C000FC30D7 /* GraphRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258099981D0488C000FC30D7 /* GraphRow.swift */; };
+		2580999C1D04968300FC30D7 /* GraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2580999B1D04968300FC30D7 /* GraphCell.xib */; };
 		25824CC51D02A21B00EC7DE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CC41D02A21B00EC7DE6 /* MainViewController.swift */; };
 		25824CC81D02A5DE00EC7DE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CC71D02A5DE00EC7DE6 /* Color.swift */; };
 		25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */; };
-		258AD6931D034C60005DBAFE /* RowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258AD6921D034C60005DBAFE /* RowButton.swift */; };
 		25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3B9621CF66AFE00012C67 /* QueueTest.swift */; };
 		25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C145CD1D03F1CB00EA160D /* StreamViewController.swift */; };
 		25E4066A1CFB5F8B00FB4CF1 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */; };
@@ -87,10 +88,11 @@
 		2519EF1F1CF0C5A700C8F5AA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		2519EF211CF0C5FF00C8F5AA /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
 		2519EF231CF0C67500C8F5AA /* Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
+		258099981D0488C000FC30D7 /* GraphRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphRow.swift; sourceTree = "<group>"; };
+		2580999B1D04968300FC30D7 /* GraphCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphCell.xib; sourceTree = "<group>"; };
 		25824CC41D02A21B00EC7DE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		25824CC71D02A5DE00EC7DE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SposureUtility.swift"; sourceTree = "<group>"; };
-		258AD6921D034C60005DBAFE /* RowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowButton.swift; sourceTree = "<group>"; };
 		25B3B9621CF66AFE00012C67 /* QueueTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTest.swift; sourceTree = "<group>"; };
 		25C145CD1D03F1CB00EA160D /* StreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
@@ -282,8 +284,9 @@
 		25824CCB1D0342E000EC7DE6 /* 01-main */ = {
 			isa = PBXGroup;
 			children = (
-				258AD6911D034C4A005DBAFE /* RowButton */,
 				25824CC41D02A21B00EC7DE6 /* MainViewController.swift */,
+				258099981D0488C000FC30D7 /* GraphRow.swift */,
+				2580999B1D04968300FC30D7 /* GraphCell.xib */,
 			);
 			name = "01-main";
 			sourceTree = "<group>";
@@ -311,14 +314,6 @@
 				25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */,
 			);
 			name = utility;
-			sourceTree = "<group>";
-		};
-		258AD6911D034C4A005DBAFE /* RowButton */ = {
-			isa = PBXGroup;
-			children = (
-				258AD6921D034C60005DBAFE /* RowButton.swift */,
-			);
-			name = RowButton;
 			sourceTree = "<group>";
 		};
 		25F4EFD71CF21945004637A2 /* lib */ = {
@@ -486,6 +481,7 @@
 			files = (
 				2519EEEC1CF0132500C8F5AA /* LaunchScreen.storyboard in Resources */,
 				2519EF151CF0190F00C8F5AA /* jeremy.gif in Resources */,
+				2580999C1D04968300FC30D7 /* GraphCell.xib in Resources */,
 				2519EF121CF016B000C8F5AA /* demo.gif in Resources */,
 				2519EEE91CF0132500C8F5AA /* Assets.xcassets in Resources */,
 				2519EEE41CF0132500C8F5AA /* Main.storyboard in Resources */,
@@ -644,7 +640,6 @@
 				25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */,
 				25F4EFD21CF0F12D004637A2 /* Image.swift in Sources */,
 				2519EF201CF0C5A700C8F5AA /* SearchResponse.swift in Sources */,
-				258AD6931D034C60005DBAFE /* RowButton.swift in Sources */,
 				25F4EFDD1CF2195C004637A2 /* UIImage+SwiftyGif.swift in Sources */,
 				2519EEE71CF0132500C8F5AA /* Sposure.xcdatamodeld in Sources */,
 				25E4066C1CFB6B1200FB4CF1 /* GiphyRequest.swift in Sources */,
@@ -656,6 +651,7 @@
 				2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */,
 				25F4EFD41CF0F23B004637A2 /* Images.swift in Sources */,
 				25F4EFE51CF23C17004637A2 /* Queue.swift in Sources */,
+				258099991D0488C000FC30D7 /* GraphRow.swift in Sources */,
 				2519EF221CF0C5FF00C8F5AA /* Meta.swift in Sources */,
 				25F4EFD61CF0F55D004637A2 /* GifImage.swift in Sources */,
 				25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */,

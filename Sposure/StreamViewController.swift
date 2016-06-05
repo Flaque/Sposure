@@ -35,7 +35,7 @@ class StreamViewController : GifBufferController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "exitGifStream" {
             if let gameOverController = segue.destinationViewController as? GameOverController {
-                gameOverController.score = sender as? Double
+                gameOverController.score = sender as? Int
             }
         }
     }

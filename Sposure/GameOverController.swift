@@ -11,7 +11,7 @@ import UIKit
 
 class GameOverController : UIViewController {
     
-    var score : Double?
+    var score : Int?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -25,7 +25,7 @@ class GameOverController : UIViewController {
         
         self.navigationController!.navigationBarHidden = true;
         
-        scoreLabel.text = String(score as Double!)
+        scoreLabel.text = String(score as Int!)
     }
     
     

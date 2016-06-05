@@ -16,6 +16,7 @@ class MainViewController : FormViewController {
         super.viewDidLoad()
         self.addGradientBackground(Color.orangeColor().CGColor, bottomColor: Color.redColor().CGColor)
         self.tableView?.backgroundColor = UIColor.clearColor()
+        self.tableView?.separatorStyle = .None
         self.navigationController!.navigationBarHidden = false;
         
         
@@ -49,6 +50,7 @@ class MainViewController : FormViewController {
      */
     private func addChoices() {
         form +++ Section()
+            <<< GraphRow()
             <<< ButtonRow() {
                 $0.title = "Cats"
                 $0.presentationMode = .SegueName(segueName: "toStream", completionCallback: nil)
