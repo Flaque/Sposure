@@ -44,6 +44,13 @@
 		25F4EFE71CF24193004637A2 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFE61CF24193004637A2 /* Searcher.swift */; };
 		25F4EFE91CF24417004637A2 /* Imager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFE81CF24417004637A2 /* Imager.swift */; };
 		25F4EFED1CF27698004637A2 /* GiphyManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFEC1CF27698004637A2 /* GiphyManagerTest.swift */; };
+		83DEE7F51D05C1AE008524B2 /* HighScores.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F31D05C1AE008524B2 /* HighScores.xcdatamodeld */; };
+		83DEE7F81D06469C008524B2 /* HighScore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */; };
+		83DEE7F91D06469C008524B2 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F71D06469C008524B2 /* HighScore.swift */; };
+		83DEE7FB1D0647E3008524B2 /* HighScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7FA1D0647E3008524B2 /* HighScoreManager.swift */; };
+		83DEE7FD1D064B05008524B2 /* HighScoreManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7FC1D064B05008524B2 /* HighScoreManagerTests.swift */; };
+		83DEE8001D065059008524B2 /* DayUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7FF1D065059008524B2 /* DayUtility.swift */; };
+		83DEE8021D0650A8008524B2 /* DayUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE8011D0650A8008524B2 /* DayUtilityTests.swift */; };
 		AF064DDA6BF04D04C6F2BD01 /* Pods_Sposure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF03D455EE9A939BE6D85B7D /* Pods_Sposure.framework */; };
 		AFADDE08E5E2FB530966347C /* Pods_SposureUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C05056757FC850A463B6982E /* Pods_SposureUITests.framework */; };
 		C40EFDBE054D9819A28618AE /* Pods_SposureTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A8D7579D68E2278CF120BE /* Pods_SposureTests.framework */; };
@@ -115,6 +122,13 @@
 		314E32499DE8D6B3E45D74C3 /* Pods-Sposure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sposure.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sposure/Pods-Sposure.debug.xcconfig"; sourceTree = "<group>"; };
 		521C7FF1DF4E82DE9F1E409F /* Pods-SposureTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SposureTests/Pods-SposureTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B56497372B73F4839780E5D /* Pods-SposureUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SposureUITests/Pods-SposureUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		83DEE7F41D05C1AE008524B2 /* HighScores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HighScores.xcdatamodel; sourceTree = "<group>"; };
+		83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HighScore+CoreDataProperties.swift"; path = "../HighScore+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		83DEE7F71D06469C008524B2 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighScore.swift; path = ../HighScore.swift; sourceTree = "<group>"; };
+		83DEE7FA1D0647E3008524B2 /* HighScoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoreManager.swift; sourceTree = "<group>"; };
+		83DEE7FC1D064B05008524B2 /* HighScoreManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoreManagerTests.swift; sourceTree = "<group>"; };
+		83DEE7FF1D065059008524B2 /* DayUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayUtility.swift; sourceTree = "<group>"; };
+		83DEE8011D0650A8008524B2 /* DayUtilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayUtilityTests.swift; sourceTree = "<group>"; };
 		85088F518804011ECB75409F /* Pods-SposureUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SposureUITests/Pods-SposureUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C05056757FC850A463B6982E /* Pods_SposureUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SposureUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF03D455EE9A939BE6D85B7D /* Pods_Sposure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sposure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +223,8 @@
 				25F4EFEC1CF27698004637A2 /* GiphyManagerTest.swift */,
 				25E406751CFD160700FB4CF1 /* ImageManagerTests.swift */,
 				2519EEF81CF0132500C8F5AA /* Info.plist */,
+				83DEE7FC1D064B05008524B2 /* HighScoreManagerTests.swift */,
+				83DEE8011D0650A8008524B2 /* DayUtilityTests.swift */,
 			);
 			path = SposureTests;
 			sourceTree = "<group>";
@@ -234,6 +250,8 @@
 		2519EF161CF01DE300C8F5AA /* middle-end */ = {
 			isa = PBXGroup;
 			children = (
+				83DEE7FE1D06501D008524B2 /* DayUtility */,
+				83DEE7F21D05BE7B008524B2 /* HighScores */,
 				25824CCF1D0343E400EC7DE6 /* utility */,
 				25F4EFE01CF2391A004637A2 /* GifBuffer */,
 			);
@@ -365,6 +383,25 @@
 				C05056757FC850A463B6982E /* Pods_SposureUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83DEE7F21D05BE7B008524B2 /* HighScores */ = {
+			isa = PBXGroup;
+			children = (
+				83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */,
+				83DEE7F71D06469C008524B2 /* HighScore.swift */,
+				83DEE7F31D05C1AE008524B2 /* HighScores.xcdatamodeld */,
+				83DEE7FA1D0647E3008524B2 /* HighScoreManager.swift */,
+			);
+			name = HighScores;
+			sourceTree = "<group>";
+		};
+		83DEE7FE1D06501D008524B2 /* DayUtility */ = {
+			isa = PBXGroup;
+			children = (
+				83DEE7FF1D065059008524B2 /* DayUtility.swift */,
+			);
+			name = DayUtility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -632,6 +669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DEE7F81D06469C008524B2 /* HighScore+CoreDataProperties.swift in Sources */,
 				25F4EFDC1CF2195C004637A2 /* SwiftyGifManager.swift in Sources */,
 				25824CC51D02A21B00EC7DE6 /* MainViewController.swift in Sources */,
 				25824CC81D02A5DE00EC7DE6 /* Color.swift in Sources */,
@@ -646,15 +684,19 @@
 				25E4066A1CFB5F8B00FB4CF1 /* NetworkUtility.swift in Sources */,
 				25E406741CFD012200FB4CF1 /* ImageManager.swift in Sources */,
 				2519EEDF1CF0132500C8F5AA /* AppDelegate.swift in Sources */,
+				83DEE7F51D05C1AE008524B2 /* HighScores.xcdatamodeld in Sources */,
+				83DEE7F91D06469C008524B2 /* HighScore.swift in Sources */,
 				25F4EFE91CF24417004637A2 /* Imager.swift in Sources */,
 				25EB4BD91CFFB132008A74AE /* GameOverController.swift in Sources */,
 				2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */,
 				25F4EFD41CF0F23B004637A2 /* Images.swift in Sources */,
 				25F4EFE51CF23C17004637A2 /* Queue.swift in Sources */,
 				258099991D0488C000FC30D7 /* GraphRow.swift in Sources */,
+				83DEE8001D065059008524B2 /* DayUtility.swift in Sources */,
 				2519EF221CF0C5FF00C8F5AA /* Meta.swift in Sources */,
 				25F4EFD61CF0F55D004637A2 /* GifImage.swift in Sources */,
 				25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */,
+				83DEE7FB1D0647E3008524B2 /* HighScoreManager.swift in Sources */,
 				25E406721CFB807B00FB4CF1 /* GiphyManager.swift in Sources */,
 				2519EF1E1CF0C22D00C8F5AA /* Gif.swift in Sources */,
 				25F4EFDE1CF2195C004637A2 /* UIImageView+SwiftyGif.swift in Sources */,
@@ -669,6 +711,8 @@
 				2519EEF71CF0132500C8F5AA /* SposureTests.swift in Sources */,
 				25F4EFED1CF27698004637A2 /* GiphyManagerTest.swift in Sources */,
 				25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */,
+				83DEE7FD1D064B05008524B2 /* HighScoreManagerTests.swift in Sources */,
+				83DEE8021D0650A8008524B2 /* DayUtilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +967,16 @@
 			);
 			currentVersion = 2519EEE61CF0132500C8F5AA /* Sposure.xcdatamodel */;
 			path = Sposure.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		83DEE7F31D05C1AE008524B2 /* HighScores.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				83DEE7F41D05C1AE008524B2 /* HighScores.xcdatamodel */,
+			);
+			currentVersion = 83DEE7F41D05C1AE008524B2 /* HighScores.xcdatamodel */;
+			path = HighScores.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

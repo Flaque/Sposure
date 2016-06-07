@@ -28,6 +28,14 @@ public class GraphCell : Cell<Int>, CellType {
     @IBOutlet weak var sixthDayHeightConstraint   : NSLayoutConstraint!
     @IBOutlet weak var seventhDayHeightConstraint : NSLayoutConstraint!
     
+    @IBOutlet weak var firstLabel: UILabel!
+    @IBOutlet weak var secondLabel: UILabel!
+    @IBOutlet weak var thirdLabel: UILabel!
+    @IBOutlet weak var fourthLabel: UILabel!
+    @IBOutlet weak var fifthLabel: UILabel!
+    @IBOutlet weak var sixthLabel: UILabel!
+    @IBOutlet weak var seventhLabel: UILabel!
+    
     
     var days : [Int]?
     
@@ -40,6 +48,7 @@ public class GraphCell : Cell<Int>, CellType {
         self.days = (self.row as! GraphRow).days
         
         setHeights(normalizeDaysToHeights(self.days!))
+        setDays()
     }
     
     /**
@@ -96,6 +105,17 @@ public class GraphCell : Cell<Int>, CellType {
         seventhDayHeightConstraint.constant = days[6]
     }
 
+    private func setDays() {
+        let days = DayUtility.getWeekdaysinOrder()
+        
+        firstLabel.text = days[0]
+        secondLabel.text = days[1]
+        thirdLabel.text = days[2]
+        fourthLabel.text = days[3]
+        fifthLabel.text = days[4]
+        sixthLabel.text = days[5]
+        seventhLabel.text = days[6]
+    }
 }
 
 //MARK: GraphRow

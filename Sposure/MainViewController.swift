@@ -52,11 +52,11 @@ class MainViewController : FormViewController {
      Adds all the choices for the moment
      */
     private func addChoices() {
-        var days = [10, 5, 32, 56, 23, 56, 23]
+        let scores = HighScoreManager.getScoresForLastWeek()
         
         form +++ Section()
             <<< GraphRow() {
-                $0.days = days
+                $0.days = scores
             }
             <<< ButtonRow() {
                 $0.title = "Cats"

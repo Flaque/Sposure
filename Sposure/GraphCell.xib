@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WIs-Ps-up7" id="98I-iJ-ked">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SD8-YB-3BZ">
@@ -185,12 +185,19 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="fifthDayHeightConstraint" destination="Wbq-9Z-NI0" id="TGN-Y7-MZU"/>
+                <outlet property="fifthLabel" destination="8mX-KS-0RE" id="dHE-Jt-lxe"/>
                 <outlet property="firstDayHeightConstraint" destination="M7j-x5-OlH" id="lBM-sC-poJ"/>
+                <outlet property="firstLabel" destination="BMw-nE-D2z" id="F2A-Kq-sgI"/>
                 <outlet property="fourthDayHeightConstraint" destination="rd1-6H-VFQ" id="gNh-Nx-wbq"/>
+                <outlet property="fourthLabel" destination="bb4-K2-3ig" id="UN3-qU-7t9"/>
                 <outlet property="secondDayHeightConstraint" destination="2pG-zS-mEB" id="wUD-R9-acU"/>
+                <outlet property="secondLabel" destination="esd-Kc-wy7" id="Y3w-uv-9uv"/>
                 <outlet property="seventhDayHeightConstraint" destination="jAy-M0-dYi" id="CvQ-Qj-ku7"/>
+                <outlet property="seventhLabel" destination="ilW-rm-bwe" id="Jnh-aM-k5B"/>
                 <outlet property="sixthDayHeightConstraint" destination="9Ut-kW-PG9" id="dZA-fg-hVZ"/>
+                <outlet property="sixthLabel" destination="LVv-vx-vjG" id="ZvY-3E-tkZ"/>
                 <outlet property="thirdDayHeightConstraint" destination="acb-qA-hIq" id="Pl0-pv-9WQ"/>
+                <outlet property="thirdLabel" destination="hB1-9g-V7e" id="GnL-YT-VyT"/>
             </connections>
             <point key="canvasLocation" x="230" y="217"/>
         </tableViewCell>
