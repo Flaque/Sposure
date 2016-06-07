@@ -80,6 +80,10 @@ public class GraphCell : Cell<Int>, CellType {
         let max       = findMax(days)
         let maxHeight = 100
         
+        if max == 0 {
+            return [0,0,0,0,0,0,0]  // Avoid a divide by zero error
+        }
+        
         var array : [CGFloat] = []
         for day in days {
             let percentage : Double = Double(day) / Double(max)
@@ -87,8 +91,6 @@ public class GraphCell : Cell<Int>, CellType {
             let height = CGFloat(percentage)*CGFloat(maxHeight)
             array.append(height)
         }
-        
-        debugPrint(array)
         
         return array
     }

@@ -31,6 +31,12 @@ class GameOverController : UIViewController {
                                    bottomColor: Color.blueColor().CGColor)
         
         scoreLabel.text = String(score as Int!)
+        
+        addHighScore()
+    }
+    
+    private func addHighScore() {
+        HighScoreManager.addScore(score!, category: "")
     }
     
     

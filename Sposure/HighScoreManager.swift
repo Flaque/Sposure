@@ -58,7 +58,9 @@ class HighScoreManager {
         let fetchRequest = NSFetchRequest(entityName: entityId)
         do {
             if let fetchResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [HighScore] {
-                return fetchResults
+                if fetchResults.count > 0 { // Check to make sure there actually are results or it'll throw an error
+                    return fetchResults
+                }
             }
         } catch { }
         return []

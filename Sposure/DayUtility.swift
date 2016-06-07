@@ -19,8 +19,6 @@ class DayUtility {
      */
     static func getWeekdaysinOrder() -> [String] {
         
-        // Get day of the week currently.
-        //let cal: NSCalendar = NSCalendar.currentCalendar()
         // Adjust for time zone.
         let adjustedDate = NSDate().dateByAddingTimeInterval(NSTimeInterval(NSTimeZone.localTimeZone().secondsFromGMT))
         // This reference date in 1970 is a Sunday.
