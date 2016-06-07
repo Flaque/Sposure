@@ -8,6 +8,7 @@ pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
 pod 'GCDKit', '~> 1.2'
+pod 'Eureka'
 end
 
 target 'SposureTests' do
@@ -15,6 +16,7 @@ pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
 pod 'GCDKit', '~> 1.2'
+pod 'Eureka'
 end
 
 target 'SposureUITests' do
@@ -22,5 +24,6 @@ pod 'Alamofire', '~> 3.4'
 pod 'ObjectMapper', '~> 1.3'
 pod 'AlamofireObjectMapper', '~> 3.0'
 pod 'GCDKit', '~> 1.2'
+pod 'Eureka'
 end
 
