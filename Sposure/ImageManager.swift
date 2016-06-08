@@ -32,6 +32,10 @@ class ImageManager {
         }
     }
     
+    deinit {
+        print("Deinited giphyManager")
+    }
+    
     func addTask(giphyManager : GiphyManager) {
         var gif : Gif?
         

@@ -17,8 +17,16 @@ class GameOverController : UIViewController {
         super.init(coder: aDecoder)
     }
     
-    
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
+    
+    @IBAction func onBackButtonPress(sender: AnyObject) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    deinit {
+        print("Deinited gameoverController")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

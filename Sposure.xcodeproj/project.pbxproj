@@ -13,7 +13,6 @@
 		2519EEE71CF0132500C8F5AA /* Sposure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2519EEE51CF0132500C8F5AA /* Sposure.xcdatamodeld */; };
 		2519EEE91CF0132500C8F5AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2519EEE81CF0132500C8F5AA /* Assets.xcassets */; };
 		2519EEEC1CF0132500C8F5AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2519EEEA1CF0132500C8F5AA /* LaunchScreen.storyboard */; };
-		2519EEF71CF0132500C8F5AA /* SposureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EEF61CF0132500C8F5AA /* SposureTests.swift */; };
 		2519EF021CF0132500C8F5AA /* SposureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519EF011CF0132500C8F5AA /* SposureUITests.swift */; };
 		2519EF121CF016B000C8F5AA /* demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2519EF111CF016B000C8F5AA /* demo.gif */; };
 		2519EF151CF0190F00C8F5AA /* jeremy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2519EF141CF0190F00C8F5AA /* jeremy.gif */; };
@@ -27,6 +26,8 @@
 		25824CC81D02A5DE00EC7DE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CC71D02A5DE00EC7DE6 /* Color.swift */; };
 		25824CD11D03449F00EC7DE6 /* UIViewController+SposureUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */; };
 		25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B3B9621CF66AFE00012C67 /* QueueTest.swift */; };
+		25B524721D07CECA005621EF /* SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B524711D07CECA005621EF /* SearcherTests.swift */; };
+		25B524741D07D30B005621EF /* ImagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B524731D07D30B005621EF /* ImagerTests.swift */; };
 		25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C145CD1D03F1CB00EA160D /* StreamViewController.swift */; };
 		25E4066A1CFB5F8B00FB4CF1 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */; };
 		25E4066C1CFB6B1200FB4CF1 /* GiphyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */; };
@@ -84,7 +85,6 @@
 		2519EEEB1CF0132500C8F5AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2519EEED1CF0132500C8F5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2519EEF21CF0132500C8F5AA /* SposureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SposureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2519EEF61CF0132500C8F5AA /* SposureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SposureTests.swift; sourceTree = "<group>"; };
 		2519EEF81CF0132500C8F5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2519EEFD1CF0132500C8F5AA /* SposureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SposureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2519EF011CF0132500C8F5AA /* SposureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SposureUITests.swift; sourceTree = "<group>"; };
@@ -101,6 +101,8 @@
 		25824CC71D02A5DE00EC7DE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SposureUtility.swift"; sourceTree = "<group>"; };
 		25B3B9621CF66AFE00012C67 /* QueueTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTest.swift; sourceTree = "<group>"; };
+		25B524711D07CECA005621EF /* SearcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcherTests.swift; sourceTree = "<group>"; };
+		25B524731D07D30B005621EF /* ImagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagerTests.swift; sourceTree = "<group>"; };
 		25C145CD1D03F1CB00EA160D /* StreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		25E406691CFB5F8B00FB4CF1 /* NetworkUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
 		25E4066B1CFB6B1200FB4CF1 /* GiphyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyRequest.swift; sourceTree = "<group>"; };
@@ -218,13 +220,14 @@
 		2519EEF51CF0132500C8F5AA /* SposureTests */ = {
 			isa = PBXGroup;
 			children = (
-				2519EEF61CF0132500C8F5AA /* SposureTests.swift */,
 				25B3B9621CF66AFE00012C67 /* QueueTest.swift */,
 				25F4EFEC1CF27698004637A2 /* GiphyManagerTest.swift */,
 				25E406751CFD160700FB4CF1 /* ImageManagerTests.swift */,
-				2519EEF81CF0132500C8F5AA /* Info.plist */,
-				83DEE7FC1D064B05008524B2 /* HighScoreManagerTests.swift */,
 				83DEE8011D0650A8008524B2 /* DayUtilityTests.swift */,
+				83DEE7FC1D064B05008524B2 /* HighScoreManagerTests.swift */,
+				25B524711D07CECA005621EF /* SearcherTests.swift */,
+				25B524731D07D30B005621EF /* ImagerTests.swift */,
+				2519EEF81CF0132500C8F5AA /* Info.plist */,
 			);
 			path = SposureTests;
 			sourceTree = "<group>";
@@ -708,10 +711,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				25E406761CFD160700FB4CF1 /* ImageManagerTests.swift in Sources */,
-				2519EEF71CF0132500C8F5AA /* SposureTests.swift in Sources */,
 				25F4EFED1CF27698004637A2 /* GiphyManagerTest.swift in Sources */,
+				25B524741D07D30B005621EF /* ImagerTests.swift in Sources */,
 				25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */,
 				83DEE7FD1D064B05008524B2 /* HighScoreManagerTests.swift in Sources */,
+				25B524721D07CECA005621EF /* SearcherTests.swift in Sources */,
 				83DEE8021D0650A8008524B2 /* DayUtilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
