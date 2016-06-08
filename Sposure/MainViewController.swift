@@ -34,6 +34,12 @@ class MainViewController : FormViewController {
         addSearchBar()
     }
     
+    //Redundantly show the nav bar so we don't have nav glitches
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController!.navigationBarHidden    = false
+        UIApplication.sharedApplication().statusBarHidden = false
+    }
+    
     // ------------------------ Setup ---------------------- //
     
     /**

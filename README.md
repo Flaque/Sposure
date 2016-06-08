@@ -173,3 +173,8 @@ data structure and it gets _REAL CONFUSING REAL FAST GUYS OKAY_.
 
 In our concurrency model, the resource queue is for passing data between
 one module and another.
+
+#### `Game Over`
+
+The screen after the gif stream where the user goes to see their score and
+have the option of sharing their score with other folks in the internets.

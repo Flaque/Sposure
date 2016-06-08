@@ -17,4 +17,5 @@ class GiphyRequest {
         self.offset = offset
         self.limit  = limit
     }
+    
 }

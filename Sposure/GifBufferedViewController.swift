@@ -24,6 +24,7 @@ class GifBufferController: UIViewController {
     
     let giphyManager = GiphyManager()
     let imageManager : ImageManager
+    var runningGifManager = true
     
     var startTime : CFAbsoluteTime!
     
@@ -37,6 +38,7 @@ class GifBufferController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    
     /**
      Start loading right away
      */
@@ -46,12 +48,20 @@ class GifBufferController: UIViewController {
         loadFirstGif()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        runningGifManager = false //Super fucking important to avoid memory leaks
+        isFirstImage      = false
+        giphyManager.stop()
+        imageManager.stop()
+    }
+    
     /**
      * Launches in the background a queue that attempts to pull from the queue
      * If it succeeds, it switches to the main thread and updates the queue
      *
      */
     private func loadFirstGif() {
+        print("attempting to load first Gif")
         GCDQueue.Background.async() {
             while (self.isFirstImage) {
                 self.pullsAndSets()
@@ -90,7 +100,7 @@ class GifBufferController: UIViewController {
      */
     private func launchGifWatcher() {
         GCDQueue.Background.async() {
-            while (true) {
+            while (self.runningGifManager) {
                 self.checkContinue()
             }
         }

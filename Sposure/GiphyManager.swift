@@ -43,9 +43,17 @@ class GiphyManager {
         //print("Started")
     }
     
+    deinit {
+        print("deininted giphy manager")
+    }
+    
     func start() {
         //Ask how many gifs there are.
         Searcher.ping("cats", onSuccess : setTotalCount, onError : NetworkUtility.logError)
+    }
+    
+    func stop() {
+        loading = false
     }
     
     func setTotalCount(total_count : Int) {
