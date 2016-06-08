@@ -145,9 +145,13 @@ extension MainViewController : UISearchBarDelegate {
     
     /** Search what they typed in on Giffy */
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchBar.endEditing(true)              // Have to dismiss keyboard this way.
+        searchBar.endEditing(true)      // Have to dismiss keyboard this way.
+        
         let text = searchBar.text!
-        self.performSegueWithIdentifier(toStreamSegue, sender: self)
+        
+        searchBar.text = ""     // clear text field.
+        
+        self.performSegueWithIdentifier(toStreamSegue, sender: self)  // Go to the image stream screen.
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
