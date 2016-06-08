@@ -52,6 +52,15 @@ class HighScoreManager {
         return totals
     }
     
+    /** Returns an all time complete total score. */
+    static func getTotalAllTimeScore() -> Int {
+        var total = 0
+        for score in getHighScores() {
+            total += score.score as! Int
+        }
+        return total
+    }
+    
     /** Returns a list of high scores. */
     private static func getHighScores() -> [HighScore] {
 

@@ -28,12 +28,13 @@ class MainViewController : FormViewController {
         addPlusButton()
     }
     
+    // ------------------------ Setup ---------------------- //
     
     /**
      Adds a score button in the nav bar
      */
     private func addScoreButton() {
-        let backButton = UIBarButtonItem(title: "1020", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        let backButton = UIBarButtonItem(title: String(HighScoreManager.getTotalAllTimeScore()), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.leftBarButtonItem?.tintColor = Color.redColor()
     }
@@ -42,7 +43,7 @@ class MainViewController : FormViewController {
      Adds a plus button to the nav bar
      */
     private func addPlusButton() {
-        let addButton = UIBarButtonItem.init(barButtonSystemItem: .Add, target: nil, action: nil)
+        let addButton = UIBarButtonItem.init(barButtonSystemItem: .Add, target: self, action: #selector(MainViewController.searchFear))
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.rightBarButtonItem?.tintColor = Color.blueColor()
     }
@@ -96,6 +97,13 @@ class MainViewController : FormViewController {
     //Force white status bar
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
+    }
+    
+    // ----------------------- Searching --------------------- //
+    
+    /** Display a search bar for user to search a custom fear */
+    func searchFear() {
+        
     }
 
 }
