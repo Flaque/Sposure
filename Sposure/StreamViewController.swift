@@ -26,10 +26,6 @@ class StreamViewController : GifBufferController {
         performSegueWithIdentifier("exitGifStream", sender: time)
     }
     
-    deinit {
-        print("deinited stream")
-    }
-    
     /**
      Handles the segue
      

@@ -18,18 +18,23 @@ class ImageManager {
     
     let MAX_IMAGE_AMMOUNT = 5
     var max_hit : Bool = false
+    var running = true
     
     init(giphyManager : GiphyManager) {
         self.giphyManager = giphyManager
         
        
         managerGCD.async() {
-            while(true) {
+            while(self.running) {
                 self.giphyManager.urlQueueSemaphore.wait()
                 
                 if (!self.max_hit) { self.addTask(self.giphyManager) }
             }
         }
+    }
+    
+    func stop() {
+        self.running = false
     }
     
     deinit {

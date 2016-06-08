@@ -50,6 +50,9 @@ class GifBufferController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         runningGifManager = false //Super fucking important to avoid memory leaks
+        isFirstImage      = false
+        giphyManager.stop()
+        imageManager.stop()
     }
     
     /**
@@ -58,6 +61,7 @@ class GifBufferController: UIViewController {
      *
      */
     private func loadFirstGif() {
+        print("attempting to load first Gif")
         GCDQueue.Background.async() {
             while (self.isFirstImage) {
                 self.pullsAndSets()

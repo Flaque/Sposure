@@ -52,6 +52,10 @@ class GiphyManager {
         Searcher.ping("cats", onSuccess : setTotalCount, onError : NetworkUtility.logError)
     }
     
+    func stop() {
+        loading = false
+    }
+    
     func setTotalCount(total_count : Int) {
         populateQueue(total_count)
         addTasks(total_count)
