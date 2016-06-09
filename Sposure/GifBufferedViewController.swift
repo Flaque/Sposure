@@ -10,7 +10,7 @@ import UIKit
 import GCDKit
 
 class GifBufferController: UIViewController {
-
+    
     @IBOutlet weak var imageView: UIImageView!
     
     let frontImageManagerGCD : GCDQueue = .createSerial("frontImageManagerGCD")
@@ -27,6 +27,8 @@ class GifBufferController: UIViewController {
     var runningGifManager = true
     
     var startTime : CFAbsoluteTime!
+    
+    var loader : UIActivityIndicatorView!
     
     //Timer
     var timer = NSTimer()
@@ -47,8 +49,19 @@ class GifBufferController: UIViewController {
         super.viewDidLoad()
         giphyManager.start(searchSubject)
         self.imageManager = ImageManager(giphyManager: giphyManager)
-
+        
         loadFirstGif()
+        addLoader()
+    }
+    
+    /** Adds a loader while the first GIF is loading */
+    private func addLoader() {
+        let dim : CGFloat = 50.0
+        loader = UIActivityIndicatorView(frame: CGRect(x: (view.frame.width - dim) / 2, y: (view.frame.height - dim) / 2, width: dim, height: dim))
+        loader.tintColor = UIColor.whiteColor()
+        loader.startAnimating()
+        self.view.addSubview(loader)
+        view.bringSubviewToFront(loader)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -90,6 +103,7 @@ class GifBufferController: UIViewController {
     func setImage(gifImage : GifImage) -> Void {
         GCDQueue.Main.async() {
             self.imageView.setGifImage(gifImage.image, manager: self.gifManager, loopCount: 1)
+            self.loader.removeFromSuperview()    // remove the loader.
         }
         
         if (self.isFirstImage) {
@@ -128,4 +142,3 @@ class GifBufferController: UIViewController {
     }
     
 }
-
