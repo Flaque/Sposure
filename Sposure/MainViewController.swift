@@ -16,6 +16,7 @@ class MainViewController : FormViewController {
     var searchBar : UISearchBar!
     var toStreamSegue = "toStream"
     var tapRecognizer : UITapGestureRecognizer!
+    var searchSubject : String = "Cats"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,11 @@ class MainViewController : FormViewController {
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBarHidden    = false
         UIApplication.sharedApplication().statusBarHidden = false
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let controller = segue.destinationViewController as? GifBufferController
+        controller?.searchSubject = self.searchSubject
     }
     
     // ------------------------ Setup ---------------------- //
@@ -81,37 +87,24 @@ class MainViewController : FormViewController {
             <<< GraphRow() {
                 $0.days = scores
             }
-            <<< ButtonRow() {
-                $0.title = "Cats"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Not Cats"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Vomit or something"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Just literal dog shit"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Cats"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Not Cats"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Vomit or something"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
-            }
-            <<< ButtonRow() {
-                $0.title = "Just literal dog shit"
-                $0.presentationMode = .SegueName(segueName: toStreamSegue, completionCallback: nil)
+        
+        let defaults = ["Cats","Clowns","Vomit","Spiders","Speaking","Water","Airplanes"]
+        
+        // Loop through defaults, adding them to table.
+        for subject in defaults {
+            form.first! <<< ButtonRow(subject) {
+                $0.title = $0.tag
+                
+                $0.onCellSelection({ (cell, row) in
+                    self.searchSubject = cell.textLabel!.text!  // Record what subject user selected
+                    self.performSegueWithIdentifier(self.toStreamSegue, sender: self)
+                })
+                }.cellUpdate({ (cell, row) in
+                    cell.accessoryType = .DisclosureIndicator
+                    cell.textLabel?.textAlignment = .Left
+                    cell.textLabel?.textColor = UIColor.blackColor()
+                }) //https://github.com/xmartlabs/Eureka/issues/3
+            // This styles the cells so that it appears they are disclosing another page.
         }
     }
     
@@ -123,8 +116,6 @@ class MainViewController : FormViewController {
     
     /** Invoked when user presses plus button */
     func searchFear() {
-
-
     }
 
 }
@@ -147,9 +138,8 @@ extension MainViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.endEditing(true)      // Have to dismiss keyboard this way.
         
-        let text = searchBar.text!
-        
-        searchBar.text = ""     // clear text field.
+        searchSubject = searchBar.text! // extract the search subject.
+        searchBar.text = ""     // clear search field for next time.
         
         self.performSegueWithIdentifier(toStreamSegue, sender: self)  // Go to the image stream screen.
     }

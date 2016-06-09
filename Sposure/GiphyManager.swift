@@ -39,6 +39,9 @@ class GiphyManager {
     ///Semaphore! Ooooo Fancy.
     let urlQueueSemaphore = GCDSemaphore(0)
     
+    /** The subject of the search. */
+    var searchSubject : String = "cats"
+    
     init() {
         //print("Started")
     }
@@ -47,9 +50,11 @@ class GiphyManager {
         print("deininted giphy manager")
     }
     
-    func start() {
+    func start(subject  : String) {
+        self.searchSubject = subject
+        
         //Ask how many gifs there are.
-        Searcher.ping("cats", onSuccess : setTotalCount, onError : NetworkUtility.logError)
+        Searcher.ping(searchSubject, onSuccess : setTotalCount, onError : NetworkUtility.logError)
     }
     
     func stop() {
@@ -106,7 +111,7 @@ class GiphyManager {
             
             //Don't ask for more than 100 per second. Rate limits and stuff (right? I dunno honestly)
             sleep(1)
-            Searcher.search(request, onSuccess: self.onSuccess, onError: self.onError)
+            Searcher.search(self.searchSubject, request : request, onSuccess: self.onSuccess, onError: self.onError)
         }
     }
     

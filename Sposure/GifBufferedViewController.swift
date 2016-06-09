@@ -23,7 +23,7 @@ class GifBufferController: UIViewController {
     var isFirstImage  = true
     
     let giphyManager = GiphyManager()
-    let imageManager : ImageManager
+    var imageManager : ImageManager!
     var runningGifManager = true
     
     var startTime : CFAbsoluteTime!
@@ -31,20 +31,20 @@ class GifBufferController: UIViewController {
     //Timer
     var timer = NSTimer()
     
+    var searchSubject : String!
+    
     required init?(coder aDecoder: NSCoder) {
-        giphyManager.start()
-        self.imageManager = ImageManager(giphyManager: giphyManager)
-        
         super.init(coder: aDecoder)
     }
-    
     
     /**
      Start loading right away
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        giphyManager.start(searchSubject)
+        self.imageManager = ImageManager(giphyManager: giphyManager)
+
         loadFirstGif()
     }
     

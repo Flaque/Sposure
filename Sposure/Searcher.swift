@@ -60,16 +60,17 @@ class Searcher {
     /**
      Sends the Giphy search query
      
-     pushToQueue : function that will complete on completion for each gif
-     onError     : function that will complete on error (optional)
-                 : [Default] NETWORK.logError
-     **/
-    class func search(request : GiphyRequest, onSuccess : (Gif)->Void, onError : (ErrorType, String, GiphyRequest)->Void) {
+     - Parameters:
+        - subject     : the subject we are searching for
+        - pushToQueue : function that will complete on completion for each gif
+        - onError     : function that will complete on error (optional)
+      */
+    class func search(subject : String, request : GiphyRequest, onSuccess : (Gif)->Void, onError : (ErrorType, String, GiphyRequest)->Void) {
         
         //Build parameters
         let params = [
             "api_key" : API_KEY,
-            "q"       : "cats",
+            "q"       : subject,
             "limit"   : String(request.limit),
             "rating"  : "r",
             "offset"  : String(request.offset)
