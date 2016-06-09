@@ -15,17 +15,19 @@ public class SwiftyGifManager {
     private var displayViews: [UIImageView] = []
     private var totalGifSize: Int
     private var memoryLimit: Int
-    public var  haveCache: Bool
+    public  var haveCache: Bool
+    public  var onLoopEnd : ()->Void = {}
 
     /**
      Initialize a manager
      - Parameter memoryLimit: The number of Mb max for this manager
      */
-    public init(memoryLimit: Int) {
-        self.memoryLimit = memoryLimit
+    public init(memoryLimit: Int, onLoopEnd : ()->Void = {}) {
+        self.onLoopEnd    = onLoopEnd
+        self.memoryLimit  = memoryLimit
         self.totalGifSize = 0
-        self.haveCache = true
-        self.timer = CADisplayLink(target: self, selector: #selector(self.updateImageView))
+        self.haveCache    = true
+        self.timer        = CADisplayLink(target: self, selector: #selector(self.updateImageView))
         self.timer!.addToRunLoop(.mainRunLoop(), forMode: NSRunLoopCommonModes)
     }
 
@@ -110,7 +112,7 @@ public class SwiftyGifManager {
             }
             if imageView.isAnimatingGif() {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH,0)){
-                    imageView.updateCurrentImage()
+                    imageView.updateCurrentImage(self.onLoopEnd)
                 }
             }
 

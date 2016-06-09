@@ -19,6 +19,10 @@ class GifImage {
         self.gif    = gif
     }
     
+    deinit {
+        print("---- Deinited GifImage")
+    }
+    
     /**
      * Gets a dummy GifImage for testing
      */

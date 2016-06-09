@@ -17,7 +17,8 @@ let _isPlayingKey = malloc(4)
 let _animationManagerKey = malloc(4)
 
 public extension UIImageView {
-
+    
+    
     // PRAGMA - Inits
 
     /**
@@ -58,7 +59,8 @@ public extension UIImageView {
      - Parameter manager: The manager to handle the gif display
      - Parameter loopCount: The number of loops we want for this gif. -1 means infinite.
      */
-    public func setGifImage(gifImage:UIImage, manager:SwiftyGifManager = SwiftyGifManager.defaultManager, loopCount:Int) {
+    public func setGifImage(gifImage:UIImage, manager:SwiftyGifManager = SwiftyGifManager.defaultManager,
+                            loopCount:Int) {
 
         if gifImage.imageCount < 1 {
             self.image = UIImage(data: gifImage.imageData)
@@ -179,13 +181,16 @@ public extension UIImageView {
     /**
      Update current image displayed. This method is called by the manager.
      */
-    public func updateCurrentImage() {
+    public func updateCurrentImage(onLoopEnd : ()->Void = {}) {
 
         if self.displaying{
             updateFrame()
             updateIndex()
             if loopCount == 0 || !isDisplayedInScreen(self)  || !self.isPlaying {
                 stopDisplay()
+                dispatch_async(dispatch_get_main_queue()){
+                    onLoopEnd()
+                }
             }
         }else{
             if(isDisplayedInScreen(self) && loopCount != 0 && self.isPlaying) {

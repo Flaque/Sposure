@@ -35,6 +35,9 @@ class GifBufferController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        
+        gifManager.onLoopEnd = onGifEnd //Tells when the gif is done
     }
     
     /**
@@ -53,6 +56,16 @@ class GifBufferController: UIViewController {
         isFirstImage      = false
         giphyManager.stop()
         imageManager.stop()
+    }
+    
+    /**
+     Gets called once the gif has reached the end of it's loop.
+     Pulls the image and disposes of the old one.
+     */
+    func onGifEnd() {
+        GCDQueue.Background.async() {
+            self.pullsAndSets()
+        }
     }
     
     /**
@@ -81,7 +94,6 @@ class GifBufferController: UIViewController {
         
         if (self.isFirstImage) {
             imageView.stopAnimatingGif()
-            launchGifWatcher()
         }
         
         self.isFirstImage = false
@@ -91,20 +103,9 @@ class GifBufferController: UIViewController {
      Pulls from the image manager and sets the image
      */
     private func pullsAndSets() {
-        
         self.imageManager.pull(self.setImage, onEmpty: self.onNoPull)
     }
     
-    /**
-     Launches the gif watcher
-     */
-    private func launchGifWatcher() {
-        GCDQueue.Background.async() {
-            while (self.runningGifManager) {
-                self.checkContinue()
-            }
-        }
-    }
     
     /**
      Checks if the image is finished looping.
