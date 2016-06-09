@@ -65,6 +65,8 @@ class GiphyManager {
         while (loading) {
             addTask()
         }
+        
+        print("stopped adding tasks")
     }
     
     /**
