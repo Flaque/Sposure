@@ -39,6 +39,8 @@ class MainViewController : FormViewController {
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBarHidden    = false
         UIApplication.sharedApplication().statusBarHidden = false
+        
+        reloadScores()  // Need to reload since scores have changed.
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -76,6 +78,14 @@ class MainViewController : FormViewController {
         self.navigationItem.setLeftBarButtonItems([scoreButton, searchBarButton], animated: true)
     }
     
+    /**
+     Reloads the scores in the UI. Called when user returns from game over screen.
+     */
+    func reloadScores() {
+        scoreButton.title = String(HighScoreManager.getTotalAllTimeScore())
+        let row = form.first!.rowByTag("scores") as GraphRow!
+        row.days = HighScoreManager.getScoresForLastWeek()
+    }
     
     /**
      Adds all the choices for the moment
@@ -84,7 +94,7 @@ class MainViewController : FormViewController {
         let scores = HighScoreManager.getScoresForLastWeek()
         
         form +++ Section()
-            <<< GraphRow() {
+            <<< GraphRow("scores") {
                 $0.days = scores
             }
         

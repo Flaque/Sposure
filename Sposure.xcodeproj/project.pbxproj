@@ -45,6 +45,7 @@
 		25F4EFE71CF24193004637A2 /* Searcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFE61CF24193004637A2 /* Searcher.swift */; };
 		25F4EFE91CF24417004637A2 /* Imager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFE81CF24417004637A2 /* Imager.swift */; };
 		25F4EFED1CF27698004637A2 /* GiphyManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFEC1CF27698004637A2 /* GiphyManagerTest.swift */; };
+		8322F7DE1D09AFBD00E6F8BD /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322F7DD1D09AFBD00E6F8BD /* Frame.swift */; };
 		83DEE7F51D05C1AE008524B2 /* HighScores.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F31D05C1AE008524B2 /* HighScores.xcdatamodeld */; };
 		83DEE7F81D06469C008524B2 /* HighScore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */; };
 		83DEE7F91D06469C008524B2 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F71D06469C008524B2 /* HighScore.swift */; };
@@ -124,6 +125,7 @@
 		314E32499DE8D6B3E45D74C3 /* Pods-Sposure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sposure.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sposure/Pods-Sposure.debug.xcconfig"; sourceTree = "<group>"; };
 		521C7FF1DF4E82DE9F1E409F /* Pods-SposureTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SposureTests/Pods-SposureTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B56497372B73F4839780E5D /* Pods-SposureUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SposureUITests/Pods-SposureUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8322F7DD1D09AFBD00E6F8BD /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		83DEE7F41D05C1AE008524B2 /* HighScores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HighScores.xcdatamodel; sourceTree = "<group>"; };
 		83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HighScore+CoreDataProperties.swift"; path = "../HighScore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		83DEE7F71D06469C008524B2 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighScore.swift; path = ../HighScore.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			children = (
 				25824CC71D02A5DE00EC7DE6 /* Color.swift */,
 				25824CD01D03449F00EC7DE6 /* UIViewController+SposureUtility.swift */,
+				8322F7DD1D09AFBD00E6F8BD /* Frame.swift */,
 			);
 			name = utility;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				2519EEDF1CF0132500C8F5AA /* AppDelegate.swift in Sources */,
 				83DEE7F51D05C1AE008524B2 /* HighScores.xcdatamodeld in Sources */,
 				83DEE7F91D06469C008524B2 /* HighScore.swift in Sources */,
+				8322F7DE1D09AFBD00E6F8BD /* Frame.swift in Sources */,
 				25F4EFE91CF24417004637A2 /* Imager.swift in Sources */,
 				25EB4BD91CFFB132008A74AE /* GameOverController.swift in Sources */,
 				2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */,
