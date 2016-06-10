@@ -46,6 +46,10 @@
 		25F4EFE91CF24417004637A2 /* Imager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFE81CF24417004637A2 /* Imager.swift */; };
 		25F4EFED1CF27698004637A2 /* GiphyManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4EFEC1CF27698004637A2 /* GiphyManagerTest.swift */; };
 		8322F7DE1D09AFBD00E6F8BD /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322F7DD1D09AFBD00E6F8BD /* Frame.swift */; };
+		8322F7E81D0A3FA300E6F8BD /* SearchSubjectsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322F7E71D0A3FA300E6F8BD /* SearchSubjectsManager.swift */; };
+		8322F7EA1D0B004800E6F8BD /* SearchSubjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322F7E91D0B004800E6F8BD /* SearchSubjectManagerTests.swift */; };
+		8322F7EC1D0B03C100E6F8BD /* SearchSubject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322F7EB1D0B03C100E6F8BD /* SearchSubject+CoreDataProperties.swift */; };
+		8322F7EE1D0B03F200E6F8BD /* SearchSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322F7ED1D0B03F200E6F8BD /* SearchSubject.swift */; };
 		83DEE7F51D05C1AE008524B2 /* HighScores.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F31D05C1AE008524B2 /* HighScores.xcdatamodeld */; };
 		83DEE7F81D06469C008524B2 /* HighScore+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */; };
 		83DEE7F91D06469C008524B2 /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DEE7F71D06469C008524B2 /* HighScore.swift */; };
@@ -126,6 +130,10 @@
 		521C7FF1DF4E82DE9F1E409F /* Pods-SposureTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SposureTests/Pods-SposureTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B56497372B73F4839780E5D /* Pods-SposureUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SposureUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SposureUITests/Pods-SposureUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8322F7DD1D09AFBD00E6F8BD /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		8322F7E71D0A3FA300E6F8BD /* SearchSubjectsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSubjectsManager.swift; sourceTree = "<group>"; };
+		8322F7E91D0B004800E6F8BD /* SearchSubjectManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSubjectManagerTests.swift; sourceTree = "<group>"; };
+		8322F7EB1D0B03C100E6F8BD /* SearchSubject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SearchSubject+CoreDataProperties.swift"; path = "../SearchSubject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8322F7ED1D0B03F200E6F8BD /* SearchSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSubject.swift; sourceTree = "<group>"; };
 		83DEE7F41D05C1AE008524B2 /* HighScores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HighScores.xcdatamodel; sourceTree = "<group>"; };
 		83DEE7F61D06469C008524B2 /* HighScore+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "HighScore+CoreDataProperties.swift"; path = "../HighScore+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		83DEE7F71D06469C008524B2 /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HighScore.swift; path = ../HighScore.swift; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 				25B524711D07CECA005621EF /* SearcherTests.swift */,
 				25B524731D07D30B005621EF /* ImagerTests.swift */,
 				2519EEF81CF0132500C8F5AA /* Info.plist */,
+				8322F7E91D0B004800E6F8BD /* SearchSubjectManagerTests.swift */,
 			);
 			path = SposureTests;
 			sourceTree = "<group>";
@@ -255,6 +264,7 @@
 		2519EF161CF01DE300C8F5AA /* middle-end */ = {
 			isa = PBXGroup;
 			children = (
+				8322F7DF1D0A3E8600E6F8BD /* SearchSubjects */,
 				83DEE7FE1D06501D008524B2 /* DayUtility */,
 				83DEE7F21D05BE7B008524B2 /* HighScores */,
 				25824CCF1D0343E400EC7DE6 /* utility */,
@@ -389,6 +399,16 @@
 				C05056757FC850A463B6982E /* Pods_SposureUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8322F7DF1D0A3E8600E6F8BD /* SearchSubjects */ = {
+			isa = PBXGroup;
+			children = (
+				8322F7EB1D0B03C100E6F8BD /* SearchSubject+CoreDataProperties.swift */,
+				8322F7E71D0A3FA300E6F8BD /* SearchSubjectsManager.swift */,
+				8322F7ED1D0B03F200E6F8BD /* SearchSubject.swift */,
+			);
+			name = SearchSubjects;
 			sourceTree = "<group>";
 		};
 		83DEE7F21D05BE7B008524B2 /* HighScores */ = {
@@ -694,8 +714,10 @@
 				83DEE7F91D06469C008524B2 /* HighScore.swift in Sources */,
 				8322F7DE1D09AFBD00E6F8BD /* Frame.swift in Sources */,
 				25F4EFE91CF24417004637A2 /* Imager.swift in Sources */,
+				8322F7EE1D0B03F200E6F8BD /* SearchSubject.swift in Sources */,
 				25EB4BD91CFFB132008A74AE /* GameOverController.swift in Sources */,
 				2519EF241CF0C67500C8F5AA /* Pagination.swift in Sources */,
+				8322F7E81D0A3FA300E6F8BD /* SearchSubjectsManager.swift in Sources */,
 				25F4EFD41CF0F23B004637A2 /* Images.swift in Sources */,
 				25F4EFE51CF23C17004637A2 /* Queue.swift in Sources */,
 				258099991D0488C000FC30D7 /* GraphRow.swift in Sources */,
@@ -704,6 +726,7 @@
 				25F4EFD61CF0F55D004637A2 /* GifImage.swift in Sources */,
 				25C145CE1D03F1CB00EA160D /* StreamViewController.swift in Sources */,
 				83DEE7FB1D0647E3008524B2 /* HighScoreManager.swift in Sources */,
+				8322F7EC1D0B03C100E6F8BD /* SearchSubject+CoreDataProperties.swift in Sources */,
 				25E406721CFB807B00FB4CF1 /* GiphyManager.swift in Sources */,
 				2519EF1E1CF0C22D00C8F5AA /* Gif.swift in Sources */,
 				25F4EFDE1CF2195C004637A2 /* UIImageView+SwiftyGif.swift in Sources */,
@@ -720,6 +743,7 @@
 				25B3B9631CF66AFE00012C67 /* QueueTest.swift in Sources */,
 				83DEE7FD1D064B05008524B2 /* HighScoreManagerTests.swift in Sources */,
 				25B524721D07CECA005621EF /* SearcherTests.swift in Sources */,
+				8322F7EA1D0B004800E6F8BD /* SearchSubjectManagerTests.swift in Sources */,
 				83DEE8021D0650A8008524B2 /* DayUtilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
