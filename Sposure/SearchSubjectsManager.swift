@@ -18,6 +18,8 @@ class SearchSubjectsManager {
     /** Entity identifier. */
     static let entityId = "SearchSubject"
     
+    static let defaultSearches = ["Cats","Clowns","Vomit","Spiders","Speaking","Water","Airplanes"]
+    
     /** Adds a high score to the persistent storage.
      */
     static func addSearch(subject : String) -> Void {
@@ -79,7 +81,7 @@ class SearchSubjectsManager {
     }
     
     /** Returns a list of search subjects, ordered by frequency and recency. */
-    static func getSortedSearchSubjects() -> [String] {
+    static func getSortedSearchSubjects(defaults : Bool = true) -> [String] {
         var subjects = [String]()
         
         var results = getSearchSubjects()
@@ -87,6 +89,14 @@ class SearchSubjectsManager {
         
         for r in results {
             subjects.append(r.subject!)  // take only the subject and add to string array
+        }
+        
+        // If we also want defaults, append them.
+        if defaults {
+            for sub in defaultSearches {
+                if subjects.contains(sub) { continue }  // don't add duplicates
+                subjects.append(sub)
+            }
         }
         
         return subjects

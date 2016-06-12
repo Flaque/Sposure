@@ -31,6 +31,9 @@ class GifBufferController: UIViewController {
     
     var loader : UIActivityIndicatorView!
     
+    /** Used to reload data on main screen after another score */
+    var reloadDelegate : ReloadDelegate!
+    
     @IBOutlet weak var readyButton: UIButton!
     
     //Timer

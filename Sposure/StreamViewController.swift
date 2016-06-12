@@ -11,6 +11,8 @@ import UIKit
 
 class StreamViewController : GifBufferController {
     
+    var score : Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +25,11 @@ class StreamViewController : GifBufferController {
      - parameter time:
      */
     private func gameOver(time : Double) {
+        score = Int(time)
+        
+        addHighScore()
+        reloadDelegate.reloadData()
+        
         performSegueWithIdentifier("exitGifStream", sender: time)
     }
     
@@ -38,6 +45,11 @@ class StreamViewController : GifBufferController {
                 gameOverController.score = sender as? Int
             }
         }
+    }
+    
+    /** Adds a high score to core data */
+    private func addHighScore() {
+        HighScoreManager.addScore(score!, category: searchSubject)
     }
     
     /**
@@ -65,4 +77,8 @@ class StreamViewController : GifBufferController {
             gameOver(elapsedTime)
         }
     }
+}
+
+protocol ReloadDelegate: class {
+    func reloadData()
 }
