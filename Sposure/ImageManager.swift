@@ -11,13 +11,23 @@ import GCDKit
 
 class ImageManager {
     
-    let managerGCD   : GCDQueue          = .createConcurrent("ImageManagerGCD")
-    let imageGCD     : GCDQueue          = .createSerial("imageGCD")
-    let imageQueue   : Queue<GifImage>   = Queue<GifImage>()
-    let giphyManager : GiphyManager
+    /// Manages the imageQueueSize
+    let countGCD     : GCDQueue          = .createSerial("countGCD")
     
-    let MAX_IMAGE_AMMOUNT = 5
-    var max_hit : Bool = false
+    /// Launches addTask()'s
+    let managerGCD   : GCDQueue          = .createConcurrent("ImageManagerGCD")
+    
+    /// Manages Enqueue and equeue of image queue
+    let imageGCD     : GCDQueue          = .createSerial("imageGCD")
+    
+    /// Stores the Gif Images
+    let imageQueue   : Queue<GifImage>   = Queue<GifImage>()
+    
+    
+    let giphyManager : GiphyManager
+    let MAX_IMAGE_AMMOUNT = 2
+    var imageQueueSize : Int = 0
+    var queuedTasks : Int = 0
     var running = true
     
     init(giphyManager : GiphyManager) {
@@ -28,13 +38,38 @@ class ImageManager {
             while(self.running) {
                 self.giphyManager.urlQueueSemaphore.wait()
                 
-                if (!self.max_hit) { self.addTask(self.giphyManager) }
+                // Check if we're already full with tasks
+                var stop = false
+                self.countGCD.sync() { stop = self.canAddAnotherTask() }
+                guard (!stop) else { continue }
+                
+                //Add a task
+                self.incrementTaskCount()
+                self.addTask(self.giphyManager)
             }
         }
     }
     
+    func canAddAnotherTask() -> Bool {
+        return !((self.queuedTasks + self.imageQueueSize) <= self.MAX_IMAGE_AMMOUNT)
+    }
+    
+    /**
+     Increments the queuedTasks by 1 inside of a countGCD.
+     */
+    func incrementTaskCount() {
+        self.countGCD.sync() {
+            self.queuedTasks += 1
+        }
+    }
+    
+    /**
+     Stops the system
+     */
     func stop() {
-        self.running = false
+        managerGCD.sync() {
+            self.running = false
+        }
     }
     
     deinit {
@@ -49,6 +84,7 @@ class ImageManager {
         }
         
         managerGCD.async() {
+            guard (self.running) else { print("quitting."); return }
             guard (gif != nil) else { print("gif nil"); return }
             Imager.findImage(gif, onSuccess : self.onSuccess)
         }
@@ -63,6 +99,9 @@ class ImageManager {
             self.imageQueue.enqueue(gifImage)
             
             self.checkIfMaxHit()
+        }
+        managerGCD.sync() {
+            self.queuedTasks -= 1
         }
     }
     
@@ -86,9 +125,9 @@ class ImageManager {
      */
     func checkIfMaxHit() {
         //Check if max_hit, then tell the manager GCD
-        let hit = self.imageQueue.count() >= self.MAX_IMAGE_AMMOUNT
+        let count = self.imageQueue.count()
         self.managerGCD.sync() {
-            self.max_hit = hit
+            self.imageQueueSize = count
         }
     }
     

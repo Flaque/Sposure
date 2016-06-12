@@ -116,12 +116,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sposure/ImageManager.swift"
-            timestampString = "487123227.665469"
+            timestampString = "487139259.34049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "pull(_:onEmpty:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "addTask(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,12 +164,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sposure/ImageManager.swift"
-            timestampString = "487122121.55854"
+            timestampString = "487139259.34049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "pull(_:onEmpty:)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "addTask(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -244,12 +244,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sposure/GifBufferedViewController.swift"
-            timestampString = "487123728.143783"
+            timestampString = "487137891.596344"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "setImage(_:)"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "loadFirstGif()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sposure/ImageManager.swift"
+            timestampString = "487139259.34049"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "incrementTaskCount()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sposure/ImageManager.swift"
+            timestampString = "487139259.34049"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "init(giphyManager:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

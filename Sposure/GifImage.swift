@@ -15,6 +15,7 @@ class GifImage {
     let gif : Gif!
     
     init (image : UIImage!, gif : Gif) {
+        print("+++++ Creating a Gifimage")
         self.image  = image
         self.gif    = gif
     }

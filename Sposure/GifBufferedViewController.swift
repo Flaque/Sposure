@@ -42,6 +42,10 @@ class GifBufferController: UIViewController {
         gifManager.onLoopEnd = onGifEnd //Tells when the gif is done
     }
     
+    deinit {
+        print("Deiniting gifBufferController")
+    }
+    
     /**
      Start loading right away
      */
@@ -65,10 +69,14 @@ class GifBufferController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        print("View will disappear soon")
         runningGifManager = false //Super fucking important to avoid memory leaks
         isFirstImage      = false
         giphyManager.stop()
         imageManager.stop()
+        imageView.stopAnimatingGif() //explicitly stop the animation loop
+        gifManager.deleteImageView(imageView) //explicitly delete the image view
+        self.imageManager = nil
     }
     
     /**
@@ -118,20 +126,6 @@ class GifBufferController: UIViewController {
      */
     private func pullsAndSets() {
         self.imageManager.pull(self.setImage, onEmpty: self.onNoPull)
-    }
-    
-    
-    /**
-     Checks if the image is finished looping.
-     */
-    private func checkContinue() {
-        GCDQueue.Main.sync() {
-            guard self.imageView.hasFinishedLooping() else { return }
-            
-            GCDQueue.Background.async() {
-                self.pullsAndSets()
-            }
-        }
     }
     
     /**
