@@ -21,6 +21,7 @@ class GifBufferController: UIViewController {
     let gifManager    = SwiftyGifManager(memoryLimit:20)
     var updatingImage = false
     var isFirstImage  = true
+    var firstImage : UIImage?
     
     let giphyManager = GiphyManager()
     var imageManager : ImageManager!
@@ -29,6 +30,11 @@ class GifBufferController: UIViewController {
     var startTime : CFAbsoluteTime!
     
     var loader : UIActivityIndicatorView!
+    
+    /** Used to reload data on main screen after another score */
+    var reloadDelegate : ReloadDelegate!
+    
+    @IBOutlet weak var readyButton: UIButton!
     
     //Timer
     var timer = NSTimer()
@@ -61,7 +67,7 @@ class GifBufferController: UIViewController {
     /** Adds a loader while the first GIF is loading */
     private func addLoader() {
         let dim : CGFloat = 50.0
-        loader = UIActivityIndicatorView(frame: CGRect(x: (view.frame.width - dim) / 2, y: (view.frame.height - dim) / 2, width: dim, height: dim))
+        loader = UIActivityIndicatorView(frame: CGRect(center: self.view.center, size: CGSize(width: dim, height: dim)))
         loader.tintColor = UIColor.whiteColor()
         loader.startAnimating()
         self.view.addSubview(loader)
@@ -109,9 +115,18 @@ class GifBufferController: UIViewController {
      * Pull and set the image
      */
     func setImage(gifImage : GifImage) -> Void {
-        GCDQueue.Main.async() {
-            self.imageView.setGifImage(gifImage.image, manager: self.gifManager, loopCount: 1)
-            self.loader.removeFromSuperview()    // remove the loader.
+        
+        // If first image, don't quite yet display it.
+        if self.isFirstImage {
+            GCDQueue.Main.async() {
+                self.readyButton.hidden = false  // Make the begin button visible now.
+                self.loader.removeFromSuperview()    // remove the loader.
+                self.firstImage = gifImage.image
+            }
+        } else  {
+            GCDQueue.Main.async() {
+               self.imageView.setGifImage(gifImage.image, manager: self.gifManager, loopCount: 1)
+            }
         }
         
         if (self.isFirstImage) {

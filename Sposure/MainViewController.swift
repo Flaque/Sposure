@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Eureka
 
-class MainViewController : FormViewController {
+class MainViewController : FormViewController, ReloadDelegate {
     
     var scoreButton : UIBarButtonItem!
     var searchBar : UISearchBar!
@@ -29,7 +29,8 @@ class MainViewController : FormViewController {
         UIApplication.sharedApplication().statusBarHidden = false
         
         
-        addChoices()
+        addScoreGraph()
+        addSearchSuggestions()
         addScoreButton()
         addPlusButton()
         addSearchBar()
@@ -44,6 +45,7 @@ class MainViewController : FormViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as? GifBufferController
         controller?.searchSubject = self.searchSubject
+        controller?.reloadDelegate = self
     }
     
     // ------------------------ Setup ---------------------- //
@@ -76,22 +78,39 @@ class MainViewController : FormViewController {
         self.navigationItem.setLeftBarButtonItems([scoreButton, searchBarButton], animated: true)
     }
     
+    /**
+     Reloads the scores in the UI. Called when user returns from game over screen.
+     */
+    func reloadData() {
+        
+        // Reset score
+        scoreButton.title = String(HighScoreManager.getTotalAllTimeScore())
+        
+        // Reset graph and search suggestions.
+        form.removeAll()
+        addScoreGraph()
+        addSearchSuggestions()
+    }
     
     /**
-     Adds all the choices for the moment
+     Adds the graph of scores
      */
-    private func addChoices() {
+    private func addScoreGraph() {
         let scores = HighScoreManager.getScoresForLastWeek()
         
         form +++ Section()
-            <<< GraphRow() {
+            <<< GraphRow("scores") {
                 $0.days = scores
             }
-        
-        let defaults = ["Cats","Clowns","Vomit","Spiders","Speaking","Water","Airplanes"]
+    }
+    
+    /**
+     Adds the search suggestions.
+     */
+    private func addSearchSuggestions() {
         
         // Loop through defaults, adding them to table.
-        for subject in defaults {
+        for subject in SearchSubjectsManager.getSortedSearchSubjects() {
             form.first! <<< ButtonRow(subject) {
                 $0.title = $0.tag
                 
@@ -140,6 +159,8 @@ extension MainViewController : UISearchBarDelegate {
         
         searchSubject = searchBar.text! // extract the search subject.
         searchBar.text = ""     // clear search field for next time.
+        
+        SearchSubjectsManager.addSearch(searchSubject)  // save search to device.
         
         self.performSegueWithIdentifier(toStreamSegue, sender: self)  // Go to the image stream screen.
     }
