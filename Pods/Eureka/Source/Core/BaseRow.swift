@@ -24,7 +24,7 @@
 
 import Foundation
 
-public class BaseRow : BaseRowType {
+open class BaseRow : BaseRowType {
     
     var callbackOnChange: (()->Void)?
     var callbackCellUpdate: (()->Void)?
@@ -37,45 +37,45 @@ public class BaseRow : BaseRowType {
     var _inlineRow: BaseRow?
     
     /// The title will be displayed in the textLabel of the row.
-    public var title: String?
+    open var title: String?
     
     /// Parameter used when creating the cell for this row.
-    public var cellStyle = UITableViewCellStyle.Value1
+    open var cellStyle = UITableViewCellStyle.value1
     
     /// String that uniquely identifies a row. Must be unique among rows and sections.
-    public var tag: String?
+    open var tag: String?
     
     /// The untyped cell associated to this row.
-    public var baseCell: BaseCell! { return nil }
+    open var baseCell: BaseCell! { return nil }
     
     /// The untyped value of this row.
-    public var baseValue: Any? {
+    open var baseValue: Any? {
         set {}
         get { return nil }
     }
     
-    public static var estimatedRowHeight: CGFloat = 44.0
+    open static var estimatedRowHeight: CGFloat = 44.0
     
     /// Condition that determines if the row should be disabled or not.
-    public var disabled : Condition? {
+    open var disabled : Condition? {
         willSet { removeFromDisabledRowObservers() }
         didSet  { addToDisabledRowObservers() }
     }
     
     /// Condition that determines if the row should be hidden or not.
-    public var hidden : Condition? {
+    open var hidden : Condition? {
         willSet { removeFromHiddenRowObservers() }
         didSet  { addToHiddenRowObservers() }
     }
     
     /// Returns if this row is currently disabled or not
-    public var isDisabled : Bool { return disabledCache }
+    open var isDisabled : Bool { return disabledCache }
     
     /// Returns if this row is currently hidden or not
-    public var isHidden : Bool { return hiddenCache }
+    open var isHidden : Bool { return hiddenCache }
     
     /// The section to which this row belongs.
-    public weak var section: Section?
+    open weak var section: Section?
     
     public required init(tag: String? = nil){
         self.tag = tag
@@ -84,35 +84,35 @@ public class BaseRow : BaseRowType {
     /**
      Method that reloads the cell
      */
-    public func updateCell() {}
+    open func updateCell() {}
     
     /**
      Method called when the cell belonging to this row was selected. Must call the corresponding method in its cell.
      */
-    public func didSelect() {}
+    open func didSelect() {}
     
     /**
      Method that is responsible for highlighting the cell.
      */
-    public func hightlightCell() {}
+    open func hightlightCell() {}
     
     /**
      Method that is responsible for unhighlighting the cell.
      */
-    public func unhighlightCell() {}
+    open func unhighlightCell() {}
     
-    public func prepareForSegue(segue: UIStoryboardSegue) {}
+    open func prepareForSegue(_ segue: UIStoryboardSegue) {}
     
     /**
      Returns the NSIndexPath where this row is in the current form.
      */
-    public final func indexPath() -> NSIndexPath? {
-        guard let sectionIndex = section?.index, let rowIndex = section?.indexOf(self) else { return nil }
-        return NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+    public final func indexPath() -> IndexPath? {
+        guard let sectionIndex = section?.index, let rowIndex = section?.index(of: self) else { return nil }
+        return IndexPath(row: rowIndex, section: sectionIndex)
     }
     
-    private var hiddenCache = false
-    private var disabledCache = false {
+    fileprivate var hiddenCache = false
+    fileprivate var disabledCache = false {
         willSet {
             if newValue == true && disabledCache == false  {
                 baseCell.cellResignFirstResponder()
@@ -129,10 +129,10 @@ extension BaseRow {
     public final func evaluateHidden() {
         guard let h = hidden, let form = section?.form else { return }
         switch h {
-        case .Function(_ , let callback):
+        case .function(_ , let callback):
             hiddenCache = callback(form)
-        case .Predicate(let predicate):
-            hiddenCache = predicate.evaluateWithObject(self, substitutionVariables: form.dictionaryValuesToEvaluatePredicate())
+        case .predicate(let predicate):
+            hiddenCache = predicate.evaluate(with: self, substitutionVariables: form.dictionaryValuesToEvaluatePredicate())
         }
         if hiddenCache {
             section?.hideRow(self)
@@ -146,17 +146,17 @@ extension BaseRow {
      Evaluates if the row should be disabled or not and updates it accordingly
      */
     public final func evaluateDisabled() {
-        guard let d = disabled, form = section?.form else { return }
+        guard let d = disabled, let form = section?.form else { return }
         switch d {
-        case .Function(_ , let callback):
+        case .function(_ , let callback):
             disabledCache = callback(form)
-        case .Predicate(let predicate):
-            disabledCache = predicate.evaluateWithObject(self, substitutionVariables: form.dictionaryValuesToEvaluatePredicate())
+        case .predicate(let predicate):
+            disabledCache = predicate.evaluate(with: self, substitutionVariables: form.dictionaryValuesToEvaluatePredicate())
         }
         updateCell()
     }
     
-    final func wasAddedToFormInSection(section: Section) {
+    final func wasAddedToFormInSection(_ section: Section) {
         self.section = section
         if let t = tag {
             assert(section.form?.rowsByTag[t] == nil, "Duplicate tag \(t)")
@@ -171,20 +171,20 @@ extension BaseRow {
     final func addToHiddenRowObservers() {
         guard let h = hidden else { return }
         switch h {
-        case .Function(let tags, _):
-            section?.form?.addRowObservers(self, rowTags: tags, type: .Hidden)
-        case .Predicate(let predicate):
-            section?.form?.addRowObservers(self, rowTags: predicate.predicateVars, type: .Hidden)
+        case .function(let tags, _):
+            section?.form?.addRowObservers(self, rowTags: tags, type: .hidden)
+        case .predicate(let predicate):
+            section?.form?.addRowObservers(self, rowTags: predicate.predicateVars, type: .hidden)
         }
     }
     
     final func addToDisabledRowObservers() {
         guard let d = disabled else { return }
         switch d {
-        case .Function(let tags, _):
-            section?.form?.addRowObservers(self, rowTags: tags, type: .Disabled)
-        case .Predicate(let predicate):
-            section?.form?.addRowObservers(self, rowTags: predicate.predicateVars, type: .Disabled)
+        case .function(let tags, _):
+            section?.form?.addRowObservers(self, rowTags: tags, type: .disabled)
+        case .predicate(let predicate):
+            section?.form?.addRowObservers(self, rowTags: predicate.predicateVars, type: .disabled)
         }
     }
     
@@ -206,20 +206,20 @@ extension BaseRow {
     final func removeFromHiddenRowObservers() {
         guard let h = hidden else { return }
         switch h {
-        case .Function(let tags, _):
-            section?.form?.removeRowObservers(self, rows: tags, type: .Hidden)
-        case .Predicate(let predicate):
-            section?.form?.removeRowObservers(self, rows: predicate.predicateVars, type: .Hidden)
+        case .function(let tags, _):
+            section?.form?.removeRowObservers(self, rows: tags, type: .hidden)
+        case .predicate(let predicate):
+            section?.form?.removeRowObservers(self, rows: predicate.predicateVars, type: .hidden)
         }
     }
     
     final func removeFromDisabledRowObservers() {
         guard let d = disabled else { return }
         switch d {
-        case .Function(let tags, _):
-            section?.form?.removeRowObservers(self, rows: tags, type: .Disabled)
-        case .Predicate(let predicate):
-            section?.form?.removeRowObservers(self, rows: predicate.predicateVars, type: .Disabled)
+        case .function(let tags, _):
+            section?.form?.removeRowObservers(self, rows: tags, type: .disabled)
+        case .predicate(let predicate):
+            section?.form?.removeRowObservers(self, rows: predicate.predicateVars, type: .disabled)
         }
     }
     
@@ -234,19 +234,19 @@ extension BaseRow: Equatable, Hidable, Disableable {}
 
 extension BaseRow {
     
-    public func reload(rowAnimation: UITableViewRowAnimation = .None) {
-        guard let tableView = baseCell?.formViewController()?.tableView ?? (section?.form?.delegate as? FormViewController)?.tableView, indexPath = indexPath() else { return }
-        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
+    public func reload(_ rowAnimation: UITableViewRowAnimation = .none) {
+        guard let tableView = baseCell?.formViewController()?.tableView ?? (section?.form?.delegate as? FormViewController)?.tableView, let indexPath = indexPath() else { return }
+        tableView.reloadRows(at: [indexPath], with: rowAnimation)
     }
     
-    public func deselect(animated: Bool = true) {
-        guard let indexPath = indexPath(), tableView = baseCell?.formViewController()?.tableView ?? (section?.form?.delegate as? FormViewController)?.tableView  else { return }
-        tableView.deselectRowAtIndexPath(indexPath, animated: animated)
+    public func deselect(_ animated: Bool = true) {
+        guard let indexPath = indexPath(), let tableView = baseCell?.formViewController()?.tableView ?? (section?.form?.delegate as? FormViewController)?.tableView  else { return }
+        tableView.deselectRow(at: indexPath, animated: animated)
     }
     
-    public func select(animated: Bool = false) {
-        guard let indexPath = indexPath(), tableView = baseCell?.formViewController()?.tableView ?? (section?.form?.delegate as? FormViewController)?.tableView  else { return }
-        tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: .None)
+    public func select(_ animated: Bool = false) {
+        guard let indexPath = indexPath(), let tableView = baseCell?.formViewController()?.tableView ?? (section?.form?.delegate as? FormViewController)?.tableView  else { return }
+        tableView.selectRow(at: indexPath, animated: animated, scrollPosition: .none)
     }
 }
 

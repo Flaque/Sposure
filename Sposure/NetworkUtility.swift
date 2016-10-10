@@ -14,7 +14,7 @@ class NetworkUtility {
      Utility function that logs errors
      msg : String - The error msg
      */
-    class func logError(msg : String) {
+    class func logError(_ msg : String) {
         print("NETWORK ERROR: " + msg)
     }
 }

@@ -9,53 +9,57 @@
 import Foundation
 
 
-public class DateInlineCell : Cell<NSDate>, CellType {
+open class DateInlineCell : Cell<Date>, CellType {
     
     public required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        accessoryType = .None
-        editingAccessoryType =  .None
+        accessoryType = .none
+        editingAccessoryType =  .none
     }
     
-    public override func update() {
+    open override func update() {
         super.update()
-        selectionStyle = row.isDisabled ? .None : .Default
+        selectionStyle = row.isDisabled ? .none : .default
     }
     
-    public override func didSelect() {
+    open override func didSelect() {
         super.didSelect()
         row.deselect()
     }
 }
 
 
-public class _DateInlineFieldRow: Row<NSDate, DateInlineCell>, DatePickerRowProtocol, NoValueDisplayTextConformance {
+open class _DateInlineFieldRow: Row<Date, DateInlineCell>, DatePickerRowProtocol, NoValueDisplayTextConformance {
     
     /// The minimum value for this row's UIDatePicker
-    public var minimumDate : NSDate?
+    open var minimumDate : Date?
     
     /// The maximum value for this row's UIDatePicker
-    public var maximumDate : NSDate?
+    open var maximumDate : Date?
     
     /// The interval between options for this row's UIDatePicker
-    public var minuteInterval : Int?
+    open var minuteInterval : Int?
     
     /// The formatter for the date picked by the user
-    public var dateFormatter: NSDateFormatter?
+    open var dateFormatter: DateFormatter?
     
-    public var noValueDisplayText: String?
+    open var noValueDisplayText: String?
     
     required public init(tag: String?) {
         super.init(tag: tag)
-        dateFormatter = NSDateFormatter()
-        dateFormatter?.locale = .currentLocale()
+        dateFormatter = DateFormatter()
+        dateFormatter?.locale = .current()
         displayValueFor = { [unowned self] value in
             guard let val = value, let formatter = self.dateFormatter else { return nil }
-            return formatter.stringFromDate(val)
+            return formatter.string(from: val)
         }
     }
 }

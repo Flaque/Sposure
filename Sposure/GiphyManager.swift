@@ -23,18 +23,18 @@ import GCDKit
 
 class GiphyManager {
     
-    private let managerGCD   : GCDQueue  = .createSerial("giphyManagerGCD")
-    private let requestGCD   : GCDQueue  = .createSerial("requestAccessGCD")
+    fileprivate let managerGCD   : GCDQueue  = .createSerial("giphyManagerGCD")
+    fileprivate let requestGCD   : GCDQueue  = .createSerial("requestAccessGCD")
     let responseGCD          : GCDQueue  = .createSerial("responseGCD")
     
     ///These are requests going out
-    private let requestQueue : Queue<GiphyRequest> = Queue<GiphyRequest>()
+    fileprivate let requestQueue : Queue<GiphyRequest> = Queue<GiphyRequest>()
     
     ///These are requests coming in
     let responseQueue : Queue<Gif> = Queue<Gif>()
     
     ///Stops when the request queue is empty.
-    private var loading = true
+    fileprivate var loading = true
     
     ///Semaphore! Ooooo Fancy.
     let urlQueueSemaphore = GCDSemaphore(0)
@@ -50,7 +50,7 @@ class GiphyManager {
         print("deininted giphy manager")
     }
     
-    func start(subject  : String) {
+    func start(_ subject  : String) {
         self.searchSubject = subject
         
         //Ask how many gifs there are.
@@ -61,12 +61,12 @@ class GiphyManager {
         loading = false
     }
     
-    func setTotalCount(total_count : Int) {
+    func setTotalCount(_ total_count : Int) {
         populateQueue(total_count)
         addTasks(total_count)
     }
     
-    func addTasks(total_count : Int) {
+    func addTasks(_ total_count : Int) {
         while (loading) {
             addTask()
         }
@@ -77,7 +77,7 @@ class GiphyManager {
     /**
      * Populate the queue before we do anything.
      */
-    func populateQueue(total_count : Int) {
+    func populateQueue(_ total_count : Int) {
         
         let limit = 100
         let total_double = Double(total_count)
@@ -108,7 +108,7 @@ class GiphyManager {
      * Launches a batch, which will call Alamofire, which launches
      * an async request to do onSuccess.
      */
-    func launchBatch(request : GiphyRequest) {
+    func launchBatch(_ request : GiphyRequest) {
         managerGCD.async() {
             
             //Don't ask for more than 100 per second. Rate limits and stuff (right? I dunno honestly)
@@ -121,7 +121,7 @@ class GiphyManager {
      * If something failed, add it back to the end of the queue
      * for a retry and then continue on.
      */
-    func onError(type : Searcher.ErrorType, msg : String, request : GiphyRequest) -> Void {
+    func onError(_ type : Searcher.ErrorType, msg : String, request : GiphyRequest) -> Void {
         
         loading = false
     }
@@ -129,7 +129,7 @@ class GiphyManager {
     /**
      * If something succeeds, add it to the responseQueue.
      */
-    func onSuccess(gif : Gif) -> Void {
+    func onSuccess(_ gif : Gif) -> Void {
         
         responseGCD.async() {
             self.responseQueue.enqueue(gif)

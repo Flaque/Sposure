@@ -28,7 +28,7 @@ import Foundation
 /**
 A wrapper and utility class for dispatch_group_t.
 */
-@available(iOS, introduced=7.0)
+@available(iOS, introduced: 7.0)
 public struct GCDGroup {
     
     /**
@@ -36,7 +36,7 @@ public struct GCDGroup {
     */
     public init() {
         
-        self.rawObject = dispatch_group_create()
+        self.rawObject = DispatchGroup()
     }
     
     /**
@@ -44,9 +44,9 @@ public struct GCDGroup {
     
     - returns: The group. Useful when chaining async invocations on the group.
     */
-    public func async(queue: GCDQueue, _ closure: () -> Void) -> GCDGroup {
+    public func async(_ queue: GCDQueue, _ closure: @escaping () -> Void) -> GCDGroup {
         
-        dispatch_group_async(self.rawObject, queue.dispatchQueue()) {
+        queue.dispatchQueue().async(group: self.rawObject) {
             
             autoreleasepool(closure)
         }
@@ -58,7 +58,7 @@ public struct GCDGroup {
     */
     public func enter() {
         
-        dispatch_group_enter(self.rawObject)
+        self.rawObject.enter()
     }
     
     /**
@@ -66,7 +66,7 @@ public struct GCDGroup {
     */
     public func leave() {
         
-        dispatch_group_leave(self.rawObject)
+        self.rawObject.leave()
     }
     
     /**
@@ -75,7 +75,7 @@ public struct GCDGroup {
     */
     public func enterOnce() -> Int32 {
         
-        dispatch_group_enter(self.rawObject)
+        self.rawObject.enter()
         return 1
     }
     
@@ -85,11 +85,11 @@ public struct GCDGroup {
     - parameter onceToken: The address of the value returned from `enterOnce()`.
     - returns: Returns `true` if `dispatch_group_leave()` was called, or `false` if not.
     */
-    public func leaveOnce(inout onceToken: Int32) -> Bool {
+    public func leaveOnce(_ onceToken: inout Int32) -> Bool {
         
         if OSAtomicCompareAndSwapInt(1, 0, &onceToken) {
             
-            dispatch_group_leave(self.rawObject)
+            self.rawObject.leave()
             return true
         }
         return false
@@ -101,9 +101,9 @@ public struct GCDGroup {
     - parameter queue: The queue to which the supplied closure is submitted when the group completes.
     - parameter closure: The closure to submit to the target queue.
     */
-    public func notify(queue: GCDQueue, _ closure: () -> Void) {
+    public func notify(_ queue: GCDQueue, _ closure: @escaping () -> Void) {
         
-        dispatch_group_notify(self.rawObject, queue.dispatchQueue()) {
+        self.rawObject.notify(queue: queue.dispatchQueue()) {
             
             autoreleasepool(closure)
         }
@@ -114,7 +114,7 @@ public struct GCDGroup {
     */
     public func wait() {
         
-        dispatch_group_wait(self.rawObject, DISPATCH_TIME_FOREVER)
+        self.rawObject.wait(timeout: DispatchTime.distantFuture)
     }
     
     /**
@@ -123,9 +123,9 @@ public struct GCDGroup {
     - parameter timeout: The number of seconds before timeout.
     - returns: Returns zero on success, or non-zero if the timeout occurred.
     */
-    public func wait(timeout: NSTimeInterval) -> Int {
+    public func wait(_ timeout: TimeInterval) -> Int {
         
-        return dispatch_group_wait(self.rawObject, dispatch_time(DISPATCH_TIME_NOW, Int64(timeout * NSTimeInterval(NSEC_PER_SEC))))
+        return self.rawObject.wait(timeout: DispatchTime.now() + Double(Int64(timeout * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC))
     }
     
     /**
@@ -134,7 +134,7 @@ public struct GCDGroup {
     - parameter date: The timeout date.
     - returns: Returns zero on success, or non-zero if the timeout occurred.
     */
-    public func wait(date: NSDate) -> Int {
+    public func wait(_ date: Date) -> Int {
         
         return self.wait(date.timeIntervalSinceNow)
     }
@@ -144,12 +144,12 @@ public struct GCDGroup {
     
     - returns: The dispatch_group_t object associated with this value.
     */
-    public func dispatchGroup() -> dispatch_group_t {
+    public func dispatchGroup() -> DispatchGroup {
         
         return self.rawObject
     }
     
-    private let rawObject: dispatch_group_t
+    fileprivate let rawObject: DispatchGroup
 }
 
 public func ==(lhs: GCDGroup, rhs: GCDGroup) -> Bool {

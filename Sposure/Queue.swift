@@ -17,13 +17,13 @@ class _QueueItem<T> {
     }
 }
 
-public class Queue<T> {
+open class Queue<T> {
     
     typealias Element = T
     
-    private var _front : _QueueItem<Element>
-    private var _back  : _QueueItem<Element>
-    private var _count : Int
+    fileprivate var _front : _QueueItem<Element>
+    fileprivate var _back  : _QueueItem<Element>
+    fileprivate var _count : Int
     
     public init () {
         // Insert dummy item. Will disappear when the first item is added.
@@ -33,7 +33,7 @@ public class Queue<T> {
     }
     
     /// Add a new item to the back of the queue.
-    func enqueue (value: Element) {
+    func enqueue (_ value: Element) {
         self._back.next = _QueueItem(value)
         self._back = self._back.next!
         self._count += 1
@@ -51,7 +51,7 @@ public class Queue<T> {
     }
     
     ///Do something once the queue is past a "low" point
-    func dequeue(low : Int, onLow : () -> Void) -> Element? {
+    func dequeue(_ low : Int, onLow : () -> Void) -> Element? {
         if let newhead = self._front.next {
             self._count -= 1
             self._front = newhead
@@ -66,7 +66,7 @@ public class Queue<T> {
         }
     }
     
-    public func say() {
+    open func say() {
         print("Pretty picture")
     }
     

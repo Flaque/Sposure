@@ -15,17 +15,21 @@ public final class CheckCell : Cell<Bool>, CellType {
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func update() {
         super.update()
-        accessoryType = row.value == true ? .Checkmark : .None
+        accessoryType = row.value == true ? .checkmark : .none
         editingAccessoryType = accessoryType
-        selectionStyle = .Default
+        selectionStyle = .default
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         tintColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         if row.isDisabled {
             tintColor = UIColor(red: red, green: green, blue: blue, alpha: 0.3)
-            selectionStyle = .None
+            selectionStyle = .none
         }
         else {
             tintColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
@@ -34,7 +38,7 @@ public final class CheckCell : Cell<Bool>, CellType {
     
     public override func setup() {
         super.setup()
-        accessoryType =  .Checkmark
+        accessoryType =  .checkmark
         editingAccessoryType = accessoryType
     }
     
@@ -48,7 +52,7 @@ public final class CheckCell : Cell<Bool>, CellType {
 
 // MARK: CheckRow
 
-public class _CheckRow: Row<Bool, CheckCell> {
+open class _CheckRow: Row<Bool, CheckCell> {
     
     required public init(tag: String?) {
         super.init(tag: tag)

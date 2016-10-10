@@ -29,7 +29,7 @@ import Foundation
 /**
 A wrapper and utility class for dispatch_source_t of type DISPATCH_SOURCE_TYPE_TIMER.
 */
-@available(iOS, introduced=7.0)
+@available(iOS, introduced: 7.0)
 public final class GCDTimer {
     
     /**
@@ -40,7 +40,7 @@ public final class GCDTimer {
     - parameter closure: The closure to submit to the timer queue.
     - returns: The created suspended timer.
     */
-    public class func createSuspended(queue: GCDQueue, interval: NSTimeInterval, eventHandler: (timer: GCDTimer) -> Void) -> GCDTimer {
+    public class func createSuspended(_ queue: GCDQueue, interval: TimeInterval, eventHandler: @escaping (_ timer: GCDTimer) -> Void) -> GCDTimer {
         
         let timer = GCDTimer(queue: queue)
         timer.setTimer(interval)
@@ -56,7 +56,7 @@ public final class GCDTimer {
     - parameter closure: The closure to submit to the timer queue.
     - returns: The created auto-start timer.
     */
-    public class func createAutoStart(queue: GCDQueue, interval: NSTimeInterval, eventHandler: (timer: GCDTimer) -> Void) -> GCDTimer {
+    public class func createAutoStart(_ queue: GCDQueue, interval: TimeInterval, eventHandler: @escaping (_ timer: GCDTimer) -> Void) -> GCDTimer {
         
         let timer = GCDTimer(queue: queue)
         timer.setTimer(interval)
@@ -71,21 +71,21 @@ public final class GCDTimer {
     public func resume() {
         
         var isSuspended = false
-        dispatch_barrier_sync(self.barrierQueue) {
+        self.barrierQueue.sync(flags: .barrier, execute: {
             
             isSuspended = self.isSuspended
             if isSuspended {
                 
                 self.isSuspended = false
             }
-        }
+        }) 
         
         if !isSuspended {
             
             return
         }
         
-        dispatch_resume(self.rawObject)
+        self.rawObject.resume()
     }
     
     /**
@@ -94,27 +94,27 @@ public final class GCDTimer {
     public func suspend() {
         
         var isSuspended = false
-        dispatch_barrier_sync(self.barrierQueue) {
+        self.barrierQueue.sync(flags: .barrier, execute: {
             
             isSuspended = self.isSuspended
             if !isSuspended {
                 
                 self.isSuspended = true
             }
-        }
+        }) 
         
         if isSuspended {
             
             return
         }
         
-        dispatch_suspend(self.rawObject)
+        self.rawObject.suspend()
     }
     
     /**
     Sets a timer relative to the default clock.
     */
-    public func setTimer(interval: NSTimeInterval) {
+    public func setTimer(_ interval: TimeInterval) {
         
         self.setTimer(interval, leeway: 0.0)
     }
@@ -122,20 +122,18 @@ public final class GCDTimer {
     /**
     Sets a timer relative to the default clock.
     */
-    public func setTimer(interval: NSTimeInterval, leeway: NSTimeInterval) {
+    public func setTimer(_ interval: TimeInterval, leeway: TimeInterval) {
         
-        let deltaTime = interval * NSTimeInterval(NSEC_PER_SEC)
-        dispatch_source_set_timer(
-            self.rawObject,
-            dispatch_time(DISPATCH_TIME_NOW, Int64(deltaTime)),
-            UInt64(deltaTime),
-            UInt64(leeway * NSTimeInterval(NSEC_PER_SEC)))
+        let deltaTime = interval * TimeInterval(NSEC_PER_SEC)
+        self.rawObject.setTimer(start: DispatchTime.now() + Double(Int64(deltaTime)) / Double(NSEC_PER_SEC),
+            interval: UInt64(deltaTime),
+            leeway: UInt64(leeway * TimeInterval(NSEC_PER_SEC)))
     }
     
     /**
     Sets a timer using an absolute time according to the wall clock.
     */
-    public func setWallTimer(startDate startDate: NSDate, interval: NSTimeInterval){
+    public func setWallTimer(startDate: Date, interval: TimeInterval){
         
         self.setWallTimer(startDate: startDate, interval: interval, leeway: 0.0)
     }
@@ -143,23 +141,21 @@ public final class GCDTimer {
     /**
     Sets a timer using an absolute time according to the wall clock.
     */
-    public func setWallTimer(startDate startDate: NSDate, interval: NSTimeInterval, leeway: NSTimeInterval){
+    public func setWallTimer(startDate: Date, interval: TimeInterval, leeway: TimeInterval){
         
         var walltime = startDate.timeIntervalSince1970.toTimeSpec()
-        let deltaTime = interval * NSTimeInterval(NSEC_PER_SEC)
-        dispatch_source_set_timer(
-            self.rawObject,
-            dispatch_walltime(&walltime, Int64(deltaTime)),
-            UInt64(deltaTime),
-            UInt64(leeway * NSTimeInterval(NSEC_PER_SEC)))
+        let deltaTime = interval * TimeInterval(NSEC_PER_SEC)
+        self.rawObject.setTimer(start: DispatchWallTime(time: &walltime),
+            interval: UInt64(deltaTime),
+            leeway: UInt64(leeway * TimeInterval(NSEC_PER_SEC)))
     }
     
     /**
     Sets the event handler for the timer.
     */
-    public func setEventHandler(eventHandler: (timer: GCDTimer) -> Void) {
+    public func setEventHandler(_ eventHandler: @escaping (_ timer: GCDTimer) -> Void) {
         
-        dispatch_source_set_event_handler(self.rawObject) { [weak self] in
+        self.rawObject.setEventHandler { [weak self] in
             
             guard let strongSelf = self else {
                 
@@ -168,7 +164,7 @@ public final class GCDTimer {
             
             autoreleasepool {
                 
-                eventHandler(timer: strongSelf)
+                eventHandler(strongSelf)
             }
         }
     }
@@ -179,10 +175,10 @@ public final class GCDTimer {
     public var isRunning: Bool {
         
         var isSuspended = false
-        dispatch_barrier_sync(self.barrierQueue) {
+        self.barrierQueue.sync(flags: .barrier, execute: {
             
             isSuspended = self.isSuspended
-        }
+        }) 
         return !isSuspended
     }
     
@@ -191,18 +187,18 @@ public final class GCDTimer {
     
     - returns: The dispatch_source_t object associated with the timer.
     */
-    public func dispatchSource() -> dispatch_source_t {
+    public func dispatchSource() -> DispatchSource {
         
         return self.rawObject
     }
     
-    private init(queue: GCDQueue) {
+    fileprivate init(queue: GCDQueue) {
         
-        let dispatchTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue.dispatchQueue())
+        let dispatchTimer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: queue.dispatchQueue())
         
         self.queue = queue
         self.rawObject = dispatchTimer
-        self.barrierQueue = dispatch_queue_create("com.GCDTimer.barrierQueue", DISPATCH_QUEUE_CONCURRENT)
+        self.barrierQueue = DispatchQueue(label: "com.GCDTimer.barrierQueue", attributes: DispatchQueue.Attributes.concurrent)
         self.isSuspended = true
     }
     
@@ -210,24 +206,24 @@ public final class GCDTimer {
         
         self.setEventHandler { (_) -> Void in }
         self.resume()
-        dispatch_source_cancel(self.rawObject)
+        self.rawObject.cancel()
     }
     
-    private let queue: GCDQueue
-    private let rawObject: dispatch_source_t
-    private let barrierQueue: dispatch_queue_t
-    private var isSuspended: Bool
+    fileprivate let queue: GCDQueue
+    fileprivate let rawObject: DispatchSource
+    fileprivate let barrierQueue: DispatchQueue
+    fileprivate var isSuspended: Bool
 }
 
 
-private extension NSTimeInterval {
+private extension TimeInterval {
     
-    private func toTimeSpec() -> timespec {
+    func toTimeSpec() -> timespec {
         
-        var seconds: NSTimeInterval = 0.0
+        var seconds: TimeInterval = 0.0
         let fractionalPart = modf(self, &seconds)
         
-        let nanoSeconds = fractionalPart * NSTimeInterval(NSEC_PER_SEC)
+        let nanoSeconds = fractionalPart * TimeInterval(NSEC_PER_SEC)
         return timespec(tv_sec: __darwin_time_t(seconds), tv_nsec: Int(nanoSeconds))
     }
 }

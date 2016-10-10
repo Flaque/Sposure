@@ -50,7 +50,7 @@ infix operator +++= { associativity left precedence 95 }
  - parameter left:  the form
  - parameter right: the section to be appended
  */
-public func +++=(inout left: Form, right: Section){
+public func +++=(left: inout Form, right: Section){
     left = left +++ right
 }
 
@@ -60,7 +60,7 @@ public func +++=(inout left: Form, right: Section){
  - parameter left:  the form
  - parameter right: the row
  */
-public func +++=(inout left: Form, right: BaseRow){
+public func +++=(left: inout Form, right: BaseRow){
     left +++= Section() <<< right
 }
 
@@ -126,8 +126,8 @@ public func <<<(left: BaseRow, right: BaseRow) -> Section {
  - parameter lhs: the section
  - parameter rhs: the rows to be appended
  */
-public func +=< C : CollectionType where C.Generator.Element == BaseRow>(inout lhs: Section, rhs: C){
-    lhs.appendContentsOf(rhs)
+public func +=< C : Collection>(lhs: inout Section, rhs: C) where C.Iterator.Element == BaseRow{
+    lhs.append(formRow: rhs as! BaseRow)
 }
 
 /**
@@ -136,6 +136,6 @@ public func +=< C : CollectionType where C.Generator.Element == BaseRow>(inout l
  - parameter lhs: the form
  - parameter rhs: the sections to be appended
  */
-public func +=< C : CollectionType where C.Generator.Element == Section>(inout lhs: Form, rhs: C){
-    lhs.appendContentsOf(rhs)
+public func +=< C : Collection>(lhs: inout Form, rhs: C) where C.Iterator.Element == Section{
+    lhs.append(formSection: rhs as! Section)
 }

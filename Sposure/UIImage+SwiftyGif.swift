@@ -4,6 +4,26 @@
 
 import ImageIO
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 let _imageSourceKey = malloc(4)
 let _displayRefreshFactorKey = malloc(4)
@@ -22,7 +42,7 @@ public extension UIImage{
      Convenience initializer. Creates a gif with its backing data. Defaulted level of integrity.
      - Parameter gifData: The actual gif data
      */
-    public convenience init(gifData:NSData) {
+    public convenience init(gifData:Data) {
         self.init()
         setGifFromData(gifData,levelOfIntegrity: defaultLevelOfIntegrity)
     }
@@ -32,7 +52,7 @@ public extension UIImage{
      - Parameter gifData: The actual gif data
      - Parameter levelOfIntegrity: 0 to 1, 1 meaning no frame skipping
      */
-    public convenience init(gifData:NSData, levelOfIntegrity:Float) {
+    public convenience init(gifData:Data, levelOfIntegrity:Float) {
         self.init()
         setGifFromData(gifData,levelOfIntegrity: levelOfIntegrity)
     }
@@ -61,9 +81,9 @@ public extension UIImage{
      - Parameter data: The actual gif data
      - Parameter levelOfIntegrity: 0 to 1, 1 meaning no frame skipping
      */
-    public func setGifFromData(data:NSData,levelOfIntegrity:Float) {
+    public func setGifFromData(_ data:Data,levelOfIntegrity:Float) {
         self.imageData = data
-        imageSource = CGImageSourceCreateWithData(data, nil)
+        imageSource = CGImageSourceCreateWithData(data as CFData, nil)
 
         calculateFrameDelay(delayTimes(imageSource), levelOfIntegrity: levelOfIntegrity)
         calculateFrameSize()
@@ -73,7 +93,7 @@ public extension UIImage{
      Set backing data for this gif. Overwrites any existing data.
      - Parameter name: Filename
      */
-    public func setGif(name: String) {
+    public func setGif(_ name: String) {
         setGif(name, levelOfIntegrity: defaultLevelOfIntegrity)
     }
 
@@ -93,9 +113,9 @@ public extension UIImage{
      - Parameter name: Filename
      - Parameter levelOfIntegrity: 0 to 1, 1 meaning no frame skipping
      */
-    public func setGif(name: String, levelOfIntegrity: Float) {
-        if let url = NSBundle.mainBundle().URLForResource(name, withExtension: "gif") {
-            if let data = NSData(contentsOfURL:url) {
+    public func setGif(_ name: String, levelOfIntegrity: Float) {
+        if let url = Bundle.main.url(forResource: name, withExtension: "gif") {
+            if let data = try? Data(contentsOf: url) {
                 setGifFromData(data,levelOfIntegrity: levelOfIntegrity)
             } else {
                 print("Error : Invalid GIF data for \(name).gif")
@@ -112,7 +132,7 @@ public extension UIImage{
      - Parameter imageSource: reference to the gif image source
      - Returns array of delays
      */
-    private func delayTimes(imageSource:CGImageSourceRef?)->[Float]{
+    fileprivate func delayTimes(_ imageSource:CGImageSource?)->[Float]{
         
         let imageCount = CGImageSourceGetCount(imageSource!)
         var imageProperties = [CFDictionary]()
@@ -123,19 +143,19 @@ public extension UIImage{
         let frameProperties = imageProperties.map(){
             unsafeBitCast(
                 CFDictionaryGetValue($0,
-                    unsafeAddressOf(kCGImagePropertyGIFDictionary)),CFDictionary.self)
+                    Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),to: CFDictionary.self)
         }
         
         let EPS:Float = 1e-6
         let frameDelays:[Float] = frameProperties.map(){
             var delayObject: AnyObject = unsafeBitCast(
                 CFDictionaryGetValue($0,
-                    unsafeAddressOf(kCGImagePropertyGIFUnclampedDelayTime)),
-                AnyObject.self)
+                    Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
+                to: AnyObject.self)
             
             if(delayObject.floatValue<EPS){
                 delayObject = unsafeBitCast(CFDictionaryGetValue($0,
-                    unsafeAddressOf(kCGImagePropertyGIFDelayTime)), AnyObject.self)
+                    Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
             }
             return delayObject as! Float
         }
@@ -147,7 +167,7 @@ public extension UIImage{
      - Parameter delaysArray: decoded delay times for this gif
      - Parameter levelOfIntegrity: 0 to 1, 1 meaning no frame skipping
      */
-    private func calculateFrameDelay(delaysArray:[Float],levelOfIntegrity:Float){
+    fileprivate func calculateFrameDelay(_ delaysArray:[Float],levelOfIntegrity:Float){
         
         var delays = delaysArray
         
@@ -202,8 +222,8 @@ public extension UIImage{
     /**
      Compute frame size for this gif
      */
-    private func calculateFrameSize(){
-        let image = UIImage(CGImage: CGImageSourceCreateImageAtIndex(self.imageSource!,0,nil)!)
+    fileprivate func calculateFrameSize(){
+        let image = UIImage(cgImage: CGImageSourceCreateImageAtIndex(self.imageSource!,0,nil)!)
         self.imageSize = Int(image.size.height*image.size.width*4)*self.imageCount!/1000000
     }
 
@@ -254,9 +274,9 @@ public extension UIImage{
         }
     }
 
-    public var imageData: NSData {
+    public var imageData: Data {
         get {
-            return (objc_getAssociatedObject(self, _imageDataKey) as! NSData)
+            return (objc_getAssociatedObject(self, _imageDataKey) as! Data)
         }
         set {
             objc_setAssociatedObject(self, _imageDataKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN);

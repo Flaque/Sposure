@@ -17,8 +17,8 @@ internal let imageSerialQueue : GCDQueue = .createSerial("imageModuleQueueGCD")
 class Imager {
     
     
-    class func findImage(gif : Gif!, onSuccess : (GifImage)->Void, onError : (String)->Void = NetworkUtility.logError) {
-        guard let url : String! = gif.getURL() else { onError("The gif seems to have no URL!"); return }
+    class func findImage(_ gif : Gif!, onSuccess : @escaping (GifImage)->Void, onError : @escaping (String)->Void = NetworkUtility.logError) {
+        guard let url : String? = gif.getURL() else { onError("The gif seems to have no URL!"); return }
         
         Alamofire.request(.GET, url!).validate().response {
             (request, response, data, error) in

@@ -13,12 +13,12 @@ import UIKit
 //MARK: WeekDay Enum
 
 public enum WeekDay {
-    case Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 }
 
 //MARK: GraphCell
 
-public class GraphCell : Cell<Int>, CellType {
+open class GraphCell : Cell<Int>, CellType {
     
     @IBOutlet weak var firstDayHeightConstraint   : NSLayoutConstraint!
     @IBOutlet weak var secondDayHeightConstraint  : NSLayoutConstraint!
@@ -39,11 +39,11 @@ public class GraphCell : Cell<Int>, CellType {
     
     var days : [Int]?
     
-    public override func setup() {
+    open override func setup() {
         height = { 150 }
         super.setup()
-        self.backgroundColor = UIColor.clearColor()
-        selectionStyle = .None
+        self.backgroundColor = UIColor.clear
+        selectionStyle = .none
         
         self.days = (self.row as! GraphRow).days
         
@@ -58,7 +58,7 @@ public class GraphCell : Cell<Int>, CellType {
      
      - returns: 
      */
-    private func findMax(array : [Int]) -> Int {
+    fileprivate func findMax(_ array : [Int]) -> Int {
         var max = array[0]
         
         for el in array {
@@ -76,7 +76,7 @@ public class GraphCell : Cell<Int>, CellType {
      
      - returns: [CGFloat]
      */
-    private func normalizeDaysToHeights(days : [Int]) -> [CGFloat] {
+    fileprivate func normalizeDaysToHeights(_ days : [Int]) -> [CGFloat] {
         let max       = findMax(days)
         let maxHeight = 100
         
@@ -95,7 +95,7 @@ public class GraphCell : Cell<Int>, CellType {
         return array
     }
     
-    private func setHeights(days : [CGFloat]) {
+    fileprivate func setHeights(_ days : [CGFloat]) {
         guard days.count == 7 else { print("ERROR: There are exactly 7 days in a week. Dumbass."); return }
         
         firstDayHeightConstraint.constant   = days[0]
@@ -107,7 +107,7 @@ public class GraphCell : Cell<Int>, CellType {
         seventhDayHeightConstraint.constant = days[6]
     }
 
-    private func setDays() {
+    fileprivate func setDays() {
         let days = DayUtility.getWeekdaysinOrder()
         
         firstLabel.text = days[0]
@@ -122,7 +122,7 @@ public class GraphCell : Cell<Int>, CellType {
 
 //MARK: GraphRow
 
-public class GraphRow : Row<Int, GraphCell>, RowType {
+open class GraphRow : Row<Int, GraphCell>, RowType {
     
     var days : [Int]?
     

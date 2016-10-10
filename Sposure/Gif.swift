@@ -11,9 +11,9 @@ import ObjectMapper
 
 class Gif : Mappable {
     
-    private var id      : String?
-    private var images  : Images?
-    private var rating  : String? //g, pg, pg-13, r
+    fileprivate var id      : String?
+    fileprivate var images  : Images?
+    fileprivate var rating  : String? //g, pg, pg-13, r
     
     init(id : String, images : Images, rating : String) {
         self.id     = id
@@ -23,7 +23,7 @@ class Gif : Mappable {
     
     required init? (_ map: Map){}
     
-    func mapping(map: Map) {
+    func mapping(_ map: Map) {
         id     <- map["id"]
         images <- map["images"]
         rating <- map["rating"]

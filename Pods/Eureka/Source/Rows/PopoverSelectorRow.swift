@@ -8,24 +8,24 @@
 
 import Foundation
 
-public class _PopoverSelectorRow<T: Equatable, Cell: CellType where Cell: BaseCell, Cell: TypedCellType, Cell.Value == T> : SelectorRow<T, Cell, SelectorViewController<T>> {
+open class _PopoverSelectorRow<T: Equatable, Cell: CellType> : SelectorRow<T, Cell, SelectorViewController<T>> where Cell: BaseCell, Cell: TypedCellType, Cell.Value == T {
     
     public required init(tag: String?) {
         super.init(tag: tag)
         onPresentCallback = { [weak self] (_, viewController) -> Void in
-            guard let porpoverController = viewController.popoverPresentationController, tableView = self?.baseCell.formViewController()?.tableView, cell = self?.cell else {
+            guard let porpoverController = viewController.popoverPresentationController, let tableView = self?.baseCell.formViewController()?.tableView, let cell = self?.cell else {
                 fatalError()
             }
             porpoverController.sourceView = tableView
-            porpoverController.sourceRect = tableView.convertRect(cell.detailTextLabel?.frame ?? cell.textLabel?.frame ?? cell.contentView.frame, fromView: cell)
+            porpoverController.sourceRect = tableView.convert(cell.detailTextLabel?.frame ?? cell.textLabel?.frame ?? cell.contentView.frame, from: cell)
         }
-        presentationMode = .Popover(controllerProvider: ControllerProvider.Callback { return SelectorViewController<T>(){ _ in } }, completionCallback: { [weak self] in
-            $0.dismissViewControllerAnimated(true, completion: nil)
+        presentationMode = .popover(controllerProvider: ControllerProvider.callback { return SelectorViewController<T>(){ _ in } }, completionCallback: { [weak self] in
+            $0.dismiss(animated: true, completion: nil)
             self?.reload()
             })
     }
     
-    public override func didSelect() {
+    open override func didSelect() {
         deselect()
         super.didSelect()
     }

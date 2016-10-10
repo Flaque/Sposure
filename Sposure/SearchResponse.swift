@@ -37,7 +37,7 @@ class SearchResponse : Mappable {
     
     required init? (_ map: Map){}
     
-    func mapping(map: Map) {
+    func mapping(_ map: Map) {
         gifs       <- map["data"]
         meta       <- map["meta"]
         pagination <- map["pagination"]

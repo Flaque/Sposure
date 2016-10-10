@@ -13,24 +13,24 @@ import UIKit
 class HighScoreManager {
     
     /** Retreive the managedObjectContext from AppDelegate. Used for CoreData */
-    static let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    static let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     
     /** Entity identifier. */
     static let entityId = "HighScore"
     
     /** Adds a high score to the persistent storage.
      */
-    static func addScore(score : Int, category : String) -> Void {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName(entityId, inManagedObjectContext: self.managedObjectContext) as! HighScore
-        newItem.score = score
+    static func addScore(_ score : Int, category : String) -> Void {
+        let newItem = NSEntityDescription.insertNewObject(forEntityName: entityId, into: self.managedObjectContext) as! HighScore
+        newItem.score = score as NSNumber?
         newItem.date = DayUtility.getFormattedDateFromIndex(0)  // get today's date in this time zone.
-        newItem.category = category
+        newItem.category = category as NSString?
         
         saveCoreData()
     }
     
     /** Saves the core data state. */
-    private static func saveCoreData() {
+    fileprivate static func saveCoreData() {
         do {
             try managedObjectContext.save()
         } catch { }
@@ -62,11 +62,11 @@ class HighScoreManager {
     }
     
     /** Returns a list of high scores. */
-    private static func getHighScores() -> [HighScore] {
+    fileprivate static func getHighScores() -> [HighScore] {
 
         let fetchRequest = NSFetchRequest(entityName: entityId)
         do {
-            if let fetchResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [HighScore] {
+            if let fetchResults = try managedObjectContext.fetch(fetchRequest) as? [HighScore] {
                 if fetchResults.count > 0 { // Check to make sure there actually are results or it'll throw an error
                     return fetchResults
                 }

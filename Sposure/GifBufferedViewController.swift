@@ -37,7 +37,7 @@ class GifBufferController: UIViewController {
     @IBOutlet weak var readyButton: UIButton!
     
     //Timer
-    var timer = NSTimer()
+    var timer = Timer()
     
     var searchSubject : String!
     
@@ -65,16 +65,16 @@ class GifBufferController: UIViewController {
     }
     
     /** Adds a loader while the first GIF is loading */
-    private func addLoader() {
+    fileprivate func addLoader() {
         let dim : CGFloat = 50.0
         loader = UIActivityIndicatorView(frame: CGRect(center: self.view.center, size: CGSize(width: dim, height: dim)))
-        loader.tintColor = UIColor.whiteColor()
+        loader.tintColor = UIColor.white
         loader.startAnimating()
         self.view.addSubview(loader)
-        view.bringSubviewToFront(loader)
+        view.bringSubview(toFront: loader)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         print("View will disappear soon")
         runningGifManager = false //Super fucking important to avoid memory leaks
         isFirstImage      = false
@@ -90,7 +90,7 @@ class GifBufferController: UIViewController {
      Pulls the image and disposes of the old one.
      */
     func onGifEnd() {
-        GCDQueue.Background.async() {
+        GCDQueue.background.async() {
             self.pullsAndSets()
         }
     }
@@ -100,9 +100,9 @@ class GifBufferController: UIViewController {
      * If it succeeds, it switches to the main thread and updates the queue
      *
      */
-    private func loadFirstGif() {
+    fileprivate func loadFirstGif() {
         print("attempting to load first Gif")
-        GCDQueue.Background.async() {
+        GCDQueue.background.async() {
             while (self.isFirstImage) {
                 self.pullsAndSets()
             }
@@ -114,17 +114,17 @@ class GifBufferController: UIViewController {
     /**
      * Pull and set the image
      */
-    func setImage(gifImage : GifImage) -> Void {
+    func setImage(_ gifImage : GifImage) -> Void {
         
         // If first image, don't quite yet display it.
         if self.isFirstImage {
-            GCDQueue.Main.async() {
-                self.readyButton.hidden = false  // Make the begin button visible now.
+            GCDQueue.main.async() {
+                self.readyButton.isHidden = false  // Make the begin button visible now.
                 self.loader.removeFromSuperview()    // remove the loader.
                 self.firstImage = gifImage.image
             }
         } else  {
-            GCDQueue.Main.async() {
+            GCDQueue.main.async() {
                self.imageView.setGifImage(gifImage.image, manager: self.gifManager, loopCount: 1)
             }
         }
@@ -139,14 +139,14 @@ class GifBufferController: UIViewController {
     /**
      Pulls from the image manager and sets the image
      */
-    private func pullsAndSets() {
+    fileprivate func pullsAndSets() {
         self.imageManager.pull(self.setImage, onEmpty: self.onNoPull)
     }
     
     /**
      Called when it can't pull.
      */
-    private func onNoPull() {
+    fileprivate func onNoPull() {
         //print("can't pull")
     }
     

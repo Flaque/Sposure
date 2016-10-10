@@ -22,7 +22,7 @@ class HighScoreManagerTests: XCTestCase {
     }
 
     func testAddScore() {
-        HighScoreManager.addScore(Int(rand()), category: "Cats")
+        HighScoreManager.addScore(Int(arc4random()), category: "Cats")
     }
     
     func testDisplayScores() {

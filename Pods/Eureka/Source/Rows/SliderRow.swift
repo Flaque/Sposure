@@ -25,36 +25,40 @@
 import UIKit
 
 /// The cell of the SliderRow
-public class SliderCell: Cell<Float>, CellType {
+open class SliderCell: Cell<Float>, CellType {
     
     public required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .Value1, reuseIdentifier: reuseIdentifier)
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+    }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    public var titleLabel: UILabel! {
+    open var titleLabel: UILabel! {
         textLabel?.translatesAutoresizingMaskIntoConstraints = false
-        textLabel?.setContentHuggingPriority(500, forAxis: .Horizontal)
+        textLabel?.setContentHuggingPriority(500, for: .horizontal)
         return textLabel
     }
-    public var valueLabel: UILabel! {
+    open var valueLabel: UILabel! {
         detailTextLabel?.translatesAutoresizingMaskIntoConstraints = false
-        detailTextLabel?.setContentHuggingPriority(500, forAxis: .Horizontal)
+        detailTextLabel?.setContentHuggingPriority(500, for: .horizontal)
         return detailTextLabel
     }
-    lazy public var slider: UISlider = {
+    lazy open var slider: UISlider = {
         let result = UISlider()
         result.translatesAutoresizingMaskIntoConstraints = false
-        result.setContentHuggingPriority(500, forAxis: .Horizontal)
+        result.setContentHuggingPriority(500, for: .horizontal)
         return result
     }()
-    public var formatter: NSNumberFormatter?
+    open var formatter: NumberFormatter?
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        selectionStyle = .None
+        selectionStyle = .none
         slider.minimumValue = sliderRow.minimumValue
         slider.maximumValue = sliderRow.maximumValue
-        slider.addTarget(self, action: #selector(SliderCell.valueChanged), forControlEvents: .ValueChanged)
+        slider.addTarget(self, action: #selector(SliderCell.valueChanged), for: .valueChanged)
         
         if shouldShowTitle() {
             contentView.addSubview(titleLabel)
@@ -62,20 +66,20 @@ public class SliderCell: Cell<Float>, CellType {
         }
         contentView.addSubview(slider)
         
-        let views = ["titleLabel" : titleLabel, "valueLabel" : valueLabel, "slider" : slider]
+        let views = ["titleLabel" : titleLabel, "valueLabel" : valueLabel, "slider" : slider] as [String : Any]
         let metrics = ["hPadding" : 16.0, "vPadding" : 12.0, "spacing" : 12.0]
         
         if shouldShowTitle() {
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-hPadding-[titleLabel]-[valueLabel]-hPadding-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: metrics, views: views))
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-vPadding-[titleLabel]-spacing-[slider]-vPadding-|", options: NSLayoutFormatOptions.AlignAllLeft, metrics: metrics, views: views))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-hPadding-[titleLabel]-[valueLabel]-hPadding-|", options: NSLayoutFormatOptions.alignAllBaseline, metrics: metrics, views: views))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-vPadding-[titleLabel]-spacing-[slider]-vPadding-|", options: NSLayoutFormatOptions.alignAllLeft, metrics: metrics, views: views))
             
         } else {
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-vPadding-[slider]-vPadding-|", options: NSLayoutFormatOptions.AlignAllLeft, metrics: metrics, views: views))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-vPadding-[slider]-vPadding-|", options: NSLayoutFormatOptions.alignAllLeft, metrics: metrics, views: views))
         }
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-hPadding-[slider]-hPadding-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: metrics, views: views))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-hPadding-[slider]-hPadding-|", options: NSLayoutFormatOptions.alignAllBaseline, metrics: metrics, views: views))
     }
     
-    public override func update() {
+    open override func update() {
         super.update()
         if !shouldShowTitle() {
             textLabel?.text = nil
@@ -101,11 +105,11 @@ public class SliderCell: Cell<Float>, CellType {
         }
     }
     
-    private func shouldShowTitle() -> Bool {
+    fileprivate func shouldShowTitle() -> Bool {
         return row.title?.isEmpty == false
     }
     
-    private var sliderRow: SliderRow {
+    fileprivate var sliderRow: SliderRow {
         return row as! SliderRow
     }
 }

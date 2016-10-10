@@ -21,7 +21,7 @@ class Meta : Mappable {
         self.msg    = msg
     }
     
-    func mapping(map: Map) {
+    func mapping(_ map: Map) {
         status <- map["status"]
         msg    <- map["msg"]
     }

@@ -28,7 +28,7 @@ import Foundation
 /**
 A wrapper and utility class for dispatch_block_t.
 */
-@available(iOS, introduced=7.0)
+@available(iOS, introduced: 7.0)
 public struct GCDBlock {
 
     /**
@@ -36,7 +36,7 @@ public struct GCDBlock {
 
     - parameter closure: The closure to be associated with the block.
     */
-    public init(_ closure: () -> Void) {
+    public init(_ closure: @escaping () -> Void) {
         
         #if USE_FRAMEWORKS
             
@@ -70,7 +70,7 @@ public struct GCDBlock {
     - parameter closure: The closure to submit to the target queue.
     - returns: The block to submit to the queue. Useful when chaining blocks together.
     */
-    public static func async(queue: GCDQueue, closure: () -> Void) -> GCDBlock {
+    public static func async(_ queue: GCDQueue, closure: () -> Void) -> GCDBlock {
 
         return queue.async(closure)
     }
@@ -82,7 +82,7 @@ public struct GCDBlock {
     - parameter closure: The closure to submit to the target queue.
     - returns: The block to submit to the queue. Useful when chaining blocks together.
     */
-    public static func sync(queue: GCDQueue, closure: () -> Void) -> GCDBlock {
+    public static func sync(_ queue: GCDQueue, closure: () -> Void) -> GCDBlock {
 
         return queue.sync(closure)
     }
@@ -95,7 +95,7 @@ public struct GCDBlock {
     - parameter closure: The closure to submit to the target queue.
     - returns: The block to submit to the queue. Useful when chaining blocks together.
     */
-    public static func after(queue: GCDQueue, delay: NSTimeInterval, _ closure: () -> Void) -> GCDBlock {
+    public static func after(_ queue: GCDQueue, delay: TimeInterval, _ closure: () -> Void) -> GCDBlock {
 
         return queue.after(delay, closure)
     }
@@ -107,7 +107,7 @@ public struct GCDBlock {
     - parameter closure: The closure to submit to the target queue.
     - returns: The block to submit to the queue. Useful when chaining blocks together.
     */
-    public static func barrierAsync(queue: GCDQueue, closure: () -> Void) -> GCDBlock {
+    public static func barrierAsync(_ queue: GCDQueue, closure: () -> Void) -> GCDBlock {
 
         return queue.barrierAsync(closure)
     }
@@ -119,7 +119,7 @@ public struct GCDBlock {
     - parameter closure: The closure to submit to the target queue.
     - returns: The block to submit to the queue. Useful when chaining blocks together.
     */
-    public static func barrierSync(queue: GCDQueue, closure: () -> Void) -> GCDBlock {
+    public static func barrierSync(_ queue: GCDQueue, closure: () -> Void) -> GCDBlock {
 
         return queue.barrierSync(closure)
     }
@@ -140,7 +140,7 @@ public struct GCDBlock {
     - returns: The notification block. Useful when chaining blocks together.
     */
     @available(iOS 8.0, OSX 10.10, *)
-    public func notify(queue: GCDQueue, closure: () -> Void) -> GCDBlock {
+    public func notify(_ queue: GCDQueue, closure: @escaping () -> Void) -> GCDBlock {
 
         let block = GCDBlock(closure)
         dispatch_block_notify(self.rawObject, queue.dispatchQueue(), block.rawObject)
@@ -164,7 +164,7 @@ public struct GCDBlock {
     @available(iOS 8.0, OSX 10.10, *)
     public func wait() {
 
-        dispatch_block_wait(self.rawObject, DISPATCH_TIME_FOREVER)
+        dispatch_block_wait(self.rawObject, DispatchTime.distantFuture)
     }
 
     /**
@@ -174,9 +174,9 @@ public struct GCDBlock {
     - returns: Returns zero on success, or non-zero if the timeout occurred.
     */
     @available(iOS 8.0, OSX 10.10, *)
-    public func wait(timeout: NSTimeInterval) -> Int {
+    public func wait(_ timeout: TimeInterval) -> Int {
 
-        return dispatch_block_wait(self.rawObject, dispatch_time(DISPATCH_TIME_NOW, Int64(timeout * NSTimeInterval(NSEC_PER_SEC))))
+        return dispatch_block_wait(self.rawObject, DispatchTime.now() + Double(Int64(timeout * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC))
     }
 
     /**
@@ -186,7 +186,7 @@ public struct GCDBlock {
     - returns: Returns zero on success, or non-zero if the timeout occurred.
     */
     @available(iOS 8.0, OSX 10.10, *)
-    public func wait(date: NSDate) -> Int {
+    public func wait(_ date: Date) -> Int {
 
         return self.wait(date.timeIntervalSinceNow)
     }
@@ -196,10 +196,10 @@ public struct GCDBlock {
 
     - returns: The dispatch_block_t object associated with this value.
     */
-    public func dispatchBlock() -> dispatch_block_t {
+    public func dispatchBlock() -> ()->() {
 
         return self.rawObject
     }
 
-    private let rawObject: dispatch_block_t
+    fileprivate let rawObject: ()->()
 }

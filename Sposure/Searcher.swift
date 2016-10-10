@@ -10,6 +10,26 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 /* URL Components */
 let BASE_URL   = "https://api.giphy.com/"
@@ -29,7 +49,7 @@ class Searcher {
     /**
      * Pings the search query to see how large the total count is.
      */
-    class func ping(query : String, onSuccess : (Int) -> Void, onError : (String) -> Void) {
+    class func ping(_ query : String, onSuccess : @escaping (Int) -> Void, onError : @escaping (String) -> Void) {
         print("Ping")
         let params = [
             "api_key" : API_KEY,
@@ -65,7 +85,7 @@ class Searcher {
         - pushToQueue : function that will complete on completion for each gif
         - onError     : function that will complete on error (optional)
       */
-    class func search(subject : String, request : GiphyRequest, onSuccess : (Gif)->Void, onError : (ErrorType, String, GiphyRequest)->Void) {
+    class func search(_ subject : String, request : GiphyRequest, onSuccess : @escaping (Gif)->Void, onError : @escaping (ErrorType, String, GiphyRequest)->Void) {
         
         //Build parameters
         let params = [

@@ -20,12 +20,12 @@ class DayUtility {
     static func getWeekdaysinOrder() -> [String] {
         
         // Adjust for time zone.
-        let adjustedDate = NSDate().dateByAddingTimeInterval(NSTimeInterval(NSTimeZone.localTimeZone().secondsFromGMT))
+        let adjustedDate = Date().addingTimeInterval(TimeInterval(NSTimeZone.local.secondsFromGMT()))
         // This reference date in 1970 is a Sunday.
-        let referenceDate = NSDate(timeIntervalSince1970: NSTimeInterval(secondsPerDay * 3))
+        let referenceDate = Date(timeIntervalSince1970: TimeInterval(secondsPerDay * 3))
         
         // Find number of days since reference date, mod 7 will be day of the week. Add one to offset
-        let startingIndex = Int(adjustedDate.timeIntervalSinceDate(referenceDate) / (3600 * 24)) % 7 + 1
+        let startingIndex = Int(adjustedDate.timeIntervalSince(referenceDate) / (3600 * 24)) % 7 + 1
         var index = startingIndex
         
         var days = [String]()
@@ -43,12 +43,12 @@ class DayUtility {
      
      - Parameter dayIndex: day relative today (0 = today, 1 = tomorrow...)
      */
-    static func getFormattedDateFromIndex(dayIndex : Int) -> String {
+    static func getFormattedDateFromIndex(_ dayIndex : Int) -> String {
         
         // Adjusted date to time zone.
-        var adjustedDate = NSDate().dateByAddingTimeInterval(NSTimeInterval(NSTimeZone.localTimeZone().secondsFromGMT))
+        var adjustedDate = Date().addingTimeInterval(TimeInterval(NSTimeZone.local.secondsFromGMT()))
         // Add days for day index.
-        adjustedDate = adjustedDate.dateByAddingTimeInterval(CFTimeInterval(secondsPerDay * dayIndex))
+        adjustedDate = adjustedDate.addingTimeInterval(CFTimeInterval(secondsPerDay * dayIndex))
         return getFormattedDate(adjustedDate)
     }
     
@@ -57,10 +57,10 @@ class DayUtility {
      
      - Parameter dayIndex: day relative today (0 = today, 1 = tomorrow...)
      */
-    static private func getFormattedDate(date : NSDate) -> String {
-        let formatter:NSDateFormatter = NSDateFormatter()
+    static fileprivate func getFormattedDate(_ date : Date) -> String {
+        let formatter:DateFormatter = DateFormatter()
         formatter.dateFormat = "MM/dd/YYYY"
-        return formatter.stringFromDate(date)
+        return formatter.string(from: date)
     }
     
     /** Returns all dates in the last week formatted nicely (MM/DD/YYYY) in string array. */

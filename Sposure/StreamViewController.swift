@@ -16,7 +16,7 @@ class StreamViewController : GifBufferController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController!.navigationBarHidden = true;
+        self.navigationController!.isNavigationBarHidden = true;
     }
     
     /**
@@ -24,13 +24,13 @@ class StreamViewController : GifBufferController {
      
      - parameter time:
      */
-    private func gameOver(time : Double) {
+    fileprivate func gameOver(_ time : Double) {
         score = Int(time)
         
         addHighScore()
         reloadDelegate.reloadData()
         
-        performSegueWithIdentifier("exitGifStream", sender: time)
+        performSegue(withIdentifier: "exitGifStream", sender: time)
     }
     
     /**
@@ -39,16 +39,16 @@ class StreamViewController : GifBufferController {
      - parameter segue:
      - parameter sender:
      */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "exitGifStream" {
-            if let gameOverController = segue.destinationViewController as? GameOverController {
+            if let gameOverController = segue.destination as? GameOverController {
                 gameOverController.score = sender as? Int
             }
         }
     }
     
     /** Adds a high score to core data */
-    private func addHighScore() {
+    fileprivate func addHighScore() {
         HighScoreManager.addScore(score!, category: searchSubject)
     }
     
@@ -57,21 +57,21 @@ class StreamViewController : GifBufferController {
      
      - parameter sender:
      */
-    @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
         
         guard self.firstImage != nil else { return } // Make sure we have the first image
         
         sender.minimumPressDuration = 0.001
         
         // Set the first image upon long press.
-        if (sender.state == UIGestureRecognizerState.Began) {
+        if (sender.state == UIGestureRecognizerState.began) {
             self.imageView.setGifImage(self.firstImage!, manager: self.gifManager, loopCount: 1)
-            self.readyButton.hidden = true  // Hide the ready button now.
+            self.readyButton.isHidden = true  // Hide the ready button now.
             
             imageView.startAnimatingGif()
             startTime = CFAbsoluteTimeGetCurrent()
         }
-        if (sender.state == UIGestureRecognizerState.Ended) {
+        if (sender.state == UIGestureRecognizerState.ended) {
             imageView.stopAnimatingGif()
             let elapsedTime = CFAbsoluteTimeGetCurrent() - startTime
             gameOver(elapsedTime)

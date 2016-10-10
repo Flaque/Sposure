@@ -4,6 +4,17 @@
 
 import ImageIO
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 let _gifImageKey = malloc(4)
 let _cacheKey = malloc(4)
@@ -48,7 +59,7 @@ public extension UIImageView {
      - Parameter gifImage: The UIImage containing the gif backing data
      - Parameter manager: The manager to handle the gif display
      */
-    public func setGifImage(gifImage:UIImage, manager:SwiftyGifManager = SwiftyGifManager.defaultManager) {
+    public func setGifImage(_ gifImage:UIImage, manager:SwiftyGifManager = SwiftyGifManager.defaultManager) {
         setGifImage(gifImage, manager: manager, loopCount: -1)
     }
 
@@ -59,11 +70,11 @@ public extension UIImageView {
      - Parameter manager: The manager to handle the gif display
      - Parameter loopCount: The number of loops we want for this gif. -1 means infinite.
      */
-    public func setGifImage(gifImage:UIImage, manager:SwiftyGifManager = SwiftyGifManager.defaultManager,
+    public func setGifImage(_ gifImage:UIImage, manager:SwiftyGifManager = SwiftyGifManager.defaultManager,
                             loopCount:Int) {
 
         if gifImage.imageCount < 1 {
-            self.image = UIImage(data: gifImage.imageData)
+            self.image = UIImage(data: gifImage.imageData as Data)
             return
         }
 
@@ -78,7 +89,7 @@ public extension UIImageView {
         if let gif = self.gifImage {
 
             if let source = gif.imageSource {
-                self.currentImage = UIImage(CGImage: CGImageSourceCreateImageAtIndex(source, 0, nil)!)
+                self.currentImage = UIImage(cgImage: CGImageSourceCreateImageAtIndex(source, 0, nil)!)
 
                 if !manager.containsImageView(self) {
                     manager.addImageView(self)
@@ -94,7 +105,7 @@ public extension UIImageView {
     /**
      Start displaying the gif for this UIImageView.
      */
-    private func startDisplay() {
+    fileprivate func startDisplay() {
         self.displaying = true
         updateCache()
     }
@@ -102,7 +113,7 @@ public extension UIImageView {
     /**
      Stop displaying the gif for this UIImageView.
      */
-    private func stopDisplay() {
+    fileprivate func stopDisplay() {
         self.displaying = false
         updateCache()
     }
@@ -141,7 +152,7 @@ public extension UIImageView {
      Show a specific frame based on a delta from current frame
       - Parameter delta: The delsta from current frame we want
      */
-    public func showFrameForIndexDelta(delta: Int) {
+    public func showFrameForIndexDelta(_ delta: Int) {
 
         var nextIndex = self.displayOrderIndex + delta
 
@@ -160,7 +171,7 @@ public extension UIImageView {
      Show a specific frame
       - Parameter index: The index of frame to show
      */
-    public func showFrameAtIndex(index: Int) {
+    public func showFrameAtIndex(_ index: Int) {
         self.displayOrderIndex = index
         updateFrame()
     }
@@ -181,14 +192,14 @@ public extension UIImageView {
     /**
      Update current image displayed. This method is called by the manager.
      */
-    public func updateCurrentImage(onLoopEnd : ()->Void = {}) {
+    public func updateCurrentImage(_ onLoopEnd : @escaping ()->Void = {}) {
 
         if self.displaying{
             updateFrame()
             updateIndex()
             if loopCount == 0 || !isDisplayedInScreen(self)  || !self.isPlaying {
                 stopDisplay()
-                dispatch_async(dispatch_get_main_queue()){
+                DispatchQueue.main.async{
                     onLoopEnd()
                 }
             }
@@ -205,14 +216,14 @@ public extension UIImageView {
     /**
      Force update frame
      */
-    private func updateFrame() {
+    fileprivate func updateFrame() {
         if !self.haveCache {
-            self.currentImage = UIImage(CGImage: CGImageSourceCreateImageAtIndex(self.gifImage!.imageSource!,self.gifImage!.displayOrder![self.displayOrderIndex],nil)!)
+            self.currentImage = UIImage(cgImage: CGImageSourceCreateImageAtIndex(self.gifImage!.imageSource!,self.gifImage!.displayOrder![self.displayOrderIndex],nil)!)
         }else{
-            if let image = (cache.objectForKey(self.displayOrderIndex) as? UIImage) {
+            if let image = (cache.object(forKey: self.displayOrderIndex as AnyObject) as? UIImage) {
                 self.currentImage = image
             }else{
-                self.currentImage = UIImage(CGImage: CGImageSourceCreateImageAtIndex(self.gifImage!.imageSource!,self.gifImage!.displayOrder![self.displayOrderIndex],nil)!)
+                self.currentImage = UIImage(cgImage: CGImageSourceCreateImageAtIndex(self.gifImage!.imageSource!,self.gifImage!.displayOrder![self.displayOrderIndex],nil)!)
             }//prevent case that cache is not ready
         }
     }
@@ -221,7 +232,7 @@ public extension UIImageView {
      Check if the imageView has been discarded and is not in the view hierarchy anymore.
      - Returns : A boolean for weather the imageView was discarded
      */
-    public func isDiscarded(imageView:UIView?) -> Bool{
+    public func isDiscarded(_ imageView:UIView?) -> Bool{
 
         if(imageView == nil || imageView!.superview == nil) {
             print("discarded")
@@ -234,16 +245,16 @@ public extension UIImageView {
      Check if the imageView is displayed.
      - Returns : A boolean for weather the imageView is displayed
      */
-    public func isDisplayedInScreen(imageView:UIView?) ->Bool{
-        if (self.hidden) {
+    public func isDisplayedInScreen(_ imageView:UIView?) ->Bool{
+        if (self.isHidden) {
             return false
         }
 
-        let screenRect = UIScreen.mainScreen().bounds
-        let viewRect = imageView!.convertRect(self.frame,toView:UIApplication.sharedApplication().keyWindow)
+        let screenRect = UIScreen.main.bounds
+        let viewRect = imageView!.convert(self.frame,to:UIApplication.shared.keyWindow)
 
-        let intersectionRect = CGRectIntersection(viewRect, screenRect);
-        if (CGRectIsEmpty(intersectionRect) || CGRectIsNull(intersectionRect)) {
+        let intersectionRect = viewRect.intersection(screenRect);
+        if (intersectionRect.isEmpty || intersectionRect.isNull) {
             return false
         }
         return (self.window != nil)
@@ -252,7 +263,7 @@ public extension UIImageView {
     /**
      Update loop count and sync factor.
      */
-    private func updateIndex() {
+    fileprivate func updateIndex() {
         if let gif = self.gifImage {
             self.syncFactor = (self.syncFactor+1) % gif.displayRefreshFactor!
             if self.syncFactor == 0 {
@@ -267,13 +278,13 @@ public extension UIImageView {
     /**
      Prepare the cache by adding every images of the gif to an NSCache object.
      */
-    private func prepareCache() {
+    fileprivate func prepareCache() {
         self.cache.removeAllObjects()
 
         if let gif = self.gifImage {
             for i in 0 ..< gif.displayOrder!.count {
-                let image = UIImage(CGImage: CGImageSourceCreateImageAtIndex(gif.imageSource!, gif.displayOrder![i],nil)!)
-                self.cache.setObject(image,forKey:i)
+                let image = UIImage(cgImage: CGImageSourceCreateImageAtIndex(gif.imageSource!, gif.displayOrder![i],nil)!)
+                self.cache.setObject(image,forKey:i as AnyObject)
             }
         }
     }
@@ -297,7 +308,7 @@ public extension UIImageView {
         }
     }
 
-    private var displayOrderIndex: Int {
+    fileprivate var displayOrderIndex: Int {
         get {
             return (objc_getAssociatedObject(self, _displayOrderIndexKey) as! Int)
         }
@@ -306,7 +317,7 @@ public extension UIImageView {
         }
     }
 
-    private var syncFactor: Int {
+    fileprivate var syncFactor: Int {
         get {
             return (objc_getAssociatedObject(self, _syncFactorKey) as! Int)
         }
@@ -333,7 +344,7 @@ public extension UIImageView {
         }
     }
 
-    private var haveCache: Bool {
+    fileprivate var haveCache: Bool {
         get {
             return (objc_getAssociatedObject(self, _haveCacheKey) as! Bool)
         }
@@ -351,7 +362,7 @@ public extension UIImageView {
         }
     }
 
-    private var isPlaying: Bool {
+    fileprivate var isPlaying: Bool {
         get {
             return (objc_getAssociatedObject(self, _isPlayingKey) as! Bool)
         }
@@ -360,7 +371,7 @@ public extension UIImageView {
         }
     }
 
-    private var cache: NSCache {
+    fileprivate var cache: NSCache<AnyObject, AnyObject> {
         get {
             return (objc_getAssociatedObject(self, _cacheKey) as! NSCache)
         }

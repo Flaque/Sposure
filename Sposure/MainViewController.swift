@@ -20,13 +20,13 @@ class MainViewController : FormViewController, ReloadDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addGradientBackground(Color.orangeColor().CGColor, bottomColor: Color.redColor().CGColor)
-        self.tableView?.backgroundColor = UIColor.clearColor()
-        self.tableView?.separatorStyle = .None
+        self.addGradientBackground(Color.orangeColor().cgColor, bottomColor: Color.redColor().cgColor)
+        self.tableView?.backgroundColor = UIColor.clear
+        self.tableView?.separatorStyle = .none
         
         //Show nav and status bar
-        self.navigationController!.navigationBarHidden    = false
-        UIApplication.sharedApplication().statusBarHidden = false
+        self.navigationController!.isNavigationBarHidden    = false
+        UIApplication.shared.isStatusBarHidden = false
         
         
         addScoreGraph()
@@ -37,13 +37,13 @@ class MainViewController : FormViewController, ReloadDelegate {
     }
     
     //Redundantly show the nav bar so we don't have nav glitches
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController!.navigationBarHidden    = false
-        UIApplication.sharedApplication().statusBarHidden = false
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController!.isNavigationBarHidden    = false
+        UIApplication.shared.isStatusBarHidden = false
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller = segue.destinationViewController as? GifBufferController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as? GifBufferController
         controller?.searchSubject = self.searchSubject
         controller?.reloadDelegate = self
     }
@@ -53,8 +53,8 @@ class MainViewController : FormViewController, ReloadDelegate {
     /**
      Adds a score button in the nav bar
      */
-    private func addScoreButton() {
-        scoreButton = UIBarButtonItem(title: String(HighScoreManager.getTotalAllTimeScore()), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+    fileprivate func addScoreButton() {
+        scoreButton = UIBarButtonItem(title: String(HighScoreManager.getTotalAllTimeScore()), style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         self.navigationItem.leftBarButtonItem = scoreButton
         self.navigationItem.leftBarButtonItem?.tintColor = Color.redColor()
     }
@@ -62,8 +62,8 @@ class MainViewController : FormViewController, ReloadDelegate {
     /**
      Adds a plus button to the nav bar
      */
-    private func addPlusButton() {
-        let plusButton = UIBarButtonItem.init(barButtonSystemItem: .Add, target: self, action: #selector(MainViewController.searchFear))
+    fileprivate func addPlusButton() {
+        let plusButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(MainViewController.searchFear))
         self.navigationItem.rightBarButtonItem = plusButton
         self.navigationItem.rightBarButtonItem?.tintColor = Color.blueColor()
     }
@@ -71,7 +71,7 @@ class MainViewController : FormViewController, ReloadDelegate {
     /**
      Adds a search bar to the middle of the nav bar.
      */
-    private func addSearchBar() {
+    fileprivate func addSearchBar() {
         searchBar = UISearchBar(frame: CGRect(x: 50.0, y: 10.0, width: self.view.frame.width - 85.0, height: 30.0))
         searchBar.delegate = self
         let searchBarButton = UIBarButtonItem(customView: searchBar)
@@ -95,7 +95,7 @@ class MainViewController : FormViewController, ReloadDelegate {
     /**
      Adds the graph of scores
      */
-    private func addScoreGraph() {
+    fileprivate func addScoreGraph() {
         let scores = HighScoreManager.getScoresForLastWeek()
         
         form +++ Section()
@@ -107,7 +107,7 @@ class MainViewController : FormViewController, ReloadDelegate {
     /**
      Adds the search suggestions.
      */
-    private func addSearchSuggestions() {
+    fileprivate func addSearchSuggestions() {
         
         // Loop through defaults, adding them to table.
         for subject in SearchSubjectsManager.getSortedSearchSubjects() {
@@ -116,12 +116,12 @@ class MainViewController : FormViewController, ReloadDelegate {
                 
                 $0.onCellSelection({ (cell, row) in
                     self.searchSubject = cell.textLabel!.text!  // Record what subject user selected
-                    self.performSegueWithIdentifier(self.toStreamSegue, sender: self)
+                    self.performSegue(withIdentifier: self.toStreamSegue, sender: self)
                 })
                 }.cellUpdate({ (cell, row) in
-                    cell.accessoryType = .DisclosureIndicator
-                    cell.textLabel?.textAlignment = .Left
-                    cell.textLabel?.textColor = UIColor.blackColor()
+                    cell.accessoryType = .disclosureIndicator
+                    cell.textLabel?.textAlignment = .left
+                    cell.textLabel?.textColor = UIColor.black
                 }) //https://github.com/xmartlabs/Eureka/issues/3
             // This styles the cells so that it appears they are disclosing another page.
         }
@@ -129,8 +129,8 @@ class MainViewController : FormViewController, ReloadDelegate {
     
     
     //Force white status bar
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     /** Invoked when user presses plus button */
@@ -142,19 +142,19 @@ class MainViewController : FormViewController, ReloadDelegate {
 // ----------------------- Searching --------------------- //
 extension MainViewController : UISearchBarDelegate {
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         addTapToDismissKeyboard()   // Add the tap to dismiss control.
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         view.removeGestureRecognizer(tapRecognizer) // Remove tap to dimiss control so other elements can be pressed.
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     }
     
     /** Search what they typed in on Giffy */
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)      // Have to dismiss keyboard this way.
         
         searchSubject = searchBar.text! // extract the search subject.
@@ -162,17 +162,17 @@ extension MainViewController : UISearchBarDelegate {
         
         SearchSubjectsManager.addSearch(searchSubject)  // save search to device.
         
-        self.performSegueWithIdentifier(toStreamSegue, sender: self)  // Go to the image stream screen.
+        self.performSegue(withIdentifier: toStreamSegue, sender: self)  // Go to the image stream screen.
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
     }
     
     /**
      Adds a tap recognizer to dismiss the keyboard.
      */
-    private func addTapToDismissKeyboard() {
+    fileprivate func addTapToDismissKeyboard() {
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.dismissKeyboard))
         view.addGestureRecognizer(tapRecognizer)
     }

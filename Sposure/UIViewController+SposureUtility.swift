@@ -21,7 +21,7 @@ extension UIViewController {
      - parameter topColor:    The top color
      - parameter bottomColor: The bottom color
      */
-    public func addGradientBackground(topColor : CGColor, bottomColor : CGColor) {
+    public func addGradientBackground(_ topColor : CGColor, bottomColor : CGColor) {
         let gradient: CAGradientLayer = CAGradientLayer()
         
         //The .CGColor is super important here. It will fail with no error if you don't have it.
@@ -31,6 +31,6 @@ extension UIViewController {
         gradient.endPoint = CGPoint(x: 0, y: 1.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         
-        self.view.layer.insertSublayer(gradient, atIndex: 0)
+        self.view.layer.insertSublayer(gradient, at: 0)
     }
 }

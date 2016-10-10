@@ -76,7 +76,7 @@ class ImageManager {
         print("Deinited giphyManager")
     }
     
-    func addTask(giphyManager : GiphyManager) {
+    func addTask(_ giphyManager : GiphyManager) {
         var gif : Gif?
         
         giphyManager.responseGCD.sync() {
@@ -93,7 +93,7 @@ class ImageManager {
     /**
      * Pushes to image queue
      */
-    func onSuccess(gifImage : GifImage) -> Void {
+    func onSuccess(_ gifImage : GifImage) -> Void {
         
         imageGCD.sync() {
             self.imageQueue.enqueue(gifImage)
@@ -108,7 +108,7 @@ class ImageManager {
     /**
      * Pull from image manager
      */
-    func pull(onSuccess : (GifImage) -> Void, onEmpty : () -> Void) {
+    func pull(_ onSuccess : @escaping (GifImage) -> Void, onEmpty : @escaping () -> Void) {
         
         imageGCD.sync() {
             guard (!self.imageQueue.isEmpty()) else { onEmpty(); return }

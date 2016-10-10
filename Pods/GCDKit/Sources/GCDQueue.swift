@@ -30,43 +30,43 @@ private var _GCDQueue_Specific: Void?
 /**
 A wrapper and utility class for dispatch_queue_t.
 */
-@available(iOS, introduced=7.0)
+@available(iOS, introduced: 7.0)
 public enum GCDQueue {
     
     /**
     The serial queue associated with the application’s main thread
     */
-    case Main
+    case main
     
     /**
     A system-defined global concurrent queue with a User Interactive quality of service class. On iOS 7, UserInteractive is equivalent to UserInitiated.
     */
-    case UserInteractive
+    case userInteractive
     
     /**
     A system-defined global concurrent queue with a User Initiated quality of service class. On iOS 7, UserInteractive is equivalent to UserInitiated.
     */
-    case UserInitiated
+    case userInitiated
     
     /**
     A system-defined global concurrent queue with a Default quality of service class.
     */
-    case Default
+    case `default`
     
     /**
     A system-defined global concurrent queue with a Utility quality of service class.
     */
-    case Utility
+    case utility
     
     /**
     A system-defined global concurrent queue with a Background quality of service class.
     */
-    case Background
+    case background
     
     /**
     A user-created custom queue. Use DispatchQueue.createSerial() or DispatchQueue.createConcurrent() to create with an associated dispatch_queue_t object.
     */
-    case Custom(dispatch_queue_t)
+    case custom(DispatchQueue)
     
     /**
     Creates a custom queue to which blocks can be submitted serially.
@@ -74,7 +74,7 @@ public enum GCDQueue {
     - parameter label: An optional string label to attach to the queue to uniquely identify it in debugging tools such as Instruments, sample, stackshots, and crash reports.
     - returns: A new custom serial queue.
     */
-    public static func createSerial(label: String? = nil) -> GCDQueue {
+    public static func createSerial(_ label: String? = nil) -> GCDQueue {
         
         return self.createCustom(isConcurrent: false, label: label, targetQueue: nil)
     }
@@ -86,7 +86,7 @@ public enum GCDQueue {
     - parameter targetQueue: The new target queue for the custom queue.
     - returns: A new custom serial queue.
     */
-    public static func createSerial(label: String? = nil, targetQueue: GCDQueue) -> GCDQueue {
+    public static func createSerial(_ label: String? = nil, targetQueue: GCDQueue) -> GCDQueue {
         
         return self.createCustom(isConcurrent: false, label: label, targetQueue: targetQueue)
     }
@@ -97,7 +97,7 @@ public enum GCDQueue {
     - parameter label: A String label to attach to the queue to uniquely identify it in debugging tools such as Instruments, sample, stackshots, and crash reports.
     - returns: A new custom concurrent queue.
     */
-    public static func createConcurrent(label: String? = nil) -> GCDQueue {
+    public static func createConcurrent(_ label: String? = nil) -> GCDQueue {
         
         return self.createCustom(isConcurrent: true, label: label, targetQueue: nil)
     }
@@ -109,7 +109,7 @@ public enum GCDQueue {
     - parameter targetQueue: The new target queue for the custom queue.
     - returns: A new custom concurrent queue.
     */
-    public static func createConcurrent(label: String? = nil, targetQueue: GCDQueue) -> GCDQueue {
+    public static func createConcurrent(_ label: String? = nil, targetQueue: GCDQueue) -> GCDQueue {
         
         return self.createCustom(isConcurrent: true, label: label, targetQueue: targetQueue)
     }
@@ -120,7 +120,7 @@ public enum GCDQueue {
     - parameter closure: The closure to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func async(closure: () -> Void) -> GCDBlock {
+    public func async(_ closure: () -> Void) -> GCDBlock {
         
         return self.async(GCDBlock(closure))
     }
@@ -131,9 +131,9 @@ public enum GCDQueue {
     - parameter block: The block to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func async(block: GCDBlock) -> GCDBlock {
+    public func async(_ block: GCDBlock) -> GCDBlock {
         
-        dispatch_async(self.dispatchQueue(), block.dispatchBlock())
+        self.dispatchQueue().async(execute: block.dispatchBlock())
         return block
     }
     
@@ -143,7 +143,7 @@ public enum GCDQueue {
     - parameter closure: The closure to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func sync(closure: () -> Void) -> GCDBlock {
+    public func sync(_ closure: () -> Void) -> GCDBlock {
         
         return self.sync(GCDBlock(closure))
     }
@@ -154,9 +154,9 @@ public enum GCDQueue {
     - parameter block: The block to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func sync(block: GCDBlock) -> GCDBlock {
+    public func sync(_ block: GCDBlock) -> GCDBlock {
         
-        dispatch_sync(self.dispatchQueue(), block.dispatchBlock())
+        self.dispatchQueue().sync(execute: block.dispatchBlock())
         return block
     }
     
@@ -167,7 +167,7 @@ public enum GCDQueue {
     - parameter closure: The block to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func after(delay: NSTimeInterval, _ closure: () -> Void) -> GCDBlock {
+    public func after(_ delay: TimeInterval, _ closure: () -> Void) -> GCDBlock {
         
         return self.after(delay, GCDBlock(closure))
     }
@@ -179,12 +179,11 @@ public enum GCDQueue {
     - parameter block: The block to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func after(delay: NSTimeInterval, _ block: GCDBlock) -> GCDBlock {
+    public func after(_ delay: TimeInterval, _ block: GCDBlock) -> GCDBlock {
         
-        dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, Int64(delay * NSTimeInterval(NSEC_PER_SEC))),
-            self.dispatchQueue(),
-            block.dispatchBlock())
+        self.dispatchQueue().asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+            execute: block.dispatchBlock())
         return block
     }
     
@@ -194,7 +193,7 @@ public enum GCDQueue {
     - parameter closure: The closure to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func barrierAsync(closure: () -> Void) -> GCDBlock {
+    public func barrierAsync(_ closure: () -> Void) -> GCDBlock {
         
         return self.barrierAsync(GCDBlock(closure))
     }
@@ -205,9 +204,9 @@ public enum GCDQueue {
     - parameter closure: The block to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func barrierAsync(block: GCDBlock) -> GCDBlock {
+    public func barrierAsync(_ block: GCDBlock) -> GCDBlock {
         
-        dispatch_barrier_async(self.dispatchQueue(), block.dispatchBlock())
+        self.dispatchQueue().async(flags: .barrier, execute: block.dispatchBlock())
         return block
     }
     
@@ -217,7 +216,7 @@ public enum GCDQueue {
     - parameter closure: The closure to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func barrierSync(closure: () -> Void) -> GCDBlock {
+    public func barrierSync(_ closure: () -> Void) -> GCDBlock {
         
         return self.barrierSync(GCDBlock(closure))
     }
@@ -228,9 +227,9 @@ public enum GCDQueue {
     - parameter closure: The block to submit.
     - returns: The block to submit. Useful when chaining blocks together.
     */
-    public func barrierSync(block: GCDBlock) -> GCDBlock {
+    public func barrierSync(_ block: GCDBlock) -> GCDBlock {
         
-        dispatch_barrier_sync(self.dispatchQueue(), block.dispatchBlock())
+        self.dispatchQueue().sync(flags: .barrier, execute: block.dispatchBlock())
         return block
     }
     
@@ -240,13 +239,13 @@ public enum GCDQueue {
     - parameter iterations: The number of iterations to perform.
     - parameter closure: The closure to submit.
     */
-    public func apply<T: UnsignedIntegerType>(iterations: T, _ closure: (iteration: T) -> Void) {
+    public func apply<T: UnsignedInteger>(_ iterations: T, _ closure: @escaping (_ iteration: T) -> Void) {
         
-        dispatch_apply(numericCast(iterations), self.dispatchQueue()) { (iteration) -> Void in
+        DispatchQueue.concurrentPerform(iterations: numericCast(iterations)) { (iteration) -> Void in
             
             autoreleasepool {
                 
-                closure(iteration: numericCast(iteration))
+                closure(numericCast(iteration))
             }
         }
     }
@@ -259,15 +258,12 @@ public enum GCDQueue {
     public func isCurrentExecutionContext() -> Bool {
         
         let dispatchQueue = self.dispatchQueue()
-        let rawPointer = UnsafeMutablePointer<Void>(bitPattern: ObjectIdentifier(dispatchQueue).uintValue)
+        let rawPointer = UnsafeMutableRawPointer(bitPattern: UInt(bitPattern: ObjectIdentifier(dispatchQueue)))
         
-        dispatch_queue_set_specific(
-            dispatchQueue,
-            &_GCDQueue_Specific,
-            rawPointer,
-            nil)
+        dispatchQueue.setSpecific(key: /*Migrator FIXME: Use a variable of type DispatchSpecificKey*/ _GCDQueue_Specific,
+            value: rawPointer)
         
-        return dispatch_get_specific(&_GCDQueue_Specific) == rawPointer
+        return DispatchQueue.getSpecific(&_GCDQueue_Specific) == rawPointer
     }
     
     /**
@@ -275,7 +271,7 @@ public enum GCDQueue {
     
     - returns: The dispatch_queue_t object associated with this value.
     */
-    public func dispatchQueue() -> dispatch_queue_t {
+    public func dispatchQueue() -> DispatchQueue {
         
         #if USE_FRAMEWORKS
             
@@ -306,77 +302,77 @@ public enum GCDQueue {
             
             switch self {
                 
-            case .Main:
-                return dispatch_get_main_queue()
+            case .main:
+                return DispatchQueue.main
                 
-            case .UserInteractive:
+            case .userInteractive:
                 if #available(iOS 8.0, *) {
                     
-                    return dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
+                    return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
                 }
                 else {
                     
-                    return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
+                    return DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high)
                 }
                 
-            case .UserInitiated:
+            case .userInitiated:
                 if #available(iOS 8.0, *) {
                     
-                    return dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
+                    return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated)
                 }
                 else {
                     
-                    return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
+                    return DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high)
                 }
                 
-            case .Default:
+            case .default:
                 if #available(iOS 8.0, *) {
                     
-                    return dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0)
+                    return DispatchQueue.global(qos: DispatchQoS.QoSClass.default)
                 }
                 else {
                     
-                    return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                    return DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default)
                 }
                 
-            case .Utility:
+            case .utility:
                 if #available(iOS 8.0, *) {
                     
-                    return dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
+                    return DispatchQueue.global(qos: DispatchQoS.QoSClass.utility)
                 }
                 else {
                     
-                    return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)
+                    return DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.low)
                 }
                 
-            case .Background:
+            case .background:
                 if #available(iOS 8.0, *) {
                     
-                    return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+                    return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
                 }
                 else {
                     
-                    return dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
+                    return DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background)
                 }
                 
-            case .Custom(let rawObject):
+            case .custom(let rawObject):
                 return rawObject
             }
         #endif
     }
     
-    private static func createCustom(isConcurrent isConcurrent: Bool, label: String?, targetQueue: GCDQueue?) -> GCDQueue {
+    fileprivate static func createCustom(isConcurrent: Bool, label: String?, targetQueue: GCDQueue?) -> GCDQueue {
         
-        let queue = GCDQueue.Custom(
-            dispatch_queue_create(
-                label.flatMap { ($0 as NSString).UTF8String } ?? nil,
-                (isConcurrent ? DISPATCH_QUEUE_CONCURRENT : DISPATCH_QUEUE_SERIAL)
+        let queue = GCDQueue.custom(
+            DispatchQueue(
+                label: label.flatMap { ($0 as NSString).utf8String } ?? nil,
+                attributes: (isConcurrent ? DispatchQueue.Attributes.concurrent : DispatchQueue.Attributes())
             )
         )
         
         if let target = targetQueue {
             
-            dispatch_set_target_queue(queue.dispatchQueue(), target.dispatchQueue())
+            queue.dispatchQueue().setTarget(queue: target.dispatchQueue())
         }
         return queue
     }
@@ -386,28 +382,28 @@ public func ==(lhs: GCDQueue, rhs: GCDQueue) -> Bool {
     
     switch (lhs, rhs) {
         
-    case (.Main, .Main):
+    case (.main, .main):
         return true
         
-    case (.UserInteractive, .UserInteractive):
+    case (.userInteractive, .userInteractive):
         return true
         
-    case (.UserInitiated, .UserInitiated):
+    case (.userInitiated, .userInitiated):
         return true
         
-    case (.Default, .Default):
+    case (.default, .default):
         return true
         
-    case (.Utility, .Utility):
+    case (.utility, .utility):
         return true
         
-    case (.Background, .Background):
+    case (.background, .background):
         return true
         
-    case (.Custom(let lhsRawObject), .Custom(let rhsRawObject)):
+    case (.custom(let lhsRawObject), .custom(let rhsRawObject)):
         return lhsRawObject === rhsRawObject
 
-    case (.UserInitiated, .UserInteractive), (.UserInteractive, .UserInitiated):
+    case (.userInitiated, .userInteractive), (.userInteractive, .userInitiated):
         #if USE_FRAMEWORKS
             
             return false

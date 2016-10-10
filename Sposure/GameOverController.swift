@@ -20,8 +20,8 @@ class GameOverController : UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
     
-    @IBAction func onBackButtonPress(sender: AnyObject) {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func onBackButtonPress(_ sender: AnyObject) {
+        self.navigationController?.popToRootViewController(animated: true)
         
     }
     
@@ -33,11 +33,11 @@ class GameOverController : UIViewController {
         super.viewDidLoad()
         
         //Focus just on the content
-        UIApplication.sharedApplication().statusBarHidden = true
+        UIApplication.shared.isStatusBarHidden = true
         
-        self.navigationController!.navigationBarHidden = true;
-        self.addGradientBackground(Color.turquoiseColor().CGColor,
-                                   bottomColor: Color.blueColor().CGColor)
+        self.navigationController!.isNavigationBarHidden = true;
+        self.addGradientBackground(Color.turquoiseColor().cgColor,
+                                   bottomColor: Color.blueColor().cgColor)
         
         scoreLabel.text = String(score as Int!)
     }

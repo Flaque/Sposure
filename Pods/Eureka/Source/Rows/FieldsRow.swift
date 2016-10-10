@@ -8,231 +8,231 @@
 
 import Foundation
 
-public class TextCell : _FieldCell<String>, CellType {
+open class TextCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .Default
-        textField.autocapitalizationType = .Sentences
-        textField.keyboardType = .Default
+        textField.autocorrectionType = .default
+        textField.autocapitalizationType = .sentences
+        textField.keyboardType = .default
     }
 }
 
 
-public class IntCell : _FieldCell<Int>, CellType {
+open class IntCell : _FieldCell<Int>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .Default
-        textField.autocapitalizationType = .None
-        textField.keyboardType = .NumberPad
+        textField.autocorrectionType = .default
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .numberPad
     }
 }
 
-public class PhoneCell : _FieldCell<String>, CellType {
+open class PhoneCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.keyboardType = .PhonePad
+        textField.keyboardType = .phonePad
     }
 }
 
-public class NameCell : _FieldCell<String>, CellType {
+open class NameCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .Words
-        textField.keyboardType = .ASCIICapable
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .words
+        textField.keyboardType = .asciiCapable
     }
 }
 
-public class EmailCell : _FieldCell<String>, CellType {
+open class EmailCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .None
-        textField.keyboardType = .EmailAddress
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
     }
 }
 
-public class PasswordCell : _FieldCell<String>, CellType {
+open class PasswordCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .None
-        textField.keyboardType = .ASCIICapable
-        textField.secureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .asciiCapable
+        textField.isSecureTextEntry = true
     }
 }
 
-public class DecimalCell : _FieldCell<Double>, CellType {
+open class DecimalCell : _FieldCell<Double>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.keyboardType = .DecimalPad
+        textField.autocorrectionType = .no
+        textField.keyboardType = .decimalPad
     }
 }
 
-public class URLCell : _FieldCell<NSURL>, CellType {
+open class URLCell : _FieldCell<URL>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .None
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.keyboardType = .URL
     }
 }
 
-public class TwitterCell : _FieldCell<String>, CellType {
+open class TwitterCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .None
-        textField.keyboardType = .Twitter
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .twitter
     }
 }
 
-public class AccountCell : _FieldCell<String>, CellType {
+open class AccountCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func setup() {
+    open override func setup() {
         super.setup()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .None
-        textField.keyboardType = .ASCIICapable
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .asciiCapable
     }
 }
 
-public class ZipCodeCell : _FieldCell<String>, CellType {
+open class ZipCodeCell : _FieldCell<String>, CellType {
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    public override func update() {
+    open override func update() {
         super.update()
-        textField.autocorrectionType = .No
-        textField.autocapitalizationType = .AllCharacters
-        textField.keyboardType = .NumbersAndPunctuation
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .allCharacters
+        textField.keyboardType = .numbersAndPunctuation
     }
 }
 
-public class _TextRow: FieldRow<String, TextCell> {
+open class _TextRow: FieldRow<String, TextCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _IntRow: FieldRow<Int, IntCell> {
+open class _IntRow: FieldRow<Int, IntCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.locale = .currentLocale()
-        numberFormatter.numberStyle = .DecimalStyle
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = .current()
+        numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 0
         formatter = numberFormatter
     }
 }
 
-public class _PhoneRow: FieldRow<String, PhoneCell> {
+open class _PhoneRow: FieldRow<String, PhoneCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _NameRow: FieldRow<String, NameCell> {
+open class _NameRow: FieldRow<String, NameCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _EmailRow: FieldRow<String, EmailCell> {
+open class _EmailRow: FieldRow<String, EmailCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _PasswordRow: FieldRow<String, PasswordCell> {
+open class _PasswordRow: FieldRow<String, PasswordCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
 
-public class _DecimalRow: FieldRow<Double, DecimalCell> {
+open class _DecimalRow: FieldRow<Double, DecimalCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.locale = .currentLocale()
-        numberFormatter.numberStyle = .DecimalStyle
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = .current()
+        numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 2
         formatter = numberFormatter
     }
 }
 
-public class _URLRow: FieldRow<NSURL, URLCell> {
+open class _URLRow: FieldRow<URL, URLCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _TwitterRow: FieldRow<String, TwitterCell> {
+open class _TwitterRow: FieldRow<String, TwitterCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _AccountRow: FieldRow<String, AccountCell> {
+open class _AccountRow: FieldRow<String, AccountCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
 }
 
-public class _ZipCodeRow: FieldRow<String, ZipCodeCell> {
+open class _ZipCodeRow: FieldRow<String, ZipCodeCell> {
     public required init(tag: String?) {
         super.init(tag: tag)
     }
